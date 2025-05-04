@@ -1,0 +1,12 @@
+{
+ "entity":
+  [
+    ["wooden-wall", "basic-wall"],
+	["factory-1", "factory-large"]
+  ],
+  "item":
+  [
+    ["sand", "sand-ore"],
+	["lens", "glass-plate"]
+  ]
+}

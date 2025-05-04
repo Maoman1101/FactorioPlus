@@ -1,0 +1,9 @@
+  {
+     "name": "factorioplus",
+     "version": "2.1.14",
+     "title": "Factorio+",
+     "author": "Fishbus",
+     "factorio_version": "2.0",
+     "dependencies": ["base >= 2.0","(?) quality","(?) space-age", "(?) lignumis","(?) BottleneckLite" ],
+	 "description": "A mod that builds upon the vanilla experience. With balance changes and new features"
+   }

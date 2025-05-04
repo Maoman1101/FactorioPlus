@@ -1,0 +1,1166 @@
+---------------------------------------------------------------------------------------------------
+Version: 2.1.14
+Date: 2025.04.04
+  Balance:
+    - Slowed Swarmer attack speed by +50% (10 -> 15).
+    - Reduced Heavy turret collision so you can walk in between them.
+    - Increased Basic electric furnace craft speed from 0.3 -> 1.0 and increased power usage and pollution accordingly.
+    - Basic electric furnace now has 1 module slot.
+  Fixes:
+    - Added missing Kobold engineer art for dead bodies and HUD icon.
+    - Fixed Bio tech technologies that didn't have it as a prerequisite.
+---------------------------------------------------------------------------------------------------
+Version: 2.1.13
+Date: 2025.03.30
+  Balance:
+    - Increased base movement of construction and logistics robots by +25%
+  Fixes:
+    - Fixed missing circuit connector for loaders.
+  Space Age:
+    - Fixed loaders not supporting belt stacking.
+---------------------------------------------------------------------------------------------------
+Version: 2.1.12
+Date: 2025.03.24
+  Balance:
+    - Increased spawn time of Swarmers by +20%
+    - Increased Swarmer spawner autoplace radius by +25%
+    - Removed Player and Projectile collision from Deadwood fields so they don't block you. 
+  Fixes:
+    - Fixed missing circuit connector for Floor lamps.
+    - Fixed some ordering with armor equipment and military turrets.
+    - Fixed icon scale on personal roboport equipment inside the equipment grid.
+  Settings:
+    - Added toggle to turn on/off Abandonments.
+---------------------------------------------------------------------------------------------------
+Version: 2.1.11
+Date: 2025.03.19
+  Additions:
+    - Added a Blunderbuss shotgun
+    - Added fuels to abandonment warehouses list.
+  Balance:
+    - All vehicles gain a 1.25x bonus to weapon attack speed, damage and range where appropriate.
+    - Increased range of Barren warehouse starting distance compared to high value warehouses.
+    - Increased vehicle acceleration of Jet and Rocket fuel.
+    - Increased max vehicle speed of Nuclear fuel.
+  Fixes:
+    - Fixed a bug with abandoned warehouses that didn't scale with distance with the associated setting correctly.
+  Settings:
+    - Added toggle to use Barren warehouses.
+---------------------------------------------------------------------------------------------------
+Version: 2.1.0
+Date: 2025.03.17
+  Additions:
+    - Added warehouse packages, they have a lot of resources inside.
+  Balance:
+    - Increased the magazine size of Chaingun ammo from 500 -> 800
+    - Increased Heat interchange furnace module count from 4 -> 5
+    - Abandoned warehouses that drop turrets will come with some ammo for them if possible.
+    - Stingers move a little faster overall.
+    - Hatchers attack a little faster and their eggs have more health.
+    - Increased hatchers range.
+  Fixes:
+    - Stopped Explosive round magazine shots from triggering tile particles that could cause slowdown. 
+    - Abandoned warehouses will become barren after a certain distance from the start
+---------------------------------------------------------------------------------------------------
+Version: 2.0.08
+Date: 2025.03.08
+  Additions:
+    - Added LR magazines: light rounds that have more range.
+    - Added Stinger enemies, which poison you and slow you down with their bite.
+    - Added Hatcher enemies, who spawn swarmers by spitting out eggs.
+  Balance:
+    - Increased Charcoal stack size from 100 -> 200.
+    - Charcoal fuel value reduced from 8MJ to 2MJ.
+    - Charcoal recipe is now 4 wood, resulting in 10 charcoal (was 2 wood -> 1 charcoal).
+    - Piercing shotgun shell recipe requires 1 shotgun shell, not 2.
+    - Increased HE grenade explosive cost from 6 -> 10.
+    - Gas extractors generate more pollution (1 -> 4)
+  Fixes:
+    - Fixed Charcoals in-world scale.
+  Localization:
+    - Updated Polish localization (by S3BA)
+---------------------------------------------------------------------------------------------------
+Version: 2.0.06
+Date: 2025.03.03
+  Balance:
+    - Increased speed of cars by around +15%
+    - Changed robot speed upgrades to all be a flat +50% every time (instead of 35%, 45%, 55%, 65%)
+  Graphics:
+    - Updated Deadwood fields to use stateless visualizations to make them blend better and not get hidden by decoratives.
+  Fixes:
+    - Addressed missing circuit connections on F+ objects that didn't have them but should have.
+    - Fixed alignment of cables on Medium wooden electric poles.
+    - Fixed issue with other mods that didn't have graphics_set on craft objects that broke status panel.
+    - Fixed sawmill graphics being a bit too high on the y axis.
+---------------------------------------------------------------------------------------------------
+Version: 2.0.05
+Date: 2025.02.28
+  Additions:
+    - Added Status panel LED visualizers to all electrical based craft machines and miners that do not have them.
+  Balance:
+    - Basic Electrical furnaces requires Electric energy distribution tech instead of Chemical science pack.
+    - Updated "Generous" and "A little more" to include more power and more ship suppies.
+    - Increased fire spread radius and fire count to all Flamers.
+  Settings:
+    - Added Status panels settings so that can be toggled to Off, On, or just affect 'electrical' objects only.
+  Space Age:
+    - Fixed/Added multiple electronics items to their correct categories to allow for E-factory crafting.
+  Fixes:
+    - Fixed Lua Error when starting a game with "Generous" starting supplies.
+    - Fixed some logic circuit connections to huts and warehouses that were not using the updated definitions.
+---------------------------------------------------------------------------------------------------
+Version: 2.0.04
+Date: 2025.02.25
+  Additions:
+    - Added Molotov cocktails and its prerequired technology.
+  Balance:
+    - Increased the Crashsite quickstart benefits for 'A little more' and 'Generous'.
+    - Napalm sticker speed modifier reduced (60% -> 80%)
+    - Napalm magazine side reduced (100 -> 50)
+    - Increased Flamer attack speed by 33%
+    - Webber slowdown web speed now scales instead from a flat (0.2x) to (0.5x -> 0.4x -> 0.3x -> 0.2x -> 0.1x) per Webber evolution
+    - Behemoth and Boss enemies will be able to spawn in lower tier spawners with a very small chance scaling with evolution.
+    - Reduced spawn rate by 20% at higher evolution.
+    - Increased all combat robots hitpoints by +25%
+    - Reduced Chaingun ammo from (800 -> 500) per 'magazine'
+    - Reduced Chaingun pellet count from (4 -> 3)
+    - Increased Chaingun firerate by +50%
+    - Enemy Nauvis spawners start a little closer to the crash site, and their tiers scale 10% faster by distance. 
+  Space Age:
+    - Asteroids now have the appropriate collision mask to collide with weapon projectiles (shotgun shells, sniper shells, chaingun ammo etc.)
+    - Added piercing resistances to larger asteroids.
+  Graphics:
+    - Updated Basic lab and Large lab images to have a more cohesive light colouring
+  Fixes:
+    - Lignumis mod has been added as optional dependancy.
+---------------------------------------------------------------------------------------------------
+Version: 2.0.03
+Date: 2025.02.22
+  Settings:
+    - Added setting to change Science pack recipe difficulty by changing the required ingredients.
+  Balance:
+    - Doubled the pollution rate of Alien chunks, and quadrupled Large alien chunks.
+    - Deadwood fields now highlight when placing sawmills.
+    - Reduced range of Flamers by 4 tiles, and increased their attack speed by +25%
+  Graphics:
+    - Updated Water well artwork.
+  Fixes:
+    - Added select minimap icons to Solar train and Equipment train.
+---------------------------------------------------------------------------------------------------
+Version: 2.0.02
+Date: 2025.02.20
+  Additions:
+    - Added Flamers, a firey spitter type.
+    - Changed Red desert to be more red, and contains Red rocks with Bauxite inside.
+    - Enemy spawners have some biome connection. Swarmers + Flamers only spawn on deserts, Spitters only on grasslands.
+  Balance:
+    - Flamethrower napalm ammo requires flamethrower ammo instead of steel, and less heavy oil.
+    - Biters and Swarmers have a faster attack speed.
+    - Tank requires more than double the amount of Vehicle chassis' (8 -> 20) and Advanced circuits ( 8 -> 20)
+    - Increased the recipe energy cost of most vehicles by 50% - 100%.
+    - All Cannon shell damage (except for explosive/nuke shells) is increased by 3-4x and recipe cost increased by 2x 
+    - Updated Steam turbine miner recipe to use 2 Large burner miners, instead of 4 Burner miners.
+    - Simple walls will return their Stone cost when mined. 
+    - Updated Oasis map preset to be distinctly only desert and dry biomes.
+    - Increased damage ramp for larger biters.
+    - Made both Natural gas recipes a little cheaper (Gas processing & Solid fuel from natural gas).
+    - Increased Spidertrons chain shot cooldown by 2x
+  Space Age:
+    - Landfill is fixed to work on Gleba water.
+  Fixes:
+    - Added napalm slowdown to Flamethrower tank and Napalm mortar rounds.
+    - Fixed napalm flame sticker animation and scale.
+    - Fixed Depleted uranium tech image to use a properly coloured image.
+  Localization:
+    - Updated Polish localization (by S3BA)
+---------------------------------------------------------------------------------------------------
+Version: 2.0.00
+Date: 2025.02.13
+  Additions:
+    - Added Basic electric furnace.
+    - Added Equipment train wagon.
+    - Added Large alien chunks, which can be processed into 10 Alien chunks.
+  Balance:
+    - Medium wooden poles are a little more expensive and now require 1 Iron plate.
+    - HE grenades do more damage, require more explosives, but their falloff is a bit quicker.
+    - Increased FLAK grenade piercing projectile count, but decreased their damage. (total damage remains the same)
+    - Cluster grenades now do an explosive damage radius on the impact location (this also affects MIRV grenades)
+    - Cluster and MIRV grenades bomblets cast out in a larger range ( 7 -> 12 )
+    - Large grenades (HE, MIRV) now have a slower cooldown ( 2s -> 3s )
+    - Electric trains now can be driven remotely.
+    - Electric trains now have a tiny equipment grid. (4 x 4)
+    - Increased acid splash fire damage for spitter spawner acid splash by about 3x.
+    - Increased damage done by larger Webbers ( 4 -> 6 -> 8 -> 10 -> 12 ) to ( 4 -> 8 -> 16 -> 32 -> 64 )
+    - Removes Pistol turret physical damage resistance decrease. ( 5 -> 0 )
+    - Enemies attack speeds don't slow down as much as they get bigger.
+    - Bio science packs recipes now requires 1 Raw fish instead of 1k Water. 
+    - Large alien chunks drop from larger biters, instead of 5+	Alien chunks to slow down floor buildup.
+    - Increased chance of finding fish in fish filtering (10% -> 20%). Reduced time by half (60s -> 30s) and cost of water by -20% (5000 -> 3000)
+    - Bio science requires Fish filtering instead of Liquid handling.
+    - Increased cost of Electric trains by ~20%.
+    - Tanker healing per tick scales according to the Health Scale setting in Mod settings so that healing per second remains the same.
+    - Distractor robots attack speeds are increased by ~50%
+    - Increased Mortar round explosive and physical damage by +20 (Includes Abandonment mortar turrets)
+    - Explosive Rockets and Cannon shells require about double the explosives.
+    - Nuclear bomb (rocket) requires an Explosive rocket instead of explosives.
+    - Mini electric furnaces now require Aluminium instead of steel.
+    - Aluminium requires Advanced material processing, instead of  Advanced material processing 2
+  Quality:
+    - Recycler, Epic and Legendary technologies are cheaper when Space age isn't enabled.
+    - Recycler, Epic and Legendary technologies can be researched sooner when Space age isn't enabled.
+    - Fixed issues with turret ghosts reverting their quality level.
+  Space Age:
+    - Fixed issue with placing quality turrets on Space platforms reverting to base quality.
+  Graphics:
+    - Updated Large solar and Solar array artwork.
+    - Updated Large burner miner.
+    - Updated Flak, MIRV and HE grenade sprites.
+  Fixes:
+    - Fixed and updated all grenade images.
+---------------------------------------------------------------------------------------------------
+Version: 1.9.99
+Date: 2025.02.05
+  Balance:
+    - Mass Smelting 2 now requires Chemical science instead of Refined flammables 2.
+    - Reordered Storage technology so logistics huts and warehouses are seperate branches.
+    - Pistol turret range now matches the pistol from 20 -> 25
+    - Increased SMG turret range by +2 (24) and their health by +100 (500)
+    - Increased Heavy turret range by +2 (30) and their health by +150 (750)
+    - Half-tracks now have a small equipment grid.
+    - Flame tanks have a small equipment grid.
+    - Swarmer spawners spawn numerous swarmers on death.
+    - Blaster spawner explosions are a little smaller
+    - Spitter spawners splash out a load of acid on death.
+    - Webber spawners splash out a load of sticky webs on death.
+    - Increased base scaling of abandonment warehouse loot.
+    - Improved all rocket weapon cooldowns by decreasing them by about -33% 
+  Space Age:
+    - Updated more item weights.
+    - Added Alumina bacteria and Stromalites to give access to Bauxite and Aluminium processing from Gleba.
+    - Added Aluminium productivity technology.
+  Fixes:
+    - Robots don't get affected by acid on the ground.
+    - Added medium grid to Tanks from Factorio 2.0
+    - Fixed Half Track missing light.
+  Localization:
+    - Added Polish localization (by S3BA)
+---------------------------------------------------------------------------------------------------
+Version: 1.9.98
+Date: 2025.02.02
+  Additions:
+    - Added new 'Snaky continents' using the new Nauvis map generation
+    - Added a variation of 'Snaky continents' that is a deathworld, railworld marathon, as the authors pick.
+  Balance:
+    - Mortar rounds have had their reload time removed. 
+    - Mortar turrets now have a 160 degree firing arc.
+    - Some explosive weaponry has a friendly fire modifier that does less damage to friendlies (Mortar rounds, Rockets, Micro Missles).
+    - Increased Pistol fire rate by +50%, but decreased their damage modifier from 2x -> 1.5x 
+    - Increased base physical damage of firearm magazines from 6 -> 8
+    - Decreased the rate of the physical damage reduction for most biters from +2 -> +1 per size
+    - Webber speed decrease lowered from 0.15x -> 0.2x 
+    - Spitter acid ground time lowered from 40s -> 30s
+  Space Age:
+    - Fixed Rocket-parts from using the expensive base game recipe, instead of the cheaper Space Age one.
+    - Updated Rocket parts from 50 -> 20, but made the cost from (1 processor, 1 lds, 1 fuel) -> (2 processors, 2 lds, 1 fuel)
+    - Isolated Natural Gas and Geothermal for Gleba and Vulcanus so they can be affected individually from Nauvis.
+    - Added Bauxite ore to Vulcanus.
+  Graphics:
+    - Updated bauxite artwork.
+  Fixes:
+    - Fixed Map Generation 'Snaky continents' legacy version to the correct water scale and amount.  
+---------------------------------------------------------------------------------------------------
+Version: 1.9.97
+Date: 2025.01.31
+  Additions:
+    - Added more goodies types to abandoned warehouses.
+  Balance:
+    - Increased minimum radius of rocket turrets and cannon turrets.
+    - Added minimum range to most grenades to stop accidental throwing at your feet.
+    - Increased Shotgun turret range.
+    - Increased Heavy turret damage modifier from 1.25x -> 1.5x
+    - Baobab trees have more health and gives 8 wood on harvest.
+    - Increased SMG & Shotgun car turret rotation speed by more than double.
+    - Changed sawmills to research through science packs instead of harvesting deadwood.
+    - Glass processing is triggered by mining Sand.
+    - Reduced health of most small biters, updated to scale a little better for early game.
+    - Increased crafting cost of Throwing bricks.
+  Space Age:
+    - Did an initial pass on weights for items.
+  Fixes:
+    - Fixed scaling health issue on Blasters causing them to not kill themselves when exploding.
+    - Hid enemy Blasters self damage from player.
+    - Fixed HE Grenade localization.
+---------------------------------------------------------------------------------------------------
+Version: 1.9.96
+Date: 2025.01.28
+  Additions:
+    - Added HE-Grenades, a high explosive version of regular grenades.
+  Settings:
+    - Added Crashsite Quickstart bonus, which will start the player out with more resources and equipment.
+  Balance:
+    - Tweaked Explosive radius calculation falloff so that the edge radius is weaker and the epicenter is stronger.
+    - Improved Throwable brick damage to have strong piecing damage.
+    - Napalm mortar rounds now splash fire out in a large random radius, and increased napalm ammo cost by +1.
+  Space Age:
+    - Large offshore pumps now intake the correct liquid on other planets.
+    - True Rocket Fuel doesn't need Utility science to allow Rush To Space achievement.
+    - Added Geothermal Vents to Vulcanus.
+    - Added Natural Gas to Gleba.
+  Graphics:
+    - Improved Electric train artwork, fixed alignment, scaling and added shadow.
+    - Added bullet trails to any hitscan type weapons (smg, pistol, defenders, gun-turrets etc.)
+  Fixes:
+    - Fixed an issue with expanding enemy bases spawning units level higher than expected.
+---------------------------------------------------------------------------------------------------
+Version: 1.9.95
+Date: 2025.01.23
+  Additions:
+    - Added Heavy turrets, a large twin SMG gun turret upgrade.
+  Settings:
+    - Added setting to change health scaling for enemies.
+    - Added setting to make the day-night cycle longer or shorter.
+  Balance:
+    - Basic labs only support packs up to chemical and bio science (blue and pink).
+    - Adjusted enemy spawners, and abandonments scaling with distance and autoplace spacing.
+    - Reduced power consumption of laser turrets by 20%
+  Space Age:
+    - Large labs now supports all technology packs.
+  Graphics:
+    - Updated gun turret art and also added color masks.
+  Fixes:
+    - Fixed mortar round damage calculation to show initial damage, instead of converting to damage per second.
+---------------------------------------------------------------------------------------------------
+Version: 1.9.94
+Date: 2025.01.21
+  Additions:
+    - Added Rocket Distractors, a different variation of the Laser Distractors.
+  Balance:
+    - Moved Birdshot shotgun shells up to military-4.
+    - Increased cost of Birdshot shotgun shells by about double.
+    - Exlosive rocket and cannon shells now use blast waves.
+    - Shotgun turrets now moved into Gun-turret technology.
+    - Increased cost of bio-fuel by about double. 
+    - All robot techs are now called "Combat Robots" and all combat robots follow you.
+    - Blaster biter spawners are a little less common.
+    - Added a little explosive resistance to Tankers.
+  Graphics:
+    - Updated Abandonment solar panels so they look like junk, and added some variants as well.
+  Fixes:
+    - Fixed some mipmap issues with items on belts so they don't fade out at far zoom levels.
+    - Sawmill technology is now behind Electronics.
+    - Gas Processing now requires you to extract Natural gas to research it instead.
+    - Gas Processing unlocks Refineries and Chemical plants as well.
+    - Fixed some missing technology prerequisites and images.
+---------------------------------------------------------------------------------------------------
+Version: 1.9.93
+Date: 2025.01.15
+  Additions:
+    - Added Birdshot shotgun shells, big shells with loads of pellets.
+    - Added Napalm flamethrower ammo, with thick flames lasting 30 seconds.
+  Balance:
+    - Increased cost and damage for Rockets and Explosive rockets.
+    - Increased fire rate of rocket launchers.
+    - Added minimum range for rocket launchers to help stop self annihilation.
+    - Napalm ammo is used for Napalm mortar rounds.
+    - Increased fire rate for Spitters and Webbers.
+    - Worms now have scaling piercing damage resistances. 
+    - Increased cost of loaders by +2 more inserters of their kind.
+    - Increased cost of transport belts so they are almost doubling iron gear wheel cost each tier after red belts.
+  Settings:
+    - Added the ability to toggle Loaders on or off in the game.
+    - Added an option to make Loaders 2x more expensive for balance reasons.
+  Fixes:
+    - Removed lab recipe being gained from electronics technology.
+    - Added some missing localization entries for Fire stickers.
+    - Added vehicle acceleration and top speed modifiers missing from Meaty chunks.
+    - Meaty chunks stack size increased from 100 -> 200.
+    - Rocket Fuel stack size increased from 5 -> 10.
+    - Locked Listening post, Pistol turret and Basic Lab behind Electronics technology.
+---------------------------------------------------------------------------------------------------
+Version: 1.9.92
+Date: 2025.01.11
+  Additions:
+    - Added Multirocket launcher weapon
+    - Added roboport MK3 equipment and technology
+    - Added more Abandonments goodies to be looted
+  Graphics:
+    - Updated belt artwork to use higher definition sprites
+    - Updated spawners to use base game updaed artwork
+    - Changed Turbo and Supersonic belt colors around to match Space Age's ordering
+  Balance:
+    - Multiple vehicles now have double weapon slots to allow for easier ammo switching.
+    - Increased logistics radius of Mini Roboports from 16 -> 24
+    - Moved Plasma blaster to be behind Military 6 technology insead of 5
+    - Sniper turrets now have a vision cone that is exactly 1/8th of 360 degrees meaning there's no gaps in vision when rotating.
+  Fixes:
+    - Fixed Plasma blaster using laser instead of electric sprites
+---------------------------------------------------------------------------------------------------
+Version: 1.9.90
+Date: 2025.01.06
+  Additions:
+    - Added Piercing and Uranium sniper shells
+  Balance:
+    - Increased both Grinder miner and Steam turbine miner resource gathering radius by +1
+    - Increased Grinder miner base mining rate (0.1 -> 0.15)
+    - Increased Grinder miner module slots (2 -> 3)
+    - Reduced default drop rate for meaty chunks from 100% -> 50% (Can be changed in mod settings)
+    - Meaty chunks can now be used as very heavily polluting fuel.
+    - Updated multiple ammo damage values and stack sizes.
+    - Health kits require cooked fish instead of charcoal.
+  Space Age:
+    - Added Cooked fish, Meaty chunks with spoilage
+    - All Factorio+ enemy spawners can now be captured (but only revert to basic biters)
+  Quality:
+    - Quality is preserved when turrets gain veterancy.
+  Fixes:
+    - Fixed missing Factorio 2.0 collision checks with Large offshore pump
+    - Fixed missing module slots to sawmills.
+    - Fixed Storage 6 not having logistics system as a requirement
+---------------------------------------------------------------------------------------------------
+Version: 1.9.88
+Date: 2024.12.30
+  Additions:
+    - Space age initial support (stable and balance for Factorio+ 2.0.00 goal)
+  Balance:
+    - Changed rocket ammo recipe to match 2.0 (no circuits required)
+    - Increased damage of nuke magazines by about 25%
+    - Increased damage modifier of magnum from 8.5x to 10x
+  Space Age:
+    - Added space age turrets to veterancy system.
+    - WARNING - NO BALANCE + INSTABILITY + SOFTLOCKS!
+  Graphics:
+    - Updated art for sniper turret.
+    - Added logos on the start screen.
+  Fixes:
+    - Fixed crashes with starting up with Space Age.
+    - Fixed more multiple missing and broken localizations and categorizations.
+    - Fixed some more missing productivity module support for intermediates that were missing them.
+    - Fixed health and speed upgrade images and tech progression.
+---------------------------------------------------------------------------------------------------
+Version: 1.5.55
+Date: 2024.12.28
+  Balance:
+    - Increased pollution cleaning rate of bot Air scrubbers.
+    - Increased cost of both Air scrubbers.
+  Graphics:
+    - Updated animation and art for Air scrubbers.
+  Fixes:
+    - Fixed multiple missing and broken localizations
+    - Added icons for Compressor and Machine press specific recipies for converting materials.
+    - Added missing productivity module support for intermediates that were missing them.
+---------------------------------------------------------------------------------------------------
+Version: 1.5.54
+Date: 2024.12.24
+  Balance:
+    - Reduced piercing reistance from Behemoth and larger biters, but increased health.
+    - Made Boss enemies much rarer to spawn, but made them more stronger.
+    - Dozer is about 1.5x larger in size, and has a higher impact resistance.
+  Graphics:
+    - Updated art for Dozer and Half-Track vehicles.
+    - Updated art for Autoshotgun and Twin SMG turrets.
+  Fixes:
+    - Fixed air purifiers not removing pollution after 2.0 update.
+    - Artillery has explosive ammo 3 as a requirement.
+---------------------------------------------------------------------------------------------------
+Version: 1.5.52
+Date: 2024.12.16
+  Graphics:
+    - Updated Kobold character art.
+    - Updated art for Mini and Mega Roboports, including door animations.
+---------------------------------------------------------------------------------------------------
+Version: 1.5.50
+Date: 2024.12.13
+  Graphics:
+    - Updated Mini electric furnace art.
+    - Updated Heat interchange furnace art.
+    - Updated Large burner miner art.
+  Fixes:
+    - Fixed missing working animations for all furnaces.
+---------------------------------------------------------------------------------------------------
+Version: 1.5.45
+Date: 2024.12.10
+  Balance:
+    - Increased Steam turbine miner craft speed from 3.0(max) to 6.0(max)
+    - All module level 1 are now 20 green circuits and 0 red.
+  Graphics:
+    - Added art for Steam turbine miners.
+    - Updated Grinder miner artwork.
+  Fixes:
+    - Fixed buildings that lost their module slots in the 2.0 update.
+    - Fixed instances of buildings that did not have base_productivity bonuses (machine press, foundry, factory, grinder miner)
+---------------------------------------------------------------------------------------------------
+Version: 1.5.35
+Date: 2024.11.19
+  Additions:
+    - Added a Very long handed inserter that has a 3 tile range.
+  Balance:
+    - Increased smelting speed of Large stone furnaces from 2.5 -> 3.0
+    - Increased smelting speed of Steel forge from 6.0 -> 8.0
+  Fixes:
+    - Fixed tile collision issue that stopped the mod from starting up in the latest versions of the game.
+    - Fixed missing belts from some loaders.
+    - Fixed small sand icon when on a belt.
+---------------------------------------------------------------------------------------------------
+Version: 1.5.30
+Date: 2024.11.17
+  Additions:
+    - Addeded a new character, a damn Kobold. With half base HP, but double mining speed. (Change the base character in mod options.)
+  Graphics:
+    - Added FactorioPlus icons and entities for debugging and displaying.
+  Fixes:
+    - Updated game base to 2.0 for admin reasons.
+    - Added equipment include for item_sounds that should stop a crash from occuring later in the game.
+---------------------------------------------------------------------------------------------------
+Version: 1.5.20
+Date: 2024.11.11
+  Additions:
+    - Added Hovercrafts, a vehicle to skim over deep water
+  Graphics:
+    - Updated lab and sawmill art.
+  Fixes:
+    - Tarmac now uses correct art, and placement rules.
+    - Sulfer processing now unlocks mining with fluid earlier.
+    - Factorio+ equipment can now be placed into equipment grids.
+    - Fixed uranium cells not being unlocked.
+    - Updated factory to use a different entity name for Factorissimo 3 support.
+    - Regular labs can use bio science again.
+---------------------------------------------------------------------------------------------------
+Version: 1.5.00
+Date: 2024.10.28
+  Fixes:
+    - Fixed crash related to a blueprint ghost check.
+    - Fixed missing vehicle friction value for water and shallow water.
+---------------------------------------------------------------------------------------------------
+Version: 1.4.99
+Date: 2024.10.28
+  Additions:
+    - Added shallow water, which is easier to traverse along the coast.
+  Balance:
+    - Warehouses are not as common as before
+    - Threw in a little extra randomness and spacing to abandoned outposts
+  Graphics:
+    - Updated compressors and high powered machine press art.
+    - Updated geothermal and natural gas resources to use the new smoke emissions.
+  Fixes:
+    - Updated to Factorio 2.0!
+---------------------------------------------------------------------------------------------------
+Version: 0.2.99
+Date: 2024.10.15
+  Additions:
+    - Added Webbers, enemies that stop you in your tracks with their webs!
+  Balance:
+    - Rebalanced spitters to be about acid damage and not slowdown.
+    - Spawn times for enemies now decreases when the spawner is of a higher level
+    - Increased splash damage size for spitters and worms.
+    - Spitters acid now burns structures over time, not just ground units.
+  Graphics:
+    - Updated advanced tools tech, and advanced repair kit graphics.
+    - Updated chaingun/minigun ammo graphics.
+  Sounds:
+    - Added some missing sounds on some enemies and also their scaling according to their size.
+  Fixes:
+    - Fixed spitters having weird damage scaling on their sticker/burn damage over time being way too powerful.
+---------------------------------------------------------------------------------------------------
+Version: 0.2.97
+Date: 2024.10.9
+  Additions:
+    - Multiple new mod startup options.
+---------------------------------------------------------------------------------------------------
+Version: 0.2.96
+Date: 2024.10.7
+  Balance:
+    - Plasma gun renamed to Plasma Blaster, a powerful electrical shotgun firing balls of plasma.
+  Graphics:
+    - Updated plasma gun ball art and lighting
+  Sounds:
+    - Added Plasma blaster firing sound.
+  Fixes:
+    - Made multiple fixes to technologies to work better with other mods.
+---------------------------------------------------------------------------------------------------
+Version: 0.2.95
+Date: 2024.10.5
+  Additions:
+    - Added a floor lamp, a tough receded lamp with no player or vehicle collision
+  Balance:
+    - Rebalanced most biters to work with a better scaling mechanic.
+    - Rebalanced airscrubbers along with their new sizes.
+  Graphics:
+    - Added graphics for Large labs and air scrubbers.
+    - Updated some older icon and technology graphics.
+  Fixes:
+    - Fixed enemy spawners that were spawning larger enemies that they should have earlier.
+    - Added description localization for some enemies that are not in the base game.
+    - Fixes for Electric grid distributors and Large air scrubbers not returning themselves when mined.
+---------------------------------------------------------------------------------------------------
+Version: 0.2.90
+Date: 2024.10.2
+  Additions:
+    - Added many more rare weapons and treats to be found in warehouses.
+  Balance:
+    - Rebalanced rare weapons to focus on speed and damage, and less on range.
+    - Abandoned mortar turrets have a little more range.
+    - Regular mortar rounds now do a small amount of physical damage.
+    - Rare weapons are rarer to find.
+  Graphics:
+    - Added graphics for abandoned warehouses containing ammo, technology or explosives.
+    - Added decals for abandoned outposts to make it look a little more... abandoned?
+  Fixes:
+    - Added localization entry for upgrade veterancy turret text.
+    - Flamethrower turrets correctly get upgraded veterancy without needed to be reconnected to pipes.
+---------------------------------------------------------------------------------------------------
+Version: 0.2.80
+Date: 2024.09.28
+  Balance:
+    - Rebalanced swarmer attack speed and sizes.
+    - Added some more warehouse treats.
+  Graphics:
+    - Updated charcoal icons.
+    - Updated many tech icons.
+    - Medium wooden poles now use the same unrotated base so keep things square.
+    - Updated sawmill graphics.
+    - Updated pistol turret graphics.
+  Fixes:
+    - Updated localization for abandoned structures.
+    - Added protection to crash site creator to not activate more than once if given the chance.
+    - Updated Abandonment AI to deactivate and stop expanding beses.
+    - Fixed changelog from not showing up in game.
+---------------------------------------------------------------------------------------------------
+Version: 0.2.75
+Date: 2024.09.25
+  Balance:
+    - Reduced amount of prior solar panels required for large solar and solar array panels (but increased time cost and component costs)
+    - Large solar arrays do not require glass panels.
+    - Solar trains are more expensive overall.
+    - Healthkits now heal for 300hp (250 -> 300).
+  Graphics:
+    - Added art for crash site electrical poles.
+    - Added some missing shadows on certain entities.
+    - Updated some tech icons to represent updated art assets.
+  Fixes:
+    - Crash site quickstart electric poles to be actual physical poles what can be picked up and targeted.
+    - Crash site placement to work correctly instead of a weirdly predictable diagonal pattern.
+    - Crash site quickstart can now be toggled within the mod menu.
+    - Fixed large solar panels and solar arrays not being able to be placed next to other.
+    - Added missing localization of the new logistic huts and warehouses (buffer,active provider, provider, requester)
+---------------------------------------------------------------------------------------------------
+Version: 0.2.70
+Date: 2024.09.23
+  Additions:
+    - Added rare weapons that can be found in Abandonments.
+  Balance:
+    - Biter spawner tiers tweaked and the distance they spawn.
+    - Updated worm autoplace spacing.
+  Graphics:
+    - Updated multiple graphics for some entities.
+  Fixes:
+    - Tidied up multiple technologies and protoypes to work better with other mods.
+---------------------------------------------------------------------------------------------------
+Version: 0.2.65
+Date: 2024.09.20
+  Additions:
+    - Added Tanker enemies, that have high resistances to physical and piercing damage.
+    - Added Spawner Tier systems, further out and evolved spawners have more health,resitances, and are more likely to spawn bigger enemies.
+    - Added Boss Swarmers and Blasters.
+  Balance:
+    - Increased Steel Forge craft speed from 5 -> 6
+    - Robo Superport footprints are now 8x8 instead of 10x10
+    - Robo Superports have more charge points 10 -> 12
+  Graphics:
+    - New updated graphics for roboports, with tweaks and improvements to some existing building art, tech and icons.
+  Fixes:
+    - Fixed spawner death animation sizes, which now match the original size. 
+---------------------------------------------------------------------------------------------------
+Version: 0.2.5
+Date: 2024.09.10
+  Balance:
+    - Made natural gas resource have less yield (-50%) 
+    - Increased cost for natural gas fuel (30 -> 45)
+  Graphics:
+    - New updated graphics for Electric trains, Huge power poles, Eletrical grid distrstributers and gaseous resource locations.
+  Fixes:
+    - Potential fix for abandoned warehouses appearing out of nowhere (as if they were exhibiting alien base expansion behavior) 
+    - Fixed goblin ore starting density for snakey continents map setup.
+---------------------------------------------------------------------------------------------------
+Version: 0.2.45
+Date: 2024.09.07
+  Additions:
+    - Added Electric train locomotive (placeholder art), a self powered train with no fuel!
+  Balance:
+    - Twin SMG Halftracks don't have a damage penalty any more
+---------------------------------------------------------------------------------------------------
+Version: 0.2.4
+Date: 2024.09.06
+  Balance:
+    - Large and Advanced accumulators have higher input/output rates
+    - Weaponized Halftracks only require the weapon, not the turret (for consistency)
+  Graphics:
+    - New updated graphics for many buildings, vehicles and tech!
+---------------------------------------------------------------------------------------------------
+Version: 0.2.3
+Date: 2024.09.01
+  Balance:
+    - Updated Half-track speeds to a more tank like acceleration and speed.
+    - Updated ratios of goblin ores and lowered the occurance of them.
+    - Labs requires advanced electronics, and advanced labs require processors
+  Graphics:
+    - New updated graphics for many buildings and items!
+  Fixes:
+    - Upped the pollution for some buildings that were a fraction of what they should have been
+    - Fixed more ordering issues to make more intuitive sense.
+---------------------------------------------------------------------------------------------------
+Version: 0.2.02
+Date: 2024.08.16
+  Additions:
+    - Added abandoned bases, a 3rd faction of enemy, with warehouses filled with loot.
+    - Added healing grenades.
+    - Added goblin ore, a rich mixed ore you need to sort through.
+    - Added shotgun car, and a Half track combat shotgun or twin SMG.
+  Balance:
+    - Updated belt speeds again, basic belts are 8, yellow 16, then 32, 48, 64 etc.
+  Graphics:
+    - Added updated graphics for multiple entities, tech etc.
+  Fixes:
+    - Sniper shots now collide with non enemy objects.
+---------------------------------------------------------------------------------------------------
+Version: 0.2.01
+Date: 2024.07.29
+  Additions:
+    - Added new vehicles, including early game ATV and mid game Half Tracks
+    - Added Shotgun turrets
+  Balance:
+    - Rescaled blaster biters to do more damage.
+    - Gave swarmers a little more health, damage and speed.
+    - Removed initial damage bonuses from turrets that had them.
+    - Larger fuel based smelters don't use fuel as much as before.
+    - Rebalanced all belt speeds to use speeds inferred from each other.
+    - Rebalanced some recipes that were too far head to be made when you gain access to them. (e.g. accumulator banks)
+  Graphics:
+    - Mini robo ports are now lower and smaller to stop them towering over objects behind them.
+    - Updated sand resource graphic
+    - Fixed some technology graphics
+    - Fixed some mask colouring issues that were precoloured orange.
+  Fixes:
+    - Organised some items that were not very well ordered.
+    - Fixed mini robo ports taking up way more energy than they should have.
+    - Fixed rotating turret bug when they targeted out of their angle.
+  Removed:
+    - Removed lenses, all recipes that used them are now replaced wth glass plates.
+---------------------------------------------------------------------------------------------------
+Version: 0.2.00
+Date: 2024.01.30
+  Additions:
+    - Added lockbox chest as a single stack chest with high damage resistance.
+    - Added remaining swarmer and blaster enemy sizes.
+    - Changed wooden wall to basic stone wall, which can't be repaired.
+    - Added basic lab as the starter lab and moved regular labs behind research with their original recipe.
+    - Added throwable bricks, as a basic throwable attack.
+  Balance:
+    - Battery and advanced battery array are 4x4 and 6x6.
+    - Blasters now do a smaller explosion when killed.
+    - Blaster Spawners explode doing damage on death in a large radius.
+    - Increased health of regular biters.
+    - Swarmers have a higher spawn rate.
+    - Spitter worms now have a minimum attack radius.
+    - Locomotive engines use vehicle chassis in the recipe
+    - Fish filtering recipe is more resource and energy intensive.
+---------------------------------------------------------------------------------------------------
+Version: 0.1.99
+Date: 2024.01.30
+  Additions:
+    - Added pistol turret as a starting defensive item
+    - Added new enemy types and coloured them more intensely
+    - Swarmer enemies spawn numerous small annoying biters
+    - Blaster enemies self destruct on an attack
+    - Worms are now coloured to green to signify their attack type.
+    - Added fish filtering, process large amounts of water to find fish.
+    - Added barrel recycling, smelt them to get some iron plates back.
+    - Aded new advanced battery array for better electrical storage
+    - Added long burner inserter
+    - Added large burner drill
+    - Added large air purifier.
+  Graphics:
+    - Updated aluminium object
+    - Updated belt icons to match new ones.
+    - Updated alien colouring.
+  Balance:
+    - Rebalanced worm damage and range.
+    - Turret veterancy level requirement are almost doubled (100, 250, 500, 1000)
+    - Shotguns now have a tight inner cone with wide outer cone, instead of an equal full spread.
+    - Resized large electrical distributer from 5x5 to 4x4 
+    - Resized air purifier from 3x3 to 2x2.
+  Fixes:
+    - Started to organize some objects ordering to fit better with their use and similarities.
+---------------------------------------------------------------------------------------------------
+Version: 0.1.95
+Date: 2021.07.18
+  Additions:
+    - Added large laser turrets called the Guass Cannon.
+  Graphics:
+    - Added gas processing tech icon.
+    - Added new hut and warehouse graphics (by Belich).
+  Balance:
+    - Increased all modular grid sizes by 1 (height).
+    - Reduced the amount of speed that laser technology adds.
+    - Reduced the power amount to fire laser turrets, but increased their drain.
+    - Increased listening post range by 1 chunk.
+    - Tripled the power outputted by the crash site generator.
+    - Gas processing tech is now available directly after Gas extraction.
+    - Advanced repair packs are now cheaper to make and repair even faster.
+    - Increased the health for large solar panels and solar arrays.
+  Fixes:
+    - Fixed a crash to do with turrets being destroyed and ghosts being placed before researching robotoics.
+    - Fixed a health issue with Artillery turrets having only 10hp.
+---------------------------------------------------------------------------------------------------
+Version: 0.1.93
+Date: 2021.07.10
+  Additions:
+    - Added Long reach to all toolkit tech upgrades.
+    - Added new toolkit tech levels.
+    - Added more toolbelt size upgrades for each tech pack.
+  Graphics:
+    - Increased listening post frame count so it is smoother (by Belich)
+    - Added large radar art (by Belich)
+  Balance:
+    - Rebalanced many equipment objects so lower tech is still useful (e.g. battery mk2 takes up more room).
+    - Increased the build time of inserters and assembly machines.
+    - Reduced the cost of low density structure.
+    - Mini roboports now hold 2 stacks of robots (was 1).
+    - Infinite research tech for Robot follower count is now more expensive and in line with other tech.
+    - Reduced Exoskeleton speed and power by half (to help balance with base player speed upgrade tech).
+    - Reduced factory speed back to 2.5 (was 3).
+    - Instead increased factory module count to 3 (was 2).
+  Fixes:
+    - Added Advanced processors to productivity module support.
+---------------------------------------------------------------------------------------------------
+Version: 0.1.91
+Date: 2021.07.04
+  Additions:
+    - Added Electronics 3 technology to allow the creation of Advanced Processors.
+    - Added Productivity, Speed and Effectivity 4 modules.
+  Graphics:
+    - Added new art for loaders (by Belich).
+    - Added new art for listening post (by Belich).
+  Balance:
+    - Turbo loaders now need a speed module.
+    - Electric grinder is now 5x5 footprint (was 7x7) and kept the same stats.
+    - Spidertron rocket launchers now fire 2.5x faster.
+    - Spidertron rocket launchers range increased to 42 (was 36)
+    - Geothermal vents now generate 2x the output than before.
+    - Reduces SPAM grenade cluster amount by 1 to stop it from lagging.
+    - Reduced SPAM stack count to 25 (was 50).
+    - Reduced Steel forge craft speed to 5 (was 6).
+    - Increased Factory speed to 3 (was 2.5).
+    - Increased electrical distributor grid range to 20.5 (was 16.5)
+  Fixes:
+    - Fixed missing icon in power window for high powered press machines.
+    - Fixed missing icons in power window for loaders.
+    - Stopped sand -> stone recipe from being handcraftable
+    - Fixed instances of sandy rocks using the wrong sand (this should convert automatically via migration)
+    - Fixed missing icon for Large radar.
+---------------------------------------------------------------------------------------------------
+Version: 0.1.89
+Date: 2021.05.23
+  Additions:
+    - Added Boss spitters.
+  Graphics:
+    - Added new art Sniper shells.
+  Balance:
+    - Updated Boss spawn rate in relation to evolution rate so they spawn sooner.
+  Fixes:
+    - Fixed enemy corpses not matching.
+    - Fixed broken modifier localizations for multiple entries.
+    - Fixed a copy paste ghost issue where you could copy and paste veteran ghosts of existing veteran turrets.
+---------------------------------------------------------------------------------------------------
+Version: 0.1.87
+Date: 2021.05.22
+  Balance:
+    - Increased resistances and health for most factorioplus turrets
+    - Increased physical resistances for rail.
+    - Increased Magnum damage to +750% (was +500%)
+  Fixes:
+    - Improved minigun turret distraction.
+    - Destroyed veteran turrets use the base ghost and not the veteran ghost.
+    - Turrets can gain veterancy on any world surface, not just the base game.
+    - Ammo does not disappear when a turret is removed by robots.
+    - Plasma cell ammo now increases in damage when the respective energy weapon tech is researched.
+  Removed:
+    - Removed 'Find Body' script to fix old turret script issues, this can be downloaded as a seperate mod "Findmybody".
+---------------------------------------------------------------------------------------------------
+Version: 0.1.85
+Date: 2021.05.17
+  Additions:
+    - Added plasma gun.
+    - Added napalm mortar rounds.
+  Fixes:
+    - Sniper towers are now locked behind their respective techs.
+---------------------------------------------------------------------------------------------------
+Version: 0.1.72
+Date: 2021.05.15
+  Additions:
+    - Added flak grenades.
+    - Added SPAM grenades.
+  Graphics:
+    - Added art for Air purifiers.
+  Balance:
+    - Increased solar array power from 1.6MW to 1.75MW
+    - Cluster grenade range is now the same as regular grenades.
+  Fixes:
+    - Fixed factory icon in power management view.
+    - All turrets now use enemy priorities, taking health and turn speed into account.
+    - Weapon shooting speed 7, player hp and speed 8 all need White science pack tech unlocked first.
+---------------------------------------------------------------------------------------------------
+Version: 0.1.71
+Date: 2021.05.14
+  Additions:
+    - Added sniper turrets.
+    - Added piercing rounds for miniguns.
+  Graphics:
+    - Added art for Large electric foundry.
+  Balance:
+    - Reduced steam miner down to match steam turbine footprint.
+    - Reduced Factory crafting speed down from 3x to 2.5x
+    - Destroyer now requires processor units.
+  Fixes:
+    - Turret bases, Laser units and Glass lens can use productivity modules. 
+---------------------------------------------------------------------------------------------------
+Version: 0.1.67
+Date: 2021.05.01
+  Balance:
+    - Big sandy rocks now contain sand in them.
+    - Electric foundry recipe now requires 4x productivity modules (was 2x)
+    - Silicon wafers have a longer (20s) craft time (was 8s)
+    - Mini electric furnaces can hold 2x modules (was 1x)
+    - Electric grinders can now hold 2x modules (was 1x)
+    - Steel forge recipe now requires 4x steel furnaces and concrete (was 3x, and bricks)
+    - Mini assembler pollution reduced by 50%
+    - Defender robot now uses piercing damage, matching piercing magazine craft material.
+    - Increased Distractor base laser damage by +100%
+    - Increased Destroyer base electric damage by +200%
+    - Rock coal and stone loot drop is now randomized and proportions are better balanced.
+  Fixes:
+    - Matched Distractor and Destroyer stack sizes, throw cooldown to match Defenders.
+---------------------------------------------------------------------------------------------------
+Version: 0.1.58
+Date: 2021.04.03
+  Graphics:
+    - Added new art for Large stone furnaces.
+    - Added new art for Steel forge.
+    - Added new art for Large water pump.
+  Balance:
+    - Increased water pump speed for both water pumps and large water pumps.
+    - Reduced initial follower count from 5 -> 3.
+    - Increased crafting time for radars so that they fit radar progression.
+    - Increased cannon shell damage for all cannon shells by at least +50%.
+    - Rocket fuel now requires purple/yellow science.
+    - Increased time for Rocket turret tech to be in line with surrounding techs.
+    - Mortars now don't require wood to craft.
+    - Belts and Train tracks now have 90% explosive resistance.
+  Fixes:
+    - Added mini icons for resources to map gen screen.
+    - Explosive ammo tech now comes after explosive tech.
+    - Removed explosive cannon shells from cannon tech, they should be researched using explosive ammo tech.
+    - Fixed naming of crashed ship crafting/power structures.
+
+---------------------------------------------------------------------------------------------------
+Version: 0.1.50
+Date: 2021.02.02
+  Additions:
+    - Added Large Labs and their respective techs
+  Balance:
+    - Reduced base firing rate of snipers from 5s to 3s per shot.
+  Fixes:
+    - Added support for turbo belts to use auto-undergrounding when drag placing in 1.1 factorio.
+
+---------------------------------------------------------------------------------------------------
+Version: 0.1.49
+Date: 2021.01.07
+  Additions:
+    - Added Mortar turrets and their respective techs
+  Changes:
+    - "Grenade rounds" and "Grenade launchers" are now "Mortar rounds" and a "Mortar" respectively.
+  Balance:
+    - Mortars now stop the player moving while firing.
+    - Increased tank shell damage across the board, but mostly in regards to piercing and uranium shells.
+  Fixes:
+    - Fixed large radar size in normal resolution settings.
+
+---------------------------------------------------------------------------------------------------
+Version: 0.1.45
+Date: 2020.12.22
+  Graphics:
+    - Added new art for Factorys.
+    - Added new art for Gas Extractors.
+    - Added new art for Dozer.
+  Balance:
+    - Updated mini roboport ranges to work better with overlapping each other.
+    - Increased petrol generator grid size, and reduced the power output, as their power is generated constantly.
+    - Increased sniper damage by 50 and increased the bonus associated with tech upgrades.
+  Fixes:
+    - Fixed Normal resolution sizes and the crash associated with it.
+
+---------------------------------------------------------------------------------------------------
+Version: 0.1.39
+Date: 2020.12.17
+  Graphics:
+    - Added new art for Sawmills and Electric Grid Distributors.
+    - Added new art for Transport Trucks.
+  Additions:
+    - Added Compressors and their tech, currently used for compressing sand into stone.
+    - Added Rocket turrets.
+    - Added mini radars (AKA Listening posts) that are cheaper and smaller than regular radar.
+    - Added mini electrical furnaces, can replace steel furnaces and can hold 1 module.
+    - Added mini roboports, a small and compact roboport used for more easily linking larger logistic areas together.
+    - Added a Sniper rifle, a long range weapon shooting large calibre bullets over great distances.
+    - Added Snakey Continents config to world generation.
+    - Added Oasis config to world generation.
+  Changes:
+    - Radars are now behind radar tech, instead Listening posts are used at the game start.
+    - Split out Vehicles and train recipes and items into the new Transport tab.
+    - Split out fluid building recipes into the new Fluid tab.
+  Balance:
+    - Increased air purifier recipe to 200 wood.
+    - Reduced larger radar visual range to be much smaller and more like a regular radar.
+    - Reduced gun turret range a little.
+    - Increased piercing shotgun shell count by a small amount.
+    - Increased Floodlight ligh range by a bit.
+    - Reduced explosive rocket speed and increased the sprite size.
+  Fixes:
+    - Grenade ranges are now clamped, so they can be thrown at any range and are thrown their max possible distance.
+
+---------------------------------------------------------------------------------------------------
+Version: 0.1.25
+Date: 2020.12.10
+  Graphics:
+    - Added new art for Storage hut.
+    - Added new art for Speeder vehicle.
+    - Added new art for Medium electric pole.
+    - Added new art for Wood wall.
+    - Added new art for Steam Miner Turbine.
+  Additions:
+    - Added heat exchange furnace, using the energy from heat pipes.
+  Balance:
+    - Added +2 piercing damage to chaingun ammo, but reduced their spread count by 1 (4 to 3).
+    - Made natural gas more energy dense than gasoline, however their acceleration and other vehicle bonuses are reduced to penalties.
+  Fixes:
+    - Fixed large solar panel icon within the power usage screen.
+    - Fixed technology art sizes to now work with the larger 256 size.
+    - Fixed player health and speed bonus localizations to mention "player".
+    - Fixed laser turret shooting speed bonuses to now use the new generic laser bonuses instead. (So they don't accidentally double up)
+
+---------------------------------------------------------------------------------------------------
+Version: 0.1.1
+Date: 2020.11.14
+  Additions:
+    - Added Micro missles, a lightwight, fast firing and travelling small missile.
+    - Added Bio fuel, a powerful and clean burning fuel with questionable origins.
+    - Added Light oil extraction from wood, an advanced bio tech recipe.
+  Balance:
+    - Factorys now take 2x amount of power to run.
+    - Increased cluster grenade spread range by around double the distance.
+    - The amount of meaty chunks dropped from aliens are now reduced overall.
+    - Increased the amount of meaty chunks dropped from Spawners.
+    - Increased Biter Boss health amount, reduced their overall damage.
+    - Reduced throw speed of cluster grenades to match those of regular grenades.
+    - Reduced all robot laser damages to be on par with laser turrets.
+    - Increased placement collision for worms so they don't cluster as much.
+    - Reduced cluster grenade count from 6 to 5 (and updated the recipe accordingly)
+  Fixes:
+    - Reduced rocket fuel stacks to 10 (from 25, which was equal to jet fuel)
+    - Fixed the accumulator battery icon when in the power usage screen.
+    - Bio science packs now allow the use of productivity modules.
+    - Rocket fuel allows production modules to be used.
+    - Fixed some other procution module usages on factorio+ intermediate recipes.
+    - Fixed Boss biter localizations
+    - Fixed localizations for bonuses.
+
+---------------------------------------------------------------------------------------------------
+Version: 0.1.0
+Date: 2020.10.25
+  Additions:
+    - Added an advanced radar with a much larger radius with a much slower scan time.
+  Balance:
+    - Updated floodlight recipes to be more entincing and less intensive.
+    - Tank is now much (2x) larger, with more health.
+  Fixes:
+    - Fixed some item and entity ordering on the craft menu to be more in order of discovery/research
+
+---------------------------------------------------------------------------------------------------
+Version: 0.0.9
+Date: 2020.10.17
+  Additions:
+    - Added personal solar panel equipment MK2
+    - Added personal petroluem fuel generator
+  Fixes:
+    - Fixed localizations for a lot of items, tech and technologies.
+
+---------------------------------------------------------------------------------------------------
+Version: 0.0.8
+Date: 2020.10.13
+  Additions:
+    - Added tarmac tiles, that give better speeds to vehicles.
+    - Miniturization now provides additional character hand crafting speed and character mining speeds as bonuses.
+    - Added Bio science tree, using alien meat, water and trees.
+    - Added character health and speed upgrades to bio science tree.
+    - Added air scrubbers and the tech, while reduce pollution in the local area.
+  Balance:
+    - Natural gas now gives less pollution
+    - Coal gives more pollution.
+    - All large rocks have been scaled to be much larger and provide more stone. While smaller stones are smaller now as to not provide confusion in what rocks you collide/don't collide with.
+    - Magnum uses 5x ammo per shot to make up for its 6x damage scale.
+    - Split out logistics warehouses and huts to be two seperate technologies.
+    - Rocks take more damage from explosives, and less from physical/impact.
+    - Increased shotgun spread
+    - Grenades now have radius falloff damage.
+  Fixes:
+    - Hand cannon is unlocked in military-2.
+
+---------------------------------------------------------------------------------------------------
+Version: 0.0.7
+Date: 2020.09.30
+  Additions:
+    - Grenade launcher rounds are now added to explosive improvement tech.
+    - Added a hand cannon.
+  Balance:
+    - Factorys now take up 6x6 space and require productivity-3 modules instead of productivity-2 modules
+    - Storage huts and warehouses now require stone and concrete repectively.
+    - All loaders have 1 filter slot.
+    - Slowdown and Poison capsule recipes now require heavy oil and sulphuric acid respectively.
+  Fixes:
+    - Fixed an issue with old turrets not being removed when levelling up, creating multiple turrets on top of each other.
+    - Turrets when levelled up now keep their same placement direction.
+    - Turrets levelling up now also keep their damage done.
+    - Added more localization strings for tech tree entries that didn't have them.
+    - Fixed logistic hut alignment.
+    - Grenade launcher has an explosion entity.
+  Graphics:
+    - Added logistic hut icon.
+
+---------------------------------------------------------------------------------------------------
+Version: 0.0.6
+Date: 2020.09.29
+  Additions:
+    - Logistics version of the storage hut has now been added
+    - Loaders and Unloaders have been implemented allowing you to directly connect belts to storage buildings.
+    - When you die, your body is marked on the map, and is removed when picked up/expired
+    - Added it so trains are randomly coloured when originally placed, and match the colour of the rest of the train according to placement order.
+  Balance:
+    - Adjusted belt speeds so they give round numbers. 
+    - Belts are all slightly slower.
+  Fixes:
+    - Aligned warehouse and storage hut graphics with the grid, including height overlap.
+  Graphics:
+    - Updated warehouse and storage hut artwork.
+
+---------------------------------------------------------------------------------------------------
+Version: 0.0.5
+Date: 2020.09.28
+  Additions:
+    - Added Charcoal resource, which is made by smelting wood.
+    - Added more graphically pleasing Steam and Gas vents.
+    - Robo Superport and Flame Tank have icons.
+  Balance:
+    - Landfill 2 now requires chemical science to move it further down the tech tree.
+    - Uranium gun magazines now have piercing damage inherited from their ingredients
+  Fixes:
+    - Mining a resource tile will not delete it.
+    - Robo Superport now unlocks successfully when researching it.
