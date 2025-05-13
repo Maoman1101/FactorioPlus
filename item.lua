@@ -706,7 +706,7 @@ data.extend({
       condition_size = 1,
       --condition = { "ground-tile", "layer-13" },
 	  condition = {layers={ground_tile=true}},
-	  tile_condition = {"water", "water-green", "water-shallow"},
+	  tile_condition = {"water", "water-green", "water-shallow", "water-mud"},
     },
 	random_tint_color = item_tints.organic_green,
   },
