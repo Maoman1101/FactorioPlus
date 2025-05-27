@@ -1,5 +1,12 @@
 ---------------------------------------------------------------------------------------------------
 Version: 2.1.14
+Date: 2025.05.27
+  Balance:
+    - Switched placement of HE grenade and cluster grenades in tech tree (military 4 <-> 5)
+  Fixes:
+    - Added fix for landfill in Alien Biomes mod (Jess_260)
+---------------------------------------------------------------------------------------------------
+Version: 2.1.14
 Date: 2025.04.04
   Balance:
     - Slowed Swarmer attack speed by +50% (10 -> 15).

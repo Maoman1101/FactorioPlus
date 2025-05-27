@@ -3375,7 +3375,7 @@ data.raw["technology"]["gun-turret"].icon = "__factorioplus__/graphics/technolog
 
 
 table.removetablewithmatchingentry(data.raw["technology"]["military-4"].effects, "recipe", "piercing-shotgun-shell") 
-table.removetablewithmatchingentry(data.raw["technology"]["military-4"].effects, "recipe", "cluster-grenade") 
+--table.removetablewithmatchingentry(data.raw["technology"]["military-4"].effects, "recipe", "cluster-grenade") 
 
 table.insert(data.raw["technology"]["military-4"].effects,{type = "unlock-recipe",recipe = "grenade-launcher"})
 table.insert(data.raw["technology"]["military-4"].effects,{type = "unlock-recipe",recipe = "grenade-rounds"})
@@ -3383,7 +3383,6 @@ table.insert(data.raw["technology"]["military-4"].effects,{type = "unlock-recipe
 table.insert(data.raw["technology"]["military-4"].effects,{type = "unlock-recipe",recipe = "shotgun-shell-birdshot"})
 table.insert(data.raw["technology"]["military-4"].effects,{type = "unlock-recipe",recipe = "sniper-rifle"})
 table.insert(data.raw["technology"]["military-4"].effects,{type = "unlock-recipe",recipe = "sniper-shell"})
-table.insert(data.raw["technology"]["military-4"].effects,{type = "unlock-recipe",recipe = "he-grenade"})
 
 
 table.removeentry(data.raw["technology"]["military-4"].prerequisites, "utility-science-pack") 
@@ -3425,7 +3424,7 @@ data:extend
       },
       {
         type = "unlock-recipe",
-        recipe = "cluster-grenade"
+        recipe = "he-grenade"
       },
 	  {
         type = "unlock-recipe",
