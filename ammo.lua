@@ -1593,7 +1593,7 @@ firestickerutil.makefiresticker("napalm-fire-sticker", mortar_napalm_firesticker
             starting_speed = 1,
             starting_speed_deviation = 0.15,
             direction_deviation = shell_regular_arc*2,
-            range_deviation = 2.5,
+            range_deviation = 4.5,
             max_range = shell_range
           }
         },
@@ -1865,7 +1865,7 @@ firestickerutil.makefiresticker("napalm-fire-sticker", mortar_napalm_firesticker
             starting_speed_deviation = 0.1,
             direction_deviation = shell_explosive_arc,
             range_deviation = 1.0,
-            max_range = shell_range
+            max_range = shell_range + 2
           }
         },
 		{
@@ -1879,7 +1879,7 @@ firestickerutil.makefiresticker("napalm-fire-sticker", mortar_napalm_firesticker
             starting_speed_deviation = 0.1,
             direction_deviation = shell_explosive_arc/3,
             range_deviation = 1.0,
-            max_range = shell_range
+            max_range = shell_range + 2
           }
         },
       }
@@ -2221,7 +2221,7 @@ firestickerutil.makefiresticker("napalm-fire-sticker", mortar_napalm_firesticker
             starting_speed_deviation = 0.1,
             direction_deviation = shell_nuke_arc,
             range_deviation = 0.6,
-            max_range = shell_range
+            max_range = shell_range + 8
           }
         },
 		      {
@@ -2235,7 +2235,7 @@ firestickerutil.makefiresticker("napalm-fire-sticker", mortar_napalm_firesticker
             starting_speed_deviation = 0.1,
             direction_deviation = shell_nuke_arc/3,
             range_deviation = 0.6,
-            max_range = shell_range
+            max_range = shell_range + 8
           }
         },
       }

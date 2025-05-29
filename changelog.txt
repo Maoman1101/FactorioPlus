@@ -1,5 +1,16 @@
 ---------------------------------------------------------------------------------------------------
-Version: 2.1.14
+Version: 2.1.16
+Date: 2025.05.29
+  Balance:
+    - Increased projectile range of explosive and nuke shotgun shells by 2 - 4 to push it a little away from the player.
+    - Shotgun turrets have more resistances and smaller turn angle to alleviate friendly fire.
+    - Shotgun turrets projectile spawning is now closer to the turret to alleviate the chance of it shooting backwards when a target is next to it.
+  Fixes:
+    - Solar energy technology requires glass processing.
+    - Automobilism technology requires Basic Automobilism.
+    - Gun Turret technology requires Military 1.
+---------------------------------------------------------------------------------------------------
+Version: 2.1.15
 Date: 2025.05.27
   Balance:
     - Switched placement of HE grenade and cluster grenades in tech tree (military 4 <-> 5)

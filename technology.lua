@@ -1676,6 +1676,12 @@ data.extend({
     },
     order = "a-d-d"
 	},
+})
+	  ------------------------------------------ SOLAR ENERGY 1 ------------------------------------------
+	  
+table.insert(data.raw["technology"]["solar-energy"].prerequisites, "glass-processing" )
+
+data.extend({	  
    ------------------------------------------ SOLAR ENERGY 2 ------------------------------------------
 	{
     type = "technology",
@@ -3341,7 +3347,8 @@ table.insert(data.raw["technology"]["distractor"].effects,{type = "unlock-recipe
 
 
 table.insert(data.raw["technology"]["gun-turret"].effects,{type = "unlock-recipe",recipe = "shotgun-turret"})
-data.raw["technology"]["gun-turret"].icon = "__factorioplus__/graphics/technology/smg-turret.png",
+data.raw["technology"]["gun-turret"].icon = "__factorioplus__/graphics/technology/smg-turret.png"
+data.raw["technology"]["gun-turret"].prerequisites = {"military"}
 -- data:extend
 -- ({ 
 
@@ -3964,6 +3971,7 @@ count = 150, ingredients =
 table.removeentry(data.raw["technology"]["electric-energy-distribution-1"].prerequisites, "electronics")  
 table.insert(data.raw["technology"]["electric-energy-distribution-1"].prerequisites,"basic-electric-energy-distribution")
 
+table.insert(data.raw["technology"]["automobilism"].prerequisites,"automobilism-basic")
 table.removeentry(data.raw["technology"]["automobilism"].prerequisites, "logistics-2")  
 data.raw["technology"]["automobilism"].effects = 
  {
@@ -3995,7 +4003,7 @@ data:extend
     prerequisites = {"steel-processing"},
     unit =
     {
-      count = 25,
+      count = 50,
       ingredients =
       {
         {"automation-science-pack", 1},

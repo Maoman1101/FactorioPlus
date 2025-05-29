@@ -2150,26 +2150,26 @@ data:extend({
       {
         type = "fire",
         decrease = 10,
-        percent = 20
+        percent = 30
       },
        {
         type = "physical",
-        percent = 20
+        percent = 30
       },
       {
         type = "impact",
         decrease = 20,
-        percent = 10
+        percent = 30
       },
       {
         type = "explosion",
         decrease = 15,
-        percent = 10
+        percent = 30
       },
    {
         type = "acid",
 		decrease = 2,
-        percent = 50
+        percent = 60
       },
     },
     corpse = "gun-turret-remnants",
@@ -2259,10 +2259,10 @@ data:extend({
       cooldown = firerate_turret_shotgun,  
 	  rotate_penalty = 0.25,  -- >0 will discourage turrets from targeting units that would take longer to turn to face.
 	  health_penalty = 0.5, -- >0 will discourage turrets from targeting units with higher health. <0 will encourage turrets to target units with higher health.  
-      projectile_creation_distance = 1.25,
+      projectile_creation_distance = 1.0,
       projectile_center = {0, -0.0875}, -- same as gun_turret_attack shift
 	  damage_modifier = 1.0,
-	  turn_range = 0.4,
+	  turn_range = 0.25,
       shell_particle =
       {
         name = "shell-particle",
