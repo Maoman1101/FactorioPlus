@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 2.1.17
+Date: 2025.06.04
+  Space Age:
+    - Fulgora scrap now has a chance of containing Explosives or Carbon to make Fulgoa rocket-fuel complete.
+    - Aquilo has recipe for creating rocket-fuel from jet-fuel and more ammonia to make Aquilo rocket-fuel complete.
+---------------------------------------------------------------------------------------------------
 Version: 2.1.16
 Date: 2025.05.29
   Balance:
