@@ -3,43 +3,58 @@ local sounds = require("__base__.prototypes.entity.sounds")
 local abandonments_autoplace = require ("__factorioplus__.abandonments-autoplace-util")
 
 
+
 if (settings.startup["settings-warehouse-abandonments"].value) then
 
+	local _warehouse_spacing_scale = 18 -- Normal value
+	
+	if (settings.startup["settings-warehouse-spacing"].value == "dense" ) then
+		_warehouse_spacing_scale = 10
+	elseif (settings.startup["settings-warehouse-spacing"].value == "common" ) then
+		_warehouse_spacing_scale = 14
+	elseif (settings.startup["settings-warehouse-spacing"].value == "uncommon" ) then
+		_warehouse_spacing_scale = 22
+	elseif (settings.startup["settings-warehouse-spacing"].value == "sparse" ) then
+		_warehouse_spacing_scale = 26
+	elseif (settings.startup["settings-warehouse-spacing"].value == "rare" ) then
+		_warehouse_spacing_scale = 30
+	end
 
+		
 -- TODO implement abandonments color, masking and map color.
-local abandonments_color = {1.0,1.0,1.0,1.0}
-local abandonment_loc = {"entity-name.abandonment"}
+	local abandonments_color = {1.0,1.0,1.0,1.0}
+	local abandonment_loc = {"entity-name.abandonment"}
 
 
 
-local newpath = util.copy(data.raw["tile"]["stone-path"])
---newpath.collision_mask = {"water-tile"}
-newpath.localised_name = {"",abandonment_loc, " ", {"entity-name." .. newpath.name}}
-newpath.name = "abandonment".."-"..newpath.name  
---newpath.autoplace = abandonments_autoplace.abandonment_ground_autoplace(0.5)
-newpath.autoplace = abandonments_autoplace.abandonments_ground_autoplace("abandonments_autoplace_base(1, 0.6)")
-data:extend{newpath}
+	local newpath = util.copy(data.raw["tile"]["stone-path"])
+	--newpath.collision_mask = {"water-tile"}
+	newpath.localised_name = {"",abandonment_loc, " ", {"entity-name." .. newpath.name}}
+	newpath.name = "abandonment".."-"..newpath.name  
+	--newpath.autoplace = abandonments_autoplace.abandonment_ground_autoplace(0.5)
+	newpath.autoplace = abandonments_autoplace.abandonments_ground_autoplace("abandonments_autoplace_base(1, 0.6)")
+	data:extend{newpath}
 
-local newpath2 = util.copy(data.raw["tile"]["landfill"])
---newpath.collision_mask = {"water-tile"}
-newpath2.localised_name = {"",abandonment_loc, " ", {"entity-name." .. newpath.name}}
-newpath2.name = "abandonment".."-"..newpath.name.."-2" 
-newpath2.autoplace = abandonments_autoplace.abandonments_ground_autoplace("abandonments_autoplace_base(0, 0.5)")
-data:extend{newpath2}
+	local newpath2 = util.copy(data.raw["tile"]["landfill"])
+	--newpath.collision_mask = {"water-tile"}
+	newpath2.localised_name = {"",abandonment_loc, " ", {"entity-name." .. newpath.name}}
+	newpath2.name = "abandonment".."-"..newpath.name.."-2" 
+	newpath2.autoplace = abandonments_autoplace.abandonments_ground_autoplace("abandonments_autoplace_base(0, 0.5)")
+	data:extend{newpath2}
 
 
 -- Health Setting
 
-local enemy_health_scale = 1.0
-if settings.startup["settings-enemy-health"].value == "easy" then
-enemy_health_scale = 0.5
-elseif settings.startup["settings-enemy-health"].value == "hard" then
-enemy_health_scale = 1.5 
-elseif settings.startup["settings-enemy-health"].value == "extreme" then
-enemy_health_scale = 2.0 
-elseif settings.startup["settings-enemy-health"].value == "insane" then
-enemy_health_scale = 3.0 
-end
+	
+	if settings.startup["settings-enemy-health"].value == "easy" then
+	enemy_health_scale = 0.5
+	elseif settings.startup["settings-enemy-health"].value == "hard" then
+	enemy_health_scale = 1.5 
+	elseif settings.startup["settings-enemy-health"].value == "extreme" then
+	enemy_health_scale = 2.0 
+	elseif settings.startup["settings-enemy-health"].value == "insane" then
+	enemy_health_scale = 3.0 
+	end
 
 local newcrater = {}
 
@@ -576,7 +591,7 @@ local building_solararray_abandoned_3 =
 }
 
 -- LOOT FUNCTIONS
-local loothutboundingbox = settings.startup["settings-warehouse-spacing"].value 
+local loothutboundingbox = _warehouse_spacing_scale 
 local randomseed = math.randomseed(1 + (math.random()))
 local function reseedrandom()
 math.randomseed(1 + (math.random()))

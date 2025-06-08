@@ -1,4 +1,14 @@
 if (mods["space-age"]) then
+	-- Spoilage percent multiplier
+data:extend({
+	{
+        type = "int-setting",
+        name = "settings-spoilage-multiplier",
+        setting_type = "startup",
+		allowed_values = {50, 100, 200, 500, 1000},
+        default_value = 100,
+    },
+})
 else
 	-- Rocket Recipe
 data:extend({
@@ -73,17 +83,18 @@ data:extend({
 		default_value = true,
     },
 	{
-		type = "int-setting",
+		type = "string-setting",
 		name = "settings-warehouse-spacing",
 		setting_type = "startup",
-		allowed_values = { 14, 18, 22, 26, 30},
-		default_value = 18,
+		allowed_values = { "dense", "common" , "normal", "uncommon", "sparse", "rare"},
+		default_value = "normal",
+		-- { 14, 18, 22, 26, 30}
     },
 	{
 		type = "int-setting",
 		name = "settings-warehouse-scaling",
 		setting_type = "startup",
-		allowed_values = {50, 75, 100, 150, 200, 300, 400, 500, 750, 1000},
+		allowed_values = {50, 75, 100, 125, 150, 200, 300, 400, 500, 750, 1000},
 		default_value = 100,
     },
 	{
