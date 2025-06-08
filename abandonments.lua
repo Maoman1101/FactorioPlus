@@ -45,7 +45,7 @@ if (settings.startup["settings-warehouse-abandonments"].value) then
 
 -- Health Setting
 
-	
+	local enemy_health_scale = 1.0
 	if settings.startup["settings-enemy-health"].value == "easy" then
 	enemy_health_scale = 0.5
 	elseif settings.startup["settings-enemy-health"].value == "hard" then
