@@ -99,7 +99,7 @@ data:extend({
       sound = sounds.light_gunshot,
 	  damage_modifier = 1.5,
     },
-    stack_size = 10
+    stack_size = 15
   },
   
 

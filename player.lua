@@ -247,17 +247,21 @@ local kbold_dead=
     },
 }
 
+local pcs = data.raw["character"]["character"].collision_box[1][1]
+
 if  settings.startup["settings-character-selection"].value == "kobold" then
 
 data.raw["character-corpse"]["character-corpse"].pictures[1].layers = kbold_dead
 data.raw["character-corpse"]["character-corpse"].pictures[2].layers = kbold_dead
 data.raw["character-corpse"]["character-corpse"].pictures[3].layers = kbold_dead
 data.raw["character"]["character"].icon = "__factorioplus__/graphics/icons/character-kobold.png"
+data.raw["character"]["character"].running_sound_animation_positions = {5, 13}
 data.raw["character"]["character"].running_speed = data.raw["character"]["character"].running_speed * 0.8
 data.raw["character"]["character"].collision_box = {{-0.16, -0.16}, {0.16, 0.16}}
 data.raw["character"]["character"].mining_speed = 1.0
 data.raw["character"]["character"].max_health = 125
 data.raw["character"]["character"].damage_hit_tint = {0.25, 0, 0, 0}
+data.raw["character"]["character"].distance_per_frame = data.raw["character"]["character"].distance_per_frame * 0.8
 
 data.raw["character"]["character"].animations[1].running.layers = kbold_running_anims
 data.raw["character"]["character"].animations[1].idle.layers = kbold_idle_anims
@@ -280,4 +284,61 @@ data.raw["character"]["character"].animations[3].idle_with_gun.layers = kbold_we
 data.raw["character"]["character"].animations[3].running_with_gun.layers = kbold_weapon_running_anims
 data.raw["character"]["character"].animations[3].flipped_shadow_running_with_gun.layers = kbold_weapon_running_shadowflipped_anims
 
+end
+
+if  settings.startup["settings-character-selection"].value == "nimble" then
+data.raw["character"]["character"].inventory_size = data.raw["character"]["character"].inventory_size - 20
+data.raw["character"]["character"].running_speed = data.raw["character"]["character"].running_speed * 2
+data.raw["character"]["character"].distance_per_frame = data.raw["character"]["character"].distance_per_frame * 1.5
+data.raw["character"]["character"].max_health = data.raw["character"]["character"].max_health / 2
+data.raw["character"]["character"].guns_inventory_size = 2
+
+pcs = pcs * -0.5
+data.raw["character"]["character"].collision_box = {{-pcs, -pcs}, {pcs, pcs}} 
+end
+
+if  settings.startup["settings-character-selection"].value == "constructor" then
+data.raw["character"]["character"].guns_inventory_size = 1
+data.raw["character"]["character"].inventory_size = data.raw["character"]["character"].inventory_size + 10
+data.raw["character"]["character"].build_distance = data.raw["character"]["character"].build_distance * 2
+data.raw["character"]["character"].reach_distance = data.raw["character"]["character"].reach_distance * 2
+data.raw["character"]["character"].emissions_per_minute = {pollution = 8} 	 
+data.raw["character"]["character"].healing_per_tick = data.raw["character"]["character"].healing_per_tick * 0
+data.raw["character"]["character"].flags = {"placeable-off-grid", "not-on-map", "not-flammable", "get-by-unit-number"}
+end
+
+if  settings.startup["settings-character-selection"].value == "soldier" then
+data.raw["character"]["character"].guns_inventory_size = 5
+data.raw["character"]["character"].mining_speed = data.raw["character"]["character"].mining_speed * 0.5
+data.raw["character"]["character"].build_distance = data.raw["character"]["character"].build_distance * 0.5
+data.raw["character"]["character"].reach_distance = data.raw["character"]["character"].reach_distance * 0.5
+data.raw["character"]["character"].max_health = data.raw["character"]["character"].max_health * 1.5
+data.raw["character"]["character"].healing_per_tick = data.raw["character"]["character"].healing_per_tick * 3
+data.raw["character"]["character"].ticks_to_stay_in_combat = data.raw["character"]["character"].ticks_to_stay_in_combat * 0.5
+
+pcs = pcs * -1.25
+data.raw["character"]["character"].collision_box = {{-pcs, -pcs}, {pcs, pcs}} 
+end
+
+if  settings.startup["settings-character-selection"].value == "hauler" then
+data.raw["character"]["character"].guns_inventory_size = 1
+data.raw["character"]["character"].inventory_size = data.raw["character"]["character"].inventory_size + 60
+data.raw["character"]["character"].mining_categories = {"basic-solid"}
+data.raw["character"]["character"].crafting_categories = {"crafting","advanced-crafting"}
+data.raw["character"]["character"].emissions_per_minute = {pollution = 8} 	 
+data.raw["character"]["character"].healing_per_tick = data.raw["character"]["character"].healing_per_tick * 0
+data.raw["character"]["character"].flags = {"placeable-off-grid", "not-on-map", "not-flammable", "get-by-unit-number"}
+end
+
+if  settings.startup["settings-character-selection"].value == "tank" then
+data.raw["character"]["character"].guns_inventory_size = 2
+data.raw["character"]["character"].max_health = data.raw["character"]["character"].max_health * 3
+data.raw["character"]["character"].build_distance = data.raw["character"]["character"].build_distance * 0.75
+data.raw["character"]["character"].reach_distance = data.raw["character"]["character"].reach_distance * 0.75
+data.raw["character"]["character"].healing_per_tick = data.raw["character"]["character"].healing_per_tick * 1.5
+data.raw["character"]["character"].ticks_to_stay_in_combat = data.raw["character"]["character"].ticks_to_stay_in_combat * 0.01
+data.raw["character"]["character"].mining_speed = data.raw["character"]["character"].mining_speed * 0.75
+
+pcs = pcs * -1.5
+data.raw["character"]["character"].collision_box = {{-pcs, -pcs}, {pcs, pcs}} 
 end

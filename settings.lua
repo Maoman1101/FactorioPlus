@@ -108,7 +108,7 @@ data:extend({
         name = "settings-character-selection",
         setting_type = "startup",
 		default_value = "default",
-		allowed_values = {"default","kobold"},
+		allowed_values = {"default","kobold","nimble","constructor","soldier","hauler","tank"},
     },
 	-- Loaders
 	{

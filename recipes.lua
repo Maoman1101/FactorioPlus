@@ -57,8 +57,10 @@ end
 
 data.raw["recipe"]["iron-stick"].enabled = true
   
+  
 data.raw["recipe"]["pistol"].enabled = true
 data.raw["recipe"]["pistol"].hidden = false
+data.raw["recipe"]["pistol"].ingredients[1].amount = 2
 
 
  ---------------------------------------------------  INSERTER OVERRIDES  ------------------------------------------------------------
@@ -742,14 +744,15 @@ data:extend
     name = "steam-compression",
 	enabled = false,
     category = "crafting-compressor",
+	subgroup = "fluid-recipes",
     energy_required = 8,
     ingredients = 
 	{
-	{type="fluid", name="steam", amount=30}
+	{type="fluid", name="steam", amount=100}
 	},
    results=
     {
-      {type="fluid", name="water", amount=30}
+      {type="fluid", name="water", amount=10}
     },
 	icon = "__factorioplus__/graphics/icons/steamtowater.png",
     icon_size = 64, icon_mipmaps = 4,

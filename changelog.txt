@@ -1,9 +1,25 @@
 ---------------------------------------------------------------------------------------------------
+Version: 2.2.0
+Date: 2025.06.17
+  Additions:
+    - Added Pure iron ore, a rare ore that can be smelted into 2 iron plates.
+    - Added placeholder new character types. (Uses default engineer art)
+  Balance:
+    - Rebalanced Goblin ores to work with variants. (Mixed, Sedimentary, Metallic)
+  Fixes:
+    - Fixed missing Goblin ore variants from autoplace.
+    - Fixed foot sound timings on Kobold Engineer.
+---------------------------------------------------------------------------------------------------
+Version: 2.1.19
+Date: 2025.08.04
+  Fixes:
+    - Fixed missing local health value for enemy health scale setting that was deleted (Kimahari)
+---------------------------------------------------------------------------------------------------
 Version: 2.1.18
 Date: 2025.08.04
   Space Age:
     - Added Spoilage multiplier setting.
- Fixes:
+  Fixes:
     - Cleared up some phrasing in settings information.
 ---------------------------------------------------------------------------------------------------
 Version: 2.1.17

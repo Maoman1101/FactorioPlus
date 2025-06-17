@@ -1,5 +1,6 @@
 local sounds = require ("__base__.prototypes.entity.sounds")
 local resource_autoplace = require("resource-autoplace")
+local tile_sounds = require("__base__.prototypes.tile.tile-sounds")
 
 ---------------------------------------------------  FUEL OVERRIDES  ------------------------------------------------------------
 
@@ -80,19 +81,14 @@ local gasicon = {
   
 resource_autoplace.initialize_patch_set("forest", true)
 resource_autoplace.initialize_patch_set("goblin-ore", false)
+resource_autoplace.initialize_patch_set("goblin-ore-2", false)
+resource_autoplace.initialize_patch_set("goblin-ore-3", false)
 resource_autoplace.initialize_patch_set("geothermal-vent", false)
 resource_autoplace.initialize_patch_set("aquifer", false)
 resource_autoplace.initialize_patch_set("natural-gas", false)
 resource_autoplace.initialize_patch_set("bauxite-ore", false)
 resource_autoplace.initialize_patch_set("sand-ore", false)
- 
-data.raw["planet"]["nauvis"].map_gen_settings.autoplace_controls["forest"] = {}
-data.raw["planet"]["nauvis"].map_gen_settings.autoplace_controls["sand-ore"] = {}
-data.raw["planet"]["nauvis"].map_gen_settings.autoplace_controls["aquifer"] = {}
-data.raw["planet"]["nauvis"].map_gen_settings.autoplace_controls["geothermal-vent"] = {}
-data.raw["planet"]["nauvis"].map_gen_settings.autoplace_controls["natural-gas"] = {}
-data.raw["planet"]["nauvis"].map_gen_settings.autoplace_controls["bauxite-ore"] = {}
-data.raw["planet"]["nauvis"].map_gen_settings.autoplace_controls["goblin-ore"] = {}
+resource_autoplace.initialize_patch_set("iron-ore-pure", false)
  
 data.raw["planet"]["nauvis"].map_gen_settings.autoplace_settings["entity"].settings["forest"] = {}
 data.raw["planet"]["nauvis"].map_gen_settings.autoplace_settings["entity"].settings["sand-ore"] = {}
@@ -101,6 +97,18 @@ data.raw["planet"]["nauvis"].map_gen_settings.autoplace_settings["entity"].setti
 data.raw["planet"]["nauvis"].map_gen_settings.autoplace_settings["entity"].settings["natural-gas"] = {}
 data.raw["planet"]["nauvis"].map_gen_settings.autoplace_settings["entity"].settings["bauxite-ore"] = {}
 data.raw["planet"]["nauvis"].map_gen_settings.autoplace_settings["entity"].settings["goblin-ore"] = {}
+data.raw["planet"]["nauvis"].map_gen_settings.autoplace_settings["entity"].settings["goblin-ore-2"] = {}
+data.raw["planet"]["nauvis"].map_gen_settings.autoplace_settings["entity"].settings["goblin-ore-3"] = {}
+data.raw["planet"]["nauvis"].map_gen_settings.autoplace_settings["entity"].settings["iron-ore-pure"] = {}
+
+data.raw["planet"]["nauvis"].map_gen_settings.autoplace_controls["forest"] = {}
+data.raw["planet"]["nauvis"].map_gen_settings.autoplace_controls["sand-ore"] = {}
+data.raw["planet"]["nauvis"].map_gen_settings.autoplace_controls["aquifer"] = {}
+data.raw["planet"]["nauvis"].map_gen_settings.autoplace_controls["geothermal-vent"] = {}
+data.raw["planet"]["nauvis"].map_gen_settings.autoplace_controls["natural-gas"] = {}
+data.raw["planet"]["nauvis"].map_gen_settings.autoplace_controls["bauxite-ore"] = {}
+data.raw["planet"]["nauvis"].map_gen_settings.autoplace_controls["goblin-ore"] = {}
+--data.raw["planet"]["nauvis"].map_gen_settings.autoplace_controls["iron-ore-pure"] = {}
 
  if (mods["space-age"]) then
  
@@ -398,25 +406,25 @@ data:extend
 		{
 			type = "item",
 			name = "stone",
-			probability = 0.25,
+			probability = 0.22/0.65,
 			amount = 1
 		},
 		{
 			type = "item",
 			name = "iron-ore",
-			probability = 0.5,
+			probability = 0.26/0.65,
 			amount = 1
 		},
 		{
 			type = "item",
 			name = "copper-ore",
-			probability = 0.4,
+			probability = 0.22/0.65,
 			amount = 1
 		},
 		{
 			type = "item",
 			name = "coal",
-			probability = 0.15,
+			probability = 0.20/0.65,
 			amount = 1
 		},
 	  },
@@ -429,7 +437,7 @@ data:extend
 	  seed1 = 100,
       order = "c",
       base_density = 6,
-      base_spots_per_km2 = 0.75,
+      base_spots_per_km2 = 0.45,
       has_starting_area_placement = false,
       random_spot_size_minimum = 2,
       random_spot_size_maximum = 6,
@@ -462,7 +470,7 @@ data:extend
 	localised_name = {
         "",
         {
-          "entity-name.goblin-ore"
+          "entity-name.goblin-ore-rocky"
         }
       },
 	localised_description = {
@@ -482,7 +490,7 @@ data:extend
 	resource_patch_search_radius = 10,
     minable =
     {
-	-- STONE RICHEST, COAL RICH, IRON MED-LOW, COPPER MED
+	-- STONE RICHEST & COAL RICH, IRON MED-LOW, COPPER MED
       mining_particle = "stone-particle",
       mining_time = 1.5,
       results = 
@@ -508,7 +516,7 @@ data:extend
 		{
 		type = "item",
 			name = "coal",
-			probability = 0.35,
+			probability = 0.36,
 			amount = 1
 		},
 	  },
@@ -518,10 +526,11 @@ data:extend
     autoplace = resource_autoplace.resource_autoplace_settings
     {
       name = "goblin-ore",
+	  patch_set_name = "goblin-ore-2",
 	  seed1 = 101,
       order = "c",
       base_density = 6,
-      base_spots_per_km2 =  0.75,
+      base_spots_per_km2 =  0.45,
       has_starting_area_placement = false,
       random_spot_size_minimum = 2,
       random_spot_size_maximum = 6,
@@ -554,7 +563,7 @@ data:extend
 	localised_name = {
         "",
         {
-          "entity-name.goblin-ore"
+          "entity-name.goblin-ore-metal"
         }
       },
 	localised_description = {
@@ -574,7 +583,7 @@ data:extend
 	resource_patch_search_radius = 10,
     minable =
     {
-		-- COAL RICHEST, COPPER RICH, IRON LOW, STONE LOW
+		-- Metal rich
       mining_particle = "stone-particle",
       mining_time = 1.5,
       results = 
@@ -582,13 +591,13 @@ data:extend
 		{
 		type = "item",
 			name = "stone",
-			probability = 0.17,
+			probability = 0.12,
 			amount = 1
 		},
 		{
 		type = "item",
 			name = "iron-ore",
-			probability = 0.22,
+			probability = 0.42,
 			amount = 1
 		},
 		{
@@ -600,7 +609,7 @@ data:extend
 		{
 		type = "item",
 			name = "coal",
-			probability = 0.45,
+			probability = 0.15,
 			amount = 1
 		},
 	  },
@@ -610,10 +619,11 @@ data:extend
     autoplace = resource_autoplace.resource_autoplace_settings
     {
       name = "goblin-ore",
+	  patch_set_name = "goblin-ore-3",
 	  seed1 = 102,
       order = "c",
       base_density = 6,
-      base_spots_per_km2 =  0.75,
+      base_spots_per_km2 =  0.45,
       has_starting_area_placement = false,
       random_spot_size_minimum = 2,
       random_spot_size_maximum = 6,
@@ -1407,5 +1417,138 @@ data:extend
     order = "a[oil-processing]-a[basic-oil-processing]",
     main_product = ""
   },
+})  
+ --------------------------------------------------- IRON OVERRIDE ------------------------------------------------------------
+
+data.raw["resource"]["iron-ore"].autoplace.candidate_spot_count = 20
+data.raw["resource"]["iron-ore"].base_spots_per_km2 =  0.4,
+ 
+  	  --------------------------------------------------- PURE IRON  ------------------------------------------------------------
+data:extend
+({
+	{
+    type = "recipe",
+    name = "iron-plates",
+    category = "smelting",
+	subgroup = "raw-material",
+    auto_recycle = false,
+    energy_required = 3.2,
+    ingredients = {{type = "item", name = "iron-ore-pure", amount = 1}},
+    results = {{type="item", name="iron-plate", amount=2}},
+    allow_productivity = true,
+	icon = "__factorioplus__/graphics/icons/iron-plates.png",
+    icon_size = 64, icon_mipmaps = 4,
+  },
+		
+  {
+	type = "item",
+    name = "iron-ore-pure",
+	icon = "__factorioplus__/graphics/icons/iron-ore-pure-1.png",
+    icon_size = 128,
+    icon_mipmaps = 3,
+	pictures =
+	{
+      { size = 128, filename = "__factorioplus__/graphics/icons/iron-ore-pure-2.png",   scale = 0.35, mipmap_count = 3 },
+      { size = 128, filename = "__factorioplus__/graphics/icons/iron-ore-pure-3.png", scale = 0.35, mipmap_count = 3 },
+	  { size = 128, filename = "__factorioplus__/graphics/icons/iron-ore-pure-1.png", scale = 0.35, mipmap_count = 3 },
+    },
+    subgroup = "raw-resource",
+    order = "e[iron-ore]",
+    stack_size = 50,
+	weight = 1 * kg,	
+	},
+	
+	-- {
+	-- type = "autoplace-control",
+	-- name =  "iron-ore-pure",
+	-- localised_name = {
+        -- "",
+        -- "[item=bauxite-ore] ",
+        -- {
+          -- "entity-name.bauxite-ore"
+        -- }
+      -- },
+	-- richness = true,
+	-- order = "a-gf",
+	-- category = "resource"	
+-- },
+
+	{
+    type = "resource",
+    name = "iron-ore-pure",
+    icon = "__factorioplus__/graphics/icons/iron-ore-pure-1.png",
+    flags = {"placeable-neutral"},
+    order="a-b-b",
+    tree_removal_probability = 0.8,
+    tree_removal_max_distance = 32 * 32,
+    minable =
+    {
+      mining_particle = "iron-ore-particle",
+      mining_time = 1,
+      result = "iron-ore-pure",
+    },
+    --category = resource_parameters.category,
+    --subgroup = resource_parameters.subgroup,
+    walking_sound = tile_sounds.walking.ore,
+    driving_sound = tile_sounds.driving.stone,
+    --collision_mask = resource_parameters.collision_mask,
+    collision_box = {{-0.1, -0.1}, {0.1, 0.1}},
+    selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
+    autoplace = resource_autoplace.resource_autoplace_settings
+    {
+      name = "iron-ore",
+      order = "c",
+	  patch_set_name = "iron-ore-pure",
+	  seed1 = 69,
+      base_density = 6,
+      base_spots_per_km2 =  0.35,
+      has_starting_area_placement = false,
+	  random_spot_size_minimum = 1,
+      random_spot_size_maximum = 4,
+	  regular_blob_amplitude_multiplier =  1.5,
+      regular_rq_factor_multiplier = 0.3,
+      starting_rq_factor_multiplier = 0.3,
+      candidate_spot_count = 6,
+	  richness_post_multiplier = 0.050, 
+      --tile_restriction = autoplace_parameters.tile_restriction
+    },
+    stage_counts = {15000, 9500, 5500, 2900, 1300, 400, 150, 80},
+    stages =
+    {
+      sheet =
+      {
+        filename = "__factorioplus__/graphics/iron-ore-pure.png",
+        priority = "extra-high",
+        size = 128,
+        frame_count = 8,
+        variation_count = 8,
+        scale = 0.5
+      }
+    },
+	 stages_effect =
+    {
+      sheet =
+      {
+        filename = "__factorioplus__/graphics/iron-ore-pure-twinkle.png",
+        priority = "extra-high",
+        width = 128,
+        height = 128,
+        frame_count = 8,
+        variation_count = 8,
+        scale = 0.5,
+        blend_mode = "additive",
+        flags = {"light"}
+      }
+    },
+	effect_animation_period = 3,
+    effect_animation_period_deviation = 2,
+    effect_darkness_multiplier = 2.6,
+    min_effect_alpha = 0.1,
+    max_effect_alpha = 0.3,
+	map_color = {0.455*1.25, 0.555*1.25, 0.690*1.25},
+	mining_visualisation_tint = {r = 0.895, g = 0.965, b = 1.000, a = 1.000},
+    --factoriopedia_simulation = resource_parameters.factoriopedia_simulation
+  }
+  
   
 })
