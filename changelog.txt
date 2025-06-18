@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 2.2.1
+Date: 2025.06.18
+  Space Age:
+    - Increased rail gun ammo range
+  Fixes:
+    - Fixed turrets losing priority when copy/pasting/upgrading/veterancy
+---------------------------------------------------------------------------------------------------
 Version: 2.2.0
 Date: 2025.06.17
   Additions:

@@ -40,12 +40,33 @@ end
 -- event.force.custom_color = {0.6,0.6,0.6,1}
 -- end
 
+function GetTargets(entity)
+	local targets = {}
+	local index = 0
+	while true do
+	  index = index + 1
+	  local success, target = pcall(entity.get_priority_target, index)
+	  if not success then break end
+	  table.insert(targets, target)
+	end
+	return targets
+end
+
+function SetTargets(targets, entity)
+	 for i, v in pairs (targets) do
+		entity.set_priority_target(i,v)
+	 end
+end
+
+-- on_built_entity
 function ChangePastedTurret(event) 
 --game.print("ChangePastedTurret")
 --game.print( "Entity:" .. serpent.block(event.entity.ghost_prototype))
 
 	if (IsTurret(event.entity.ghost_prototype)) then
-		event.entity.surface.create_entity
+		local targets = GetTargets(event.entity)
+		local ignoretargets = event.entity.ignore_unprioritised_targets
+		local turretpasted = event.entity.surface.create_entity
 		{							
 		  name = "entity-ghost",
 		  inner_name = event.entity.ghost_prototype.mineable_properties.products[1].name,
@@ -56,23 +77,33 @@ function ChangePastedTurret(event)
 		  force = "player"
 		}
 		event.entity.destroy()
+		
+		SetTargets(targets,turretpasted)
+		turretpasted.ignore_unprioritised_targets = ignoretargets
 	end
 end
 
+-- on_post_entity_died
 function ReplaceTurretGhost(eventinfo) 
 if (IsTurret(eventinfo.prototype)) then
 	if eventinfo.ghost ~= nil then -- Check to see if ghosts are being created first!
-		eventinfo.ghost.surface.create_entity
+		local targets = GetTargets(eventinfo.ghost)
+		local ignoretargets = eventinfo.ghost.ignore_unprioritised_targets
+		local turretghost = eventinfo.ghost.surface.create_entity
 		{							
 		  name = "entity-ghost",
 		  inner_name = eventinfo.prototype.mineable_properties.products[1].name,
 		  quality = eventinfo.quality,
 		  position = eventinfo.position,
 		  direction = eventinfo.ghost.direction,
+		  --ignore_unprioritised_targets = event.entity.ignore_unprioritised_targets,
 		  expires = true,
 		  force = "player"
 		}
 		eventinfo.ghost.destroy()
+		
+		SetTargets(targets,turretghost)
+		turretghost.ignore_unprioritised_targets = ignoretargets
 	end
 end
 
@@ -127,7 +158,7 @@ local extra_loot_medium_wreck = nil
 if settings.startup["settings-crashsite-bonus"].value == "more" then
 	extra_loot_ship = {
 		{name="med-pack", count=4},
-		{name="repair-pack", count=4},
+		{name="repair-pack", count=10},
 		{name="submachine-gun", count=1},
 		{name="light-armor", count=1},
 		{name="firearm-magazine", count=40},
@@ -142,7 +173,7 @@ if settings.startup["settings-crashsite-bonus"].value == "more" then
 elseif settings.startup["settings-crashsite-bonus"].value == "extra" then
 extra_loot_ship = {
 		{name="med-pack", count=10},
-		{name="repair-pack", count=10},
+		{name="repair-pack", count=40},
 		{name="submachine-gun", count=1},
 		{name="firearm-magazine", count=40},
 		{name="piercing-rounds-magazine", count=20},
@@ -298,6 +329,9 @@ function UpgradeTurret(turret, newName, icon)
 	local turretForce = turret.force
 	local turretDirection = turret.direction
 	local turretQuality = turret.quality
+	local targets = GetTargets(turret)
+	local ignoretargets = turret.ignore_unprioritised_targets
+		 
 	
 	RemoveOldTurret(turret) -- This fixed the issue of flame turrets not working correctly by removing the old turret before making the new one.
 	
@@ -305,6 +339,9 @@ function UpgradeTurret(turret, newName, icon)
 	local newTurret = turretSurface.create_entity{position=turretPosition, quality =turretQuality, name=newName, force = turretForce, direction=turretDirection, target=turretPosition, fast_replace=true}
 	newTurret.kills = kills
 	newTurret.damage_dealt = damage_dealt
+	
+	SetTargets(targets,newTurret)
+	newTurret.ignore_unprioritised_targets = ignoretargets
 	
 	-- Create the veterancy icon at the Bottom Right of the turrets bounding box
 	local newIcon = newTurret.surface.create_entity{position = BoundingBoxBottomRightPosition(newTurret), name = icon}

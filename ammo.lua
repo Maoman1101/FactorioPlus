@@ -145,6 +145,10 @@ local stream_sprites =
   }
 }
 
+if (mods["space-age"]) then  
+data.raw["ammo"]["railgun-ammo"].ammo_type.action.range = data.raw["ammo"]["railgun-ammo"].ammo_type.action.range * 1.25
+end
+
 
 data:extend({
   {
