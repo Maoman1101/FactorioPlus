@@ -299,10 +299,11 @@ end
 
 if  settings.startup["settings-character-selection"].value == "constructor" then
 data.raw["character"]["character"].guns_inventory_size = 1
+data.raw["character"]["character"].crafting_speed = data.raw["character"]["character"].crafting_speed * 3
 data.raw["character"]["character"].inventory_size = data.raw["character"]["character"].inventory_size + 10
 data.raw["character"]["character"].build_distance = data.raw["character"]["character"].build_distance * 2
 data.raw["character"]["character"].reach_distance = data.raw["character"]["character"].reach_distance * 2
-data.raw["character"]["character"].emissions_per_minute = {pollution = 8} 	 
+data.raw["character"]["character"].emissions_per_minute = {pollution = 14} 	 
 data.raw["character"]["character"].healing_per_tick = data.raw["character"]["character"].healing_per_tick * 0
 data.raw["character"]["character"].flags = {"placeable-off-grid", "not-on-map", "not-flammable", "get-by-unit-number"}
 end
@@ -310,6 +311,7 @@ end
 if  settings.startup["settings-character-selection"].value == "soldier" then
 data.raw["character"]["character"].guns_inventory_size = 5
 data.raw["character"]["character"].mining_speed = data.raw["character"]["character"].mining_speed * 0.5
+data.raw["character"]["character"].crafting_speed = data.raw["character"]["character"].crafting_speed * 0.5
 data.raw["character"]["character"].build_distance = data.raw["character"]["character"].build_distance * 0.5
 data.raw["character"]["character"].reach_distance = data.raw["character"]["character"].reach_distance * 0.5
 data.raw["character"]["character"].max_health = data.raw["character"]["character"].max_health * 1.5
@@ -333,6 +335,7 @@ end
 if  settings.startup["settings-character-selection"].value == "tank" then
 data.raw["character"]["character"].guns_inventory_size = 2
 data.raw["character"]["character"].max_health = data.raw["character"]["character"].max_health * 3
+data.raw["character"]["character"].crafting_speed = data.raw["character"]["character"].crafting_speed * 0.75
 data.raw["character"]["character"].build_distance = data.raw["character"]["character"].build_distance * 0.75
 data.raw["character"]["character"].reach_distance = data.raw["character"]["character"].reach_distance * 0.75
 data.raw["character"]["character"].healing_per_tick = data.raw["character"]["character"].healing_per_tick * 1.5

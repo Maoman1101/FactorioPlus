@@ -1740,9 +1740,10 @@ end
     energy_required = 15,
     ingredients =
     {
-      {type="item", name="steel-plate", amount=6},
-	  {type="item", name="laser", amount=1},
-      {type="item", name="accumulator", amount=1},
+	  {type="item", name="aluminium-plate", amount=20},
+      {type="item", name="processing-unit", amount=10},
+	  {type="item", name="laser", amount=4},
+      {type="item", name="accumulator", amount=4},
     },
     results = {{type="item", name="plasma-gun", amount=1}},
   },
@@ -1755,8 +1756,7 @@ end
     ingredients =
     {
       {type="item", name="steel-plate", amount=15},
-      {type="item", name="iron-gear-wheel", amount=40},
-      {type="item", name="copper-plate", amount=10},
+      {type="item", name="iron-gear-wheel", amount=30},
 	  {type="item", name="pipe", amount=20},
     },
     results = {{type="item", name="mini-gun", amount=1}},
@@ -1886,7 +1886,7 @@ end
     {
       {type="item", name="advanced-circuit", amount=15},
       {type="item", name="rocket-launcher", amount=4},
-      {type="item", name="steel-plate", amount=5}
+      {type="item", name="steel-plate", amount=40}
     },
     results = {{type="item", name="multirocket-launcher", amount=1}},
   },

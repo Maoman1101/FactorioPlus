@@ -3150,6 +3150,7 @@ data.extend({
     collision_box = {{-1.95, -1.95}, {1.95, 1.95}},
     selection_box = {{-2, -2}, {2, 2}},
     damaged_trigger_effect = hit_effects.entity(),
+	
     energy_source =
     {
       type = "electric",
@@ -3161,127 +3162,133 @@ data.extend({
 	
 	 chargable_graphics =
     {
-    picture =
-    {
-      layers =
-      {
-        {
-          filename = "__factorioplus__/graphics/accumulator-battery-1.png",
-          priority = "high",
-          width = 256,
-          height = 317,
-          shift = util.by_pixel(0, -16),
-		  scale = 0.5,
-        },
-		 {
-          filename = "__factorioplus__/graphics/accumulator-battery-1-shadow.png",
-          priority = "high",
-          width = 390,
-          height = 327,
-          shift = util.by_pixel(24, -11),
-		  scale = 0.5,
-		  draw_as_shadow = true,
-        },
-      }
-	},
-    charge_animation = 
-	{
-    layers =
-    {  
-	  {
-          filename = "__factorioplus__/graphics/accumulator-battery-1.png",
-          priority = "high",
-		  width = 256,
-          height = 317,
-          shift = util.by_pixel(0, -16),
-		  repeat_count = 12,
-		  scale =  0.5,
-		  animation_speed = 0.05,
-        },
+		picture =
 		{
-          filename = "__factorioplus__/graphics/accumulator-battery-1-shadow.png",
-          priority = "high",
-          width = 390,
-          height = 327,
-          shift = util.by_pixel(24, -11),
-		  repeat_count = 12,
-		  scale = 0.5,
-		  draw_as_shadow = true,
-        },
-      {
-        filename = "__factorioplus__/graphics/accumulator-battery-1-charging.png",
-        priority = "high",
-        width = 32,
-        height = 32,
-		scale =  1.1,
+		  layers =
+		  {
+			{
+			  filename = "__factorioplus__/graphics/accumulator-battery-1.png",
+			  priority = "high",
+			  width = 256,
+			  height = 317,
+			  shift = util.by_pixel(0, -16),
+			  scale = 0.5,
+			},
+			 {
+			  filename = "__factorioplus__/graphics/accumulator-battery-1-shadow.png",
+			  priority = "high",
+			  width = 390,
+			  height = 327,
+			  shift = util.by_pixel(24, -11),
+			  scale = 0.5,
+			  draw_as_shadow = true,
+			},
+		  }
+		},
 		
-        line_length = 6,
-        frame_count = 12,
-        --blend_mode = "additive",
-        shift = util.by_pixel(0, 50),
-		animation_speed = 0.05,
-		draw_as_glow = true,
-      }
-    }
-  },
-  charge_cooldown = 30,
-    charge_light = {intensity = 0.3, size = 7, color = {r = 1.0, g = 1.0, b = 1.0}},
-	 discharge_cooldown = 60,
-    discharge_light = {intensity = 0.7, size = 7, color = {r = 1.0, g = 1.0, b = 1.0}},
-    discharge_animation = 
-	{
-    layers =
-    {
-      {
-          filename = "__factorioplus__/graphics/accumulator-battery-1.png",
-          priority = "high",
-          width = 256,
-          height = 317,
-          shift = util.by_pixel(0, -16),
-		  repeat_count = 12,
-		  scale = 0.5,
-		  animation_speed = 0.05,
-        },
+		charge_cooldown = 30,
+		charge_animation_is_looped = true,
+		charge_light = {intensity = 0.3, size = 7, color = {r = 1.0, g = 1.0, b = 1.0}},
+		
+		charge_animation = 
 		{
-          filename = "__factorioplus__/graphics/accumulator-battery-1-shadow.png",
-          priority = "high",
-          width = 390,
-          height = 327,
-          shift = util.by_pixel(24, -11),
-		  repeat_count = 12,
-		  scale = 0.5,
-		  draw_as_shadow = true,
-        },
-      {
-        filename = "__factorioplus__/graphics/accumulator-battery-1-charging.png",
-        priority = "high",
-        width = 32,
-        height = 32,
-		scale =  1.1,
+			layers =
+			{  
+			  {
+				  filename = "__factorioplus__/graphics/accumulator-battery-1.png",
+				  priority = "high",
+				  width = 256,
+				  height = 317,
+				  shift = util.by_pixel(0, -16),
+				  repeat_count = 12,
+				  scale =  0.5,
+				  animation_speed = 0.05,
+				},
+				{
+				  filename = "__factorioplus__/graphics/accumulator-battery-1-shadow.png",
+				  priority = "high",
+				  width = 390,
+				  height = 327,
+				  shift = util.by_pixel(24, -11),
+				  repeat_count = 12,
+				  scale = 0.5,
+				  draw_as_shadow = true,
+				},
+			  {
+				filename = "__factorioplus__/graphics/accumulator-battery-1-charging.png",
+				priority = "high",
+				width = 32,
+				height = 32,
+				scale =  1.1,
+				
+				line_length = 6,
+				frame_count = 12,
+				--blend_mode = "additive",
+				shift = util.by_pixel(0, 50),
+				animation_speed = 0.05,
+				draw_as_glow = true,
+			  }
+			}
+	  },
 		
-        line_length = 6,
-        frame_count = 12,
-        --blend_mode = "additive",
-        shift = util.by_pixel(0, 50),
-		run_mode = "backward",
-		animation_speed =0.05,
-		draw_as_glow = true,
-      },
-  },
-    water_reflection = accumulator_reflection(),
+		discharge_cooldown = 60,
+		discharge_animation_is_looped = true,
+		discharge_light = {intensity = 0.7, size = 7, color = {r = 1.0, g = 1.0, b = 1.0}},
+		
+		discharge_animation = 
+		{
+			layers =
+			{
+			  {
+				  filename = "__factorioplus__/graphics/accumulator-battery-1.png",
+				  priority = "high",
+				  width = 256,
+				  height = 317,
+				  shift = util.by_pixel(0, -16),
+				  repeat_count = 12,
+				  scale = 0.5,
+				  animation_speed = 0.05,
+				},
+				{
+				  filename = "__factorioplus__/graphics/accumulator-battery-1-shadow.png",
+				  priority = "high",
+				  width = 390,
+				  height = 327,
+				  shift = util.by_pixel(24, -11),
+				  repeat_count = 12,
+				  scale = 0.5,
+				  draw_as_shadow = true,
+				},
+			  {
+				filename = "__factorioplus__/graphics/accumulator-battery-1-charging.png",
+				priority = "high",
+				width = 32,
+				height = 32,
+				scale =  1.1,
+				
+				line_length = 6,
+				frame_count = 12,
+				--blend_mode = "additive",
+				shift = util.by_pixel(0, 50),
+				run_mode = "backward",
+				animation_speed =0.05,
+				draw_as_glow = true,
+			  },
+		  },
+		water_reflection = accumulator_reflection(),
 
-    
-	  -- {
-	   -- filename = "__factorioplus__/graphics/accumulator-battery-1-electricity.png",
-        -- priority = "high",
-		-- repeat_count = 12,
-        -- width = 257,
-        -- height = 276,
-		-- scale = 0.5,
-        -- draw_as_glow = true,
-        -- shift = util.by_pixel(-2, 0),
-		-- },
-    }
+		
+		  -- {
+		   -- filename = "__factorioplus__/graphics/accumulator-battery-1-electricity.png",
+			-- priority = "high",
+			-- repeat_count = 12,
+			-- width = 257,
+			-- height = 276,
+			-- scale = 0.5,
+			-- draw_as_glow = true,
+			-- shift = util.by_pixel(-2, 0),
+			-- },
+		}
   },
    
     vehicle_impact_sound = sounds.generic_impact,

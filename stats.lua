@@ -1,9 +1,11 @@
 -- GENERAL STATS
 
-friendly_fire_modifier = 0.1
+friendly_fire_modifier = 0.1 -- this isn't used everywhere yet, but in the places it's used it multiplies the player targetd damage by this amount
+friendly_fire_radius_reduction_factor = 2 -- divide the radius that affects allies by this amount
 
 -- Vehicles
 
+-- Vehicles aren't turrets than can be spammed, so give them a little buff over them.
 damage_modifier_vehicle_bonus = 1.25
 range_modifier_vehicle_bonus = 1.25
 attack_speed_vehicle_bonus = 1.25
@@ -279,7 +281,10 @@ bullet_reloadtime = 1 * 60
 -- Sniper
 
 firerate_sniper = 60 / 0.25
-sniper_damage_modifier = 2.0
+
+sniper_damage_modifier = 2.0 -- player modifier
+sniper_fired_movement_slow_down_factor = 0.9 -- player modifier
+sniper_movement_slow_down_cooldown_factor = 1 -- How long movement is slowed down between each shot -> firerate / X
 
 sniperbullet_range = 250
 
@@ -287,8 +292,8 @@ sniperbullet_piercing_damage = 500
 sniperbullet_regular_piercing = 250
 
 sniperbullet_magazinesize = 5
-sniperbullet_stacksize = 15
-sniperbullet_reloadtime = 0 --60 / 0.2
+sniperbullet_stacksize = 10
+sniperbullet_reloadtime = 0 --60 * 3
 
 -- Shotguns
 
@@ -302,7 +307,7 @@ damage_modifier_blunderbuss = 4
 
 firerate_combatshotgun = 60 / 1.85
 range_combatshotgun = 28
-ammo_consumption_rate_combatshotgun = 0.8
+ammo_consumption_rate_combatshotgun = 0.5
 
 shell_arc_wide = 0.55
 shell_arc_tight = 0.3
@@ -448,8 +453,8 @@ firerate_rocketlauncher = 60 / 1
 firerate_rocketlauncher_spidertron = firerate_rocketlauncher
 firerate_rocketlauncher_battery = firerate_rocketlauncher / 2
 
-range_rocketlauncher = 40
-range_rocketlauncher_spidertron = 44
+range_rocketlauncher = 44
+range_rocketlauncher_spidertron = range_rocketlauncher + 4 -- Because it's higher up.
 
 -- regular
  
@@ -662,12 +667,12 @@ robot_defender_damage_modifier = 0.75 -- uses pistol/piercing mag stats
 robot_defender_range = 18
 robot_defender_speed = 0.008
 
-robot_distractor_hp = 200
+robot_distractor_hp = 250
 robot_distractor_damage_modifier = 1.75 -- uses laser stats
 robot_distractor_range = 26
 robot_distractor_speed = 0.007
 
-robot_destroyer_hp = 500
+robot_destroyer_hp = 600
 robot_destroyer_damage_modifier = 2.5  -- uses electric beam stats
 robot_destroyer_range = 20
 robot_destroyer_speed = 0.006

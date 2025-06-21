@@ -255,11 +255,11 @@ data:extend
     category = "advanced-crafting",
     ingredients =
     {
-      {type="item", name="petroleum-fuel", amount=2},
+      {type="item", name="petroleum-fuel", amount=1},
 	  {type="item", name="nat-gas-fuel", amount=2},
-	  {type="item", name="meaty-chunks", amount=20},
+	  {type="item", name="meaty-chunks", amount=10},
     },
-	results = {{type="item", name="bio-fuel", amount=1}},
+	results = {{type="item", name="bio-fuel", amount=2}},
 	allow_productivity = true,
   },
       {
@@ -335,7 +335,7 @@ data:extend
       base_spots_per_km2 = 0.4,
       has_starting_area_placement = false,
       random_spot_size_minimum = 1,
-      random_spot_size_maximum = 2,
+      random_spot_size_maximum = 3,
       regular_rq_factor_multiplier = 1
     },
     stage_counts = {20000, 10000, 5000, 2500, 1250, 750, 400, 200},
@@ -1500,11 +1500,11 @@ data:extend
       order = "c",
 	  patch_set_name = "iron-ore-pure",
 	  seed1 = 69,
-      base_density = 6,
+      base_density = 7,
       base_spots_per_km2 =  0.35,
       has_starting_area_placement = false,
 	  random_spot_size_minimum = 1,
-      random_spot_size_maximum = 4,
+      random_spot_size_maximum = 6,
 	  regular_blob_amplitude_multiplier =  1.5,
       regular_rq_factor_multiplier = 0.3,
       starting_rq_factor_multiplier = 0.3,

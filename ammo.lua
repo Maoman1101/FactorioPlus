@@ -5576,96 +5576,6 @@ firestickerutil.makefiresticker("mortar-fire-sticker", mortar_napalm_firesticker
   },
   
   
-  -----------------------------  RAILGUN -----------------------------
-   -- {
-    -- type = "ammo",
-    -- name = "railgun-dart",
-    -- icon = "__factorioplus__/graphics/icons/railgun-ammo.png",
-    -- icon_size = 64, icon_mipmaps = 4,
-    -- ammo_type =
-    -- {
-      -- category = "railgun",
-      -- target_type = "direction",
-      -- clamp_position = true,
-      -- action =
-      -- {
-        -- type = "line",
-        -- range = 65,
-        -- width = 1.0,
-
-        -- source_effects =
-        -- {
-          -- type = "create-explosion",
-          -- entity_name = "railgun-beam"
-        -- },
-        -- action_delivery =
-        -- {
-          -- type = "instant",
-          -- target_effects =
-          -- {
-            -- type = "damage",
-            -- damage = { amount = 200, type="laser"}
-          -- }
-        -- }
-      -- }
-    -- },
-	-- reload_time = 60 * 2,
-    -- magazine_size = 4,
-    -- subgroup = "ammo",
-    -- order = "c[railgun]",
-    -- stack_size = 25
-  -- },
-
-   -- {
-    -- type = "ammo",
-    -- name = "railgun-dart",
-    -- icon = "__factorioplus__/graphics/icons/railgun-ammo.png",
-    -- icon_size = 64, icon_mipmaps = 4,
-    -- ammo_type =
-    -- {
-      -- category = "railgun",
-      -- target_type = "direction",
-      -- clamp_position = true,
-      -- action =
-      -- {
-      -- type = "direct",
-      -- action_delivery =
-      -- {
-        -- type = "instant",
-        -- target_effects =
-        -- {
-          -- {
-            -- type = "create-entity",
-            -- entity_name = "laser-bubble"
-          -- },
-          -- {
-            -- type = "damage",
-            -- damage = { amount = 5, type = "laser"}
-          -- }
-        -- }
-      -- }
-    -- },
-    -- },
-	-- reload_time = 60 * 2,
-    -- magazine_size = 400,
-    -- subgroup = "ammo",
-    -- order = "c[railgun]",
-    -- stack_size = 25
-  -- },
-
-  -- {
-    -- type = "recipe",
-    -- name = "railgun-dart",
-    -- energy_required = 6,
-	-- enabled = false,
-    -- ingredients =
-    -- {
-      -- {type="item", name="battery", amount=6},
-	  -- {type="item", name="copper-plate", amount=2},
-	  -- {type="item", name="aluminium-plate", amount=2},
-    -- },
-    -- results = {{type="item", name="railgun-dart", amount=1}},
-  -- },
   
   -----------------------------  PLASMA AMMO -----------------------------
   
@@ -5899,13 +5809,13 @@ data:extend({
   {
     type = "recipe",
     name = "plasma-cell",
-    energy_required = 10,
+    energy_required = 14,
 	enabled = false,
     ingredients =
     {
-      {type="item", name="battery", amount=4},
-	  {type="item", name="steel-plate", amount=1},
-	  {type="item", name="aluminium-plate", amount=1},
+      {type="item", name="battery", amount=6},
+	  {type="item", name="electronic-circuit", amount=2},
+	  {type="item", name="aluminium-plate", amount=2},
     },
     results = {{type="item", name="plasma-cell", amount=1}},
   },

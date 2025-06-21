@@ -164,13 +164,13 @@ health_big_spitter      = 250
 health_behemoth_spitter = 450
 health_boss_spitter     = 1900
 
-health_spawner_tanker   = 300
+health_spawner_tanker   = 400
 
 health_small_tanker    	= 50
-health_medium_tanker  	= 150
-health_big_tanker		= 500
-health_behemoth_tanker 	= 800
-health_boss_tanker     	= 2000
+health_medium_tanker  	= 180
+health_big_tanker		= 600
+health_behemoth_tanker 	= 1000
+health_boss_tanker     	= 3000
 
 health_spawner_stinger   = 250
 
@@ -186,8 +186,8 @@ movement_speed_spitter_base 	=  0.10
 movement_speed_spitter 			=  0.015
 movement_speed_blaster_base 	=  0.06
 movement_speed_blaster 			=  0.017
-movement_speed_tanker_base 		=  0.07
-movement_speed_tanker 			=  0.012
+movement_speed_tanker_base 		=  0.06
+movement_speed_tanker 			=  0.011
 movement_speed_webber_base 		=  0.10 -- base speed
 movement_speed_webber 			=  0.013 -- additional speed per size increase
 movement_speed_flamer_base 		=  0.11
@@ -372,7 +372,7 @@ range_flamer_boss 	   = 54 -4
 
 	-- WEBBBER SPAWNER
 health_spawner_webber = 200
-spawning_amount_webber = 3
+spawning_amount_webber = 4
 webber_spawner_scale = 0.95
 spawning_time_scalar_webber = 1.0
 webber_spawner_scale = 0.8
@@ -387,11 +387,11 @@ big_webber_scale      = 1.1
 behemoth_webber_scale  = 1.4
 boss_webber_scale      = 2.0
 
-health_small_webber   	= 20
-health_medium_webber  	= 60
-health_big_webber   	= 160
-health_behemoth_webber 	= 300
-health_boss_webber    	= 900
+health_small_webber   	= 30
+health_medium_webber  	= 80
+health_big_webber   	= 200
+health_behemoth_webber 	= 400
+health_boss_webber    	= 1100
 
 range_webber_small    = 18
 range_webber_medium   = 22
@@ -411,7 +411,7 @@ damage_webber_small    = 4
 damage_webber_medium   = 8
 damage_webber_big      = 16
 damage_webber_behemoth = 32
-damage_webber_boss 	   = 64
+damage_webber_boss 	   = 48
 
 	-- WEBBER STATS
 	
@@ -430,11 +430,11 @@ big_stinger_scale      = 0.9
 behemoth_stinger_scale  = 1.3
 boss_stinger_scale      = 1.8
 
-health_small_stinger   	= 25
-health_medium_stinger  	= 100
+health_small_stinger   	= 35
+health_medium_stinger  	= 160
 health_big_stinger   	= 400
-health_behemoth_stinger = 600
-health_boss_stinger    	= 1200
+health_behemoth_stinger = 900
+health_boss_stinger    	= 1400
 
 movement_speed_stinger_base 		=  0.13
 movement_speed_stinger 				=  0.015 
@@ -495,7 +495,7 @@ slow_movement_time_stinger = 10
 	health_medium_hatcher  	= 100 * 2
 	health_big_hatcher   	= 100 * 5
 	health_behemoth_hatcher = 100 * 10
-	health_boss_hatcher    	= 100 * 50
+	health_boss_hatcher    	= 100 * 30
 
 	movement_speed_hatcher_base 		=  0.10
 	movement_speed_hatcher 				=  0.015 
@@ -507,6 +507,13 @@ slow_movement_time_stinger = 10
 	range_hatcher_big      = 32
 	range_hatcher_behemoth = 36
 	range_hatcher_boss 	   = 42
+	
+	-- musltiplied by 10, because spitter logic...
+	damage_hatcher_small    = 1
+	damage_hatcher_medium   = 2
+	damage_hatcher_big      = 3
+	damage_hatcher_behemoth = 4
+	damage_hatcher_boss     = 5	
 
 -- BITER COLOURS
 
@@ -542,8 +549,8 @@ tint_2_spitter_boss = spitter_spawner_tint
 
 function tankerresistances(v)
 local ntv = v
-local dinc = {2,5}
-local pinc = {1,5}
+local dinc = {3,5}
+local pinc = {2,8}
 local einc = {2,5}
 return 
 {
@@ -560,14 +567,14 @@ return
 	{
 	type = "explosion",
 	decrease = 2 + ( ntv * einc[1] ), 
-	percent = 10 + ( ntv * einc[2] ),
+	percent = 20 + ( ntv * einc[2] ),
 	},
 }
 end
 
 function biterresistances(v)
 local ntv = v - 1
-local dinc = {1,10}
+local dinc = {2,15}
 local einc = {1,5}
 local linc = {1,5}
 local pinc = {1,5}
@@ -629,20 +636,26 @@ end
 
 function blasterresistances(v)
 local ntv = v - 1
-local einc = {5,5}
+local dinc = {1,5}
+local einc = {10,5}
 return 
 {
+{
+	type = "physical",
+	decrease = 0 + ( ntv * dinc[1] ) ,
+	percent = 0 + ( ntv * dinc[2] ) ,
+	},
 	{
 	type = "explosion",
 	decrease = 10 + ( ntv * einc[1] ),
-	percent = 60 + ( ntv * einc[2] ),
+	percent = 70 + ( ntv * einc[2] ),
 	},
 }
 end
 
 function swarmerresistances(v)
 local ntv = v - 1
-local dinc = {1,5}
+local dinc = {1,4}
 return 
 {
 	{
@@ -673,13 +686,13 @@ end
 function stingerresistances(v)
 local ntv = v - 1
 local dinc = {1,10}
-local einc = {1,5}
+local einc = {2,6}
 return 
 {
 	{
 	type = "physical",
-	decrease = 0 + ( ntv * dinc[1] ) ,
-	percent = 0 + ( ntv * dinc[2] ) ,
+	decrease = 1 + ( ntv * dinc[1] ) ,
+	percent = 5 + ( ntv * dinc[2] ) ,
 	},
 	{
 	type = "explosion",

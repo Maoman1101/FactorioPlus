@@ -766,7 +766,7 @@ newsolarpanel.localised_name = {"",abandonment_loc, " ", {"entity-name." .. news
 newsolarpanel.name = "abandonment".."-"..newsolarpanel.name.."2"  
 newsolarpanel.max_health = 300 * enemy_health_scale
 newsolarpanel.build_base_evolution_requirement = 10
-newsolarpanel.production = "297kW"
+newsolarpanel.production = "397kW"
 newsolarpanel.flags = {"placeable-off-grid",  "player-creation"}
 newsolarpanel.picture = building_solararray_abandoned_1
 newsolarpanel.overlay = nil
@@ -790,7 +790,7 @@ newsolarpanel2.localised_name = {"",abandonment_loc, " ", {"entity-name." .. new
 newsolarpanel2.name = "abandonment".."-"..newsolarpanel2.name.."3"
 newsolarpanel2.max_health = 200 * enemy_health_scale
 newsolarpanel2.build_base_evolution_requirement = 10
-newsolarpanel2.production = "142kW"
+newsolarpanel2.production = "219kW"
 newsolarpanel2.flags = {"placeable-off-grid",  "player-creation"}
 newsolarpanel2.picture = building_solararray_abandoned_2
 newsolarpanel2.overlay = nil
@@ -813,7 +813,7 @@ newsolarpanel3.localised_name = {"",abandonment_loc, " ", {"entity-name." .. new
 newsolarpanel3.name = "abandonment".."-"..newsolarpanel3.name 
 newsolarpanel3.max_health = 125 * enemy_health_scale
 newsolarpanel3.build_base_evolution_requirement = 10
-newsolarpanel3.production = "81kW"
+newsolarpanel3.production = "91kW"
 newsolarpanel3.flags = {"placeable-off-grid",  "player-creation"}
 newsolarpanel3.picture = building_solararray_abandoned_3
 newsolarpanel3.overlay = nil
@@ -846,69 +846,6 @@ newsaccumulator.loot =
 	  {item = "battery", probability = 1, count_min = 0, count_max = 4},
     },
 data:extend{newsaccumulator}
-
--- data:extend{
--- generate_storage_hut ("resources-iron-1", loothutboundingbox, 1,
--- {
-	-- {item = "iron-plate", probability = 1, count_min = 50, count_max = 100},
-	-- {item = "iron-plate", probability = 0.5, count_min = 50, count_max = 100},
--- }),
--- generate_storage_hut ("resources-iron-2", loothutboundingbox, 3,
--- {
-	-- {item = "iron-plate", probability = 1, count_min = 50, count_max = 200},
-	-- {item = "iron-plate", probability = 0.5, count_min = 50, count_max = 200},
--- }),
--- generate_storage_hut ("resources-copper-1", loothutboundingbox, 1.5,
--- {
-	-- {item = "copper-plate", probability = 1, count_min = 50, count_max = 100},
-	-- {item = "copper-plate", probability = 0.5, count_min = 50, count_max = 100},
--- }),
--- generate_storage_hut ("resources-copper-2", loothutboundingbox, 3,
--- {
-	-- {item = "copper-plate", probability = 1, count_min = 50, count_max = 200},
-	-- {item = "copper-plate", probability = 0.5, count_min = 50, count_max = 200},
--- }),
--- generate_storage_hut ("resources-steel-1", loothutboundingbox, 2.1,
--- {
-	-- {item = "steel-plate", probability = 1, count_min = 30, count_max = 80},
-	-- {item = "steel-plate", probability = 0.5, count_min = 30, count_max = 80},
--- }),
--- generate_storage_hut ("resources-steel-2", loothutboundingbox, 4,
--- {
-	-- {item = "steel-plate", probability = 1, count_min = 60, count_max = 150},
-	-- {item = "steel-plate", probability = 0.5, count_min = 60, count_max = 150},
--- }),
--- generate_storage_hut ("resources-chips-1", loothutboundingbox, 2,
--- {
-	-- {item = "electronic-circuit", probability = 1, count_min = 50, count_max = 150},
-	-- {item = "electronic-circuit", probability = 0.5, count_min = 50, count_max = 150},
--- }),
--- generate_storage_hut ("resources-chips-2", loothutboundingbox, 6,
--- {
-	-- {item = "advanced-circuit", probability = 1, count_min = 50, count_max = 150},
-	-- {item = "advanced-circuit", probability = 0.5, count_min = 50, count_max = 150},
--- }),
--- generate_storage_hut ("resources-chips-3", loothutboundingbox, 9,
--- {
-	-- {item = "processing-unit", probability = 1, count_min = 50, count_max = 150},
-	-- {item = "processing-unit", probability = 0.5, count_min = 50, count_max = 150},
--- }),
--- generate_storage_hut ("resources-chips-4", loothutboundingbox, 14,
--- {
-	-- {item = "cpu-item", probability = 1, count_min = 50, count_max = 150},
-	-- {item = "cpu-item", probability = 0.5, count_min = 50, count_max = 150},
--- }),
--- generate_storage_hut ("resources-aluminium-1", loothutboundingbox, 6,
--- {
-	-- {item = "aluminium-plate", probability = 1, count_min = 30, count_max = 80},
-	-- {item = "aluminium-plate", probability = 0.5, count_min = 30, count_max = 80},
--- }),
--- generate_storage_hut ("resources-aluminium-2", loothutboundingbox, 8,
--- {
-	-- {item = "aluminium-plate", probability = 1, count_min = 60, count_max = 150},
-	-- {item = "aluminium-plate", probability = 0.5, count_min = 60, count_max = 150},
--- }),
--- }
 
 if settings.startup["settings-warehouse-barren"].value == true then
 	data:extend{
@@ -1108,42 +1045,11 @@ generate_storage_hut ("buildings-beacon-1", loothutboundingbox, 6,
 }),
 generate_storage_hut ("buildings-beacon-2", loothutboundingbox, 10,
 {
-	{item = "beacon", probability = 1, count_min = 6, count_max = 12},
+	{item = "beacon", probability = 1, count_min = 6, count_max = 22},
 }),
 }
 
 
-
--- data:extend({
--- generate_storage_hut ("tech-1", loothutboundingbox, 1,
--- {
-	-- {item = "automation-science-pack", probability = 1, count_min = 100, count_max = 350},
--- }),
--- generate_storage_hut ("tech-2", loothutboundingbox, 3,
--- {
-	-- {item = "logistic-science-pack", probability = 1, count_min = 100, count_max = 350},
--- }),
--- generate_storage_hut ("tech-3", loothutboundingbox, 5,
--- {
-	-- {item = "military-science-pack", probability = 1, count_min = 100, count_max = 350},
--- }),
--- generate_storage_hut ("tech-4", loothutboundingbox, 6,
--- {
-	-- {item = "bio-science-pack", probability = 1, count_min = 100, count_max = 350},
--- }),
--- generate_storage_hut ("tech-5", loothutboundingbox, 8,
--- {
-	-- {item = "chemical-science-pack", probability = 1, count_min = 100, count_max = 350},
--- }),
--- generate_storage_hut ("tech-6", loothutboundingbox, 14,
--- {
-	-- {item = "production-science-pack", probability = 1, count_min = 100, count_max = 350},
--- }),
--- generate_storage_hut ("tech-7", loothutboundingbox, 14,
--- {
-	-- {item = "utility-science-pack", probability = 1, count_min = 100, count_max = 350},
--- }),
--- })
 
 data:extend{
 generate_storage_hut ("buildings-robologistics-0", loothutboundingbox, 3,
@@ -1215,26 +1121,26 @@ generate_storage_hut ("buildings-robologistics-5", loothutboundingbox, 13,
 }
 
 data:extend{
-generate_storage_hut ("logistics-inserters-0", loothutboundingbox, 1,
+generate_storage_hut ("logistics-inserters-0", loothutboundingbox, 1.4,
 {
-	{item = "burner-inserter", probability = 1, count_min = 10, count_max = 50},
-	{item = "long-handed-burner-inserter", probability = 0.5, count_min = 10, count_max = 25},
+	{item = "burner-inserter", probability = 1, count_min = 20, count_max = 100},
+	{item = "long-handed-burner-inserter", probability = 0.5, count_min = 20, count_max = 50},
 }),
 generate_storage_hut ("logistics-inserters-1", loothutboundingbox, 2,
 {
-	{item = "inserter", probability = 1, count_min = 10, count_max = 50},
+	{item = "inserter", probability = 1, count_min = 20, count_max = 100},
 }),
-generate_storage_hut ("logistics-inserters-2", loothutboundingbox, 4,
+generate_storage_hut ("logistics-inserters-2", loothutboundingbox, 3,
 {
-	{item = "long-handed-inserter", probability = 1, count_min = 10, count_max = 50},
+	{item = "long-handed-inserter", probability = 1, count_min = 20, count_max = 100},
 }),
-generate_storage_hut ("logistics-inserters-3", loothutboundingbox, 7,
+generate_storage_hut ("logistics-inserters-3", loothutboundingbox, 4.5,
 {
-	{item = "fast-inserter", probability = 1, count_min = 10, count_max = 50},
+	{item = "fast-inserter", probability = 1, count_min = 20, count_max = 100},
 }),
-generate_storage_hut ("logistics-inserters-4", loothutboundingbox, 10,
+generate_storage_hut ("logistics-inserters-4", loothutboundingbox, 6,
 {
-	{item = "bulk-inserter", probability = 1, count_min = 10, count_max = 50},
+	{item = "bulk-inserter", probability = 1, count_min = 20, count_max = 100},
 }),
 }
 
@@ -1358,7 +1264,7 @@ generate_storage_hut ("player-equipment-2", loothutboundingbox, 7,
 	{item = "battery-equipment", probability = 1, count_min = 1, count_max = 5},
 	{item = "battery-mk2-equipment", probability = 0.2, count_min = 0, count_max = 2},
 }),
-generate_storage_hut ("player-equipment-3", loothutboundingbox, 7,
+generate_storage_hut ("player-equipment-3", loothutboundingbox, 10,
 {
 	{item = "power-armor", probability = 1, count_min = 1, count_max = 1},
 	{item = "solar-panel-equipment", probability = 1, count_min = 1, count_max = 5},
@@ -1371,7 +1277,7 @@ generate_storage_hut ("player-equipment-3", loothutboundingbox, 7,
 	{item = "energy-shield-equipment", probability = 1, count_min = 0, count_max = 2},
 	{item = "energy-shield-equipment", probability = 0.2, count_min = 0, count_max = 2},
 }),
-generate_storage_hut ("player-equipment-4", loothutboundingbox, 10,
+generate_storage_hut ("player-equipment-4", loothutboundingbox, 9,
 {
 	{item = "power-armor-mk2", probability = 1, count_min = 1, count_max = 1},
 	{item = "solar-panel-equipment", probability = 1, count_min = 2, count_max = 10},
@@ -1381,6 +1287,17 @@ generate_storage_hut ("player-equipment-4", loothutboundingbox, 10,
 	{item = "energy-shield-equipment", probability = 1, count_min = 0, count_max = 2},
 	{item = "energy-shield-mk2-equipment", probability = 0.2, count_min = 0, count_max = 2},
 	{item = "exoskeleton-equipment", probability = 0.2, count_min = 0, count_max = 2},
+}),
+generate_storage_hut ("player-equipment-5", loothutboundingbox, 12,
+{
+	{item = "power-armor-mk2", probability = 1, count_min = 1, count_max = 1},
+	{item = "solar-panel-equipment-mk2", probability = 1, count_min = 2, count_max = 5},
+	{item = "fission-reactor-equipment", probability = 0.25, count_min = 1, count_max = 2},
+	{item = "battery-mk2-equipment", probability = 1, count_min = 1, count_max = 5},
+	{item = "battery-mk2-equipment", probability = 0.25, count_min = 0, count_max = 4},
+	{item = "personal-laser-defense-equipment", probability = 1, count_min = 0, count_max = 8},
+	{item = "energy-shield-mk2-equipment", probability = 0.6, count_min = 0, count_max = 2},
+	{item = "exoskeleton-equipment", probability = 0.6, count_min = 0, count_max = 2},
 }),
 }
 
@@ -1435,10 +1352,78 @@ generate_storage_hut ("buildings-turrets-6a", loothutboundingbox, 10,
 }),
 }
 
+-- RAIL STUFF
 
 data:extend{
+generate_storage_hut ("trains-0", loothutboundingbox, 2,
+{
+	{item = "locomotive", probability = 1, count_min = 0, count_max = 1},
+	{item = "rail", probability = 1, count_min = 50, count_max = 200},
+	{item = "rail", probability = 0.3, count_min = 50, count_max = 200},
+	{item ="train-stop", probability = 1, count_min = 0, count_max = 5},
+}),
+generate_storage_hut ("trains-1", loothutboundingbox, 4,
+{
+	{item = "locomotive", probability = 1, count_min = 0, count_max = 2},
+	{item = "cargo-wagon", probability = 1, count_min = 0, count_max = 4},
+	{item = "fluid-wagon", probability = 1, count_min = 0, count_max = 4},
+	{item = "rail", probability = 1, count_min = 50, count_max = 200},
+	{item = "rail", probability = 0.4, count_min = 50, count_max = 200},
+	{item ="train-stop", probability = 1, count_min = 2, count_max = 8},
+	{item ="rail-signal", probability = 0.5, count_min = 10, count_max = 40},
+}),
+generate_storage_hut ("trains-2", loothutboundingbox, 6,
+{
+	{item = "solar-train", probability = 1, count_min = 0, count_max = 3},
+	{item = "cargo-wagon", probability = 1, count_min = 0, count_max = 4},
+	{item = "fluid-wagon", probability = 1, count_min = 0, count_max = 4},
+	{item = "cargo-wagon", probability = 1, count_min = 2, count_max = 8},
+	{item = "rail", probability = 1, count_min = 100, count_max = 200},
+	{item = "rail", probability = 0.6, count_min = 100, count_max = 200},
+	{item ="train-stop", probability = 1, count_min = 2, count_max = 8},
+	{item ="rail-signal", probability = 1, count_min = 20, count_max = 60},
+	{item ="rail-chain-signal", probability = 0.5, count_min = 20, count_max = 60},
+}),
+}
 
+-- VEHICLE STUFF
 
+data:extend{
+generate_storage_hut ("transport-0", loothutboundingbox, 1.5,
+{
+	{item = "atv", probability = 1, count_min = 1, count_max = 1},
+
+}),
+generate_storage_hut ("transport-1", loothutboundingbox, 2.8,
+{
+	{item = "car", probability = 1, count_min = 1, count_max = 1},
+
+}),
+generate_storage_hut ("transport-2", loothutboundingbox, 3.4,
+{
+	{item = "dozer", probability = 1, count_min = 1, count_max = 1},
+
+}),
+generate_storage_hut ("transport-2", loothutboundingbox, 4.5,
+{
+	{item = "apc-base", probability = 1, count_min = 1, count_max = 1},
+
+}),
+generate_storage_hut ("transport-3", loothutboundingbox, 6,
+{
+	{item = "scout", probability = 1, count_min = 1, count_max = 1},
+
+}),
+generate_storage_hut ("transport-5", loothutboundingbox, 9,
+{
+	{item = "tank", probability = 1, count_min = 1, count_max = 1},
+
+}),
+}
+
+-- FUEL STUFF
+
+data:extend{
 generate_storage_hut ("fuel-0", loothutboundingbox, 2,
 {
 	{item = "solid-fuel", probability = 1, count_min = 25, count_max = 80},
@@ -1811,13 +1796,13 @@ generate_storage_hut ("weapons5-nuke", loothutboundingbox, 14,
 	{item = "atomic-bomb", probability = 0.25, count_min = 1, count_max = 1},
 	{item = "atomic-bomb", probability = 0.125, count_min = 1, count_max = 1},
 }),
-generate_storage_hut ("weapons0-mini-gun", loothutboundingbox, 10,
+generate_storage_hut ("weapons0-mini-gun", loothutboundingbox, 9,
 {
 	{item = "mini-gun", probability = 1, count_min = 1, count_max = 1},
 	{item = "chaingun-ammo", probability = 1, count_min = 15, count_max = 30},
 	{item = "chaingun-ammo", probability = 0.5, count_min = 15, count_max = 35},
 }),
-generate_storage_hut ("weapons1-mini-gun", loothutboundingbox, 11,
+generate_storage_hut ("weapons1-mini-gun", loothutboundingbox, 10.5,
 {
 	{item = "mini-gun-uncommon", probability = 0.8, count_min = 1, count_max = 1},
 	{item = "chaingun-ammo", probability = 1, count_min = 15, count_max = 30},
@@ -1829,7 +1814,7 @@ generate_storage_hut ("weapons2-mini-gun", loothutboundingbox, 12,
 	{item = "chaingun-ammo", probability = 1, count_min = 15, count_max = 30},
 	{item = "chaingun-ammo-piercing", probability = 0.5, count_min = 15, count_max = 35},
 }),
-generate_storage_hut ("weapons3-mini-gun", loothutboundingbox, 13,
+generate_storage_hut ("weapons3-mini-gun", loothutboundingbox, 12.5,
 {
 	{item = "mini-gun-epic", probability = 0.2, count_min = 1, count_max = 1},
 	{item = "chaingun-ammo-piercing", probability = 1, count_min = 50, count_max = 200},
@@ -2441,11 +2426,11 @@ data:extend({
 	})
 })
 
-data:extend({create_warehouse_package_set("abandonment-package-logistic-science-pack-1", 3, 3, 1)})
+data:extend({create_warehouse_package_set("abandonment-package-bio-science-pack-1", 3, 3, 1)})
 
-data:extend({create_warehouse_package_set("abandonment-package-logistic-science-pack-1", 6, 6, 2)})
+data:extend({create_warehouse_package_set("abandonment-package-bio-science-pack-1", 6, 6, 2)})
 
-data:extend({create_warehouse_package_set("abandonment-package-logistic-science-pack-1", 8, 10, 3)})
+data:extend({create_warehouse_package_set("abandonment-package-bio-science-pack-1", 8, 10, 3)})
 
 
 data:extend({
@@ -2474,9 +2459,9 @@ data:extend({
 	})
 })
 
-data:extend({create_warehouse_package_set("abandonment-package-logistic-science-pack-1", 5, 3, 1)})
+data:extend({create_warehouse_package_set("abandonment-package-utility-science-pack-1", 5, 3, 1)})
 
-data:extend({create_warehouse_package_set("abandonment-package-logistic-science-pack-1", 9, 6, 1)})
+data:extend({create_warehouse_package_set("abandonment-package-utility-science-pack-1", 9, 6, 1)})
 
 data:extend({
 	create_abandonment_package({
@@ -2488,9 +2473,9 @@ data:extend({
 	})
 })
 
-data:extend({create_warehouse_package_set("abandonment-package-logistic-science-pack-1", 5, 3, 1)})
+data:extend({create_warehouse_package_set("abandonment-package-production-science-pack-1", 5, 3, 1)})
 
-data:extend({create_warehouse_package_set("abandonment-package-logistic-science-pack-1", 9, 6, 1)})
+data:extend({create_warehouse_package_set("abandonment-package-production-science-pack-1", 9, 6, 1)})
 
 data:extend({
 	create_abandonment_package({

@@ -417,7 +417,7 @@ data:extend({
       ammo_category = "shotgun-shell",
       cooldown = firerate_combatshotgun,
 	  ammo_consumption_modifier = ammo_consumption_rate_combatshotgun,
-      movement_slow_down_factor = 0.75,
+      movement_slow_down_factor = 0.8,
 	  movement_slow_down_cooldown = firerate_shotgun/2,
       damage_modifier = 1,
       projectile_creation_distance = 1.125,
@@ -489,8 +489,8 @@ data:extend({
       ammo_category = "sniper-shell",
       cooldown = firerate_sniper,
 	  damage_modifier = sniper_damage_modifier,
-	  movement_slow_down_cooldown = firerate_sniper/4,
-      movement_slow_down_factor = 0.2,
+	  movement_slow_down_cooldown = firerate_sniper/sniper_movement_slow_down_cooldown_factor,
+      movement_slow_down_factor = sniper_fired_movement_slow_down_factor,
       projectile_creation_distance = 1.125,
       range = sniperbullet_range,
       min_range = 1,
@@ -2926,34 +2926,6 @@ createnewrareweapon("mini-gun", "legendary"),
 
 data:extend({
 
- -----------------------------  RAILGUN  -----------------------------
-   -- {
-    -- type = "gun",
-    -- name = "railgun",
-    -- icon = "__factorioplus__/graphics/icons/railgun.png",
-    -- icon_size = 64, icon_mipmaps = 4,
-    -- subgroup = "gun",
-    -- order = "c[railgun]",
-    -- attack_parameters =
-    -- {
-      -- type = "projectile",
-      -- ammo_category = "railgun",
-      -- cooldown = firerate_railgun,
-      -- movement_slow_down_factor = 0.5,
-      -- projectile_creation_distance = 0.6,
-      -- range = 65,
-      -- --sound =
-      -- -- {
-        -- -- {
-          -- -- filename = "__base__/sound/railgun.ogg",
-          -- -- volume = 0.25,
-		  -- -- speed = 2.9
-        -- -- }
-      -- -- }
-    -- },
-    -- stack_size = 5
-  -- },
-  
      -----------------------------  PLASMA GUN  -----------------------------
 	 
   {
@@ -3006,46 +2978,5 @@ data:extend({
 	 },
     stack_size = 5
   },
-    -----------------------------  LASER GUN  -----------------------------
-  -- {
-    -- type = "gun",
-    -- name = "laser-gun",
-    -- icon = "__factorioplus__/graphics/icons/laser-gun.png",
-    -- icon_size = 64, icon_mipmaps = 4,
-    -- subgroup = "gun",
-    -- order = "d[rocket-launcher]",
-	
-    -- attack_parameters =
-    -- {
-      -- type = "beam",
-	  -- ammo_category = "railgun",
-	  
-      -- cooldown = firerate_turret_laser,
-      -- range = range_turret_laser,
-      -- source_direction_count = 64,
-      -- source_offset = {0, -3.423489 / 4},
-      -- damage_modifier = 1,
-      
-	  -- ammo_type =
-      -- {
-        -- category = "laser",
-        -- energy_consumption = "300kJ",
-        -- action =
-        -- {
-          -- type = "direct",
-          -- action_delivery =
-          -- {
-            -- type = "beam",
-            -- beam = "laser-beam",
-            -- max_length = 60,
-            -- duration = firerate_turret_laser,
-            -- source_offset = {0, -1.31439 }
-          -- }
-        -- }
-      -- }
-	  
-    -- },
-	
-    -- stack_size = 5
-  -- },
+
 })

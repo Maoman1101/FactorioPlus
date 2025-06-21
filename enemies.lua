@@ -1408,7 +1408,7 @@ elseif (string.find(spawnername, "hatcher")) then
 		type = "create-entity",
 		entity_name = "hatcher-egg-" ..enemy_default_size,
 		as_enemy = true,
-		find_non_colliding_position = true,
+		find_non_colliding_position = false,
 		offsets =
 		{
 		   util.rotate_position({0,1*spawnerscale}, 0.1),
@@ -2016,11 +2016,11 @@ data:extend({makeenemysbiter("big-stinger", health_big_stinger, 1 , damage_sting
 data:extend({makeenemysbiter("behemoth-stinger", health_behemoth_stinger, 1 , damage_stinger_behemoth, behemoth_stinger_scale,4, stinger_spawner_tint, stingerresistances(4)) })
 data:extend({makeenemysbiter("boss-stinger", health_boss_stinger, 1 , damage_stinger_boss, boss_stinger_scale,5, stinger_spawner_tint, stingerresistances(5)) })
 
-data:extend({makeenemysbiter("small-hatcher", health_small_hatcher, range_hatcher_small , 1, small_hatcher_scale,1, hatcher_spawner_tint, hatcherresistances(1)) })
-data:extend({makeenemysbiter("medium-hatcher", health_medium_hatcher, range_hatcher_medium, 1, medium_hatcher_scale,2, hatcher_spawner_tint, hatcherresistances(2)) })
-data:extend({makeenemysbiter("big-hatcher", health_big_hatcher, range_hatcher_big , 1, big_hatcher_scale,3, hatcher_spawner_tint, hatcherresistances(3)) })
-data:extend({makeenemysbiter("behemoth-hatcher", health_behemoth_hatcher, range_hatcher_behemoth , 1, behemoth_hatcher_scale,4, hatcher_spawner_tint, hatcherresistances(4)) })
-data:extend({makeenemysbiter("boss-hatcher", health_boss_hatcher, range_hatcher_boss , 1, boss_hatcher_scale,5, hatcher_spawner_tint, hatcherresistances(5)) })
+data:extend({makeenemysbiter("small-hatcher", health_small_hatcher, range_hatcher_small ,damage_hatcher_small, small_hatcher_scale,1, hatcher_spawner_tint, hatcherresistances(1)) })
+data:extend({makeenemysbiter("medium-hatcher", health_medium_hatcher, range_hatcher_medium, damage_hatcher_medium, medium_hatcher_scale,2, hatcher_spawner_tint, hatcherresistances(2)) })
+data:extend({makeenemysbiter("big-hatcher", health_big_hatcher, range_hatcher_big , damage_hatcher_big, big_hatcher_scale,3, hatcher_spawner_tint, hatcherresistances(3)) })
+data:extend({makeenemysbiter("behemoth-hatcher", health_behemoth_hatcher, range_hatcher_behemoth , damage_hatcher_behemoth, behemoth_hatcher_scale,4, hatcher_spawner_tint, hatcherresistances(4)) })
+data:extend({makeenemysbiter("boss-hatcher", health_boss_hatcher, range_hatcher_boss , damage_hatcher_boss, boss_hatcher_scale,5, hatcher_spawner_tint, hatcherresistances(5)) })
 
 
 -- Spawners generation
