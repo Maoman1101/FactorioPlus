@@ -136,9 +136,9 @@ health_spawner_blaster   = 350
 
 health_small_blaster    = 200
 health_medium_blaster  	= 600
-health_big_blaster		= 1300
-health_behemoth_blaster = 2500
-health_boss_blaster     = 5000
+health_big_blaster		= 1400
+health_behemoth_blaster = 3200
+health_boss_blaster     = 6500
 
 health_spawner_swarmer   = 125
 
@@ -153,7 +153,7 @@ health_spawner_biter   = 250
 health_small_biter    = 30
 health_medium_biter   = 150
 health_big_biter      = 500
-health_behemoth_biter = 1500
+health_behemoth_biter = 1600
 health_boss_biter     = 8000
 
 health_spawner_spitter   = 200

@@ -190,7 +190,7 @@ data:extend({
 
 ----------------------------- NAPALM AMMO -----------------------------  
 
-firestickerutil.makefiresticker("napalm-fire-sticker", mortar_napalm_firestickerapplyradius, mortar_napalm_firedps, mortar_napalm_fireburnsticker_time, 0.80, nil, nil),
+firestickerutil.makefiresticker("napalm-fire-sticker", mortar_napalm_firestickerapplyradius, mortar_napalm_firedps, mortar_napalm_fireburnsticker_time, 0.60, nil, nil),
   
   
   fireutil.add_basic_fire_graphics_and_effects_definitions
@@ -210,7 +210,7 @@ firestickerutil.makefiresticker("napalm-fire-sticker", mortar_napalm_firesticker
   spread_delay_deviation = 80,
   maximum_spread_count = 1000,
 
-  emissions_per_second = { pollution = 0.005 },
+  emissions_per_second = { pollution = 0.01 },
 
   initial_lifetime = mortar_napalm_fireground_time * 60,
   lifetime_increase_by = 150,
@@ -741,7 +741,7 @@ firestickerutil.makefiresticker("napalm-fire-sticker", mortar_napalm_firesticker
 					action =
 					{
 					  type = "area",
-					  radius = bullet_explosive_radius,
+					  radius = bullet_explosive_radius / friendly_fire_radius_reduction_factor,
 					  show_in_tooltip = false,
 					  force_condition = "same",
 					  action_delivery =
@@ -757,10 +757,6 @@ firestickerutil.makefiresticker("napalm-fire-sticker", mortar_napalm_firesticker
 							type = "damage",
 							damage = {amount = bullet_explosive_explosive * friendly_fire_modifier, type = "explosion"}
 						  },
-						  {
-							type = "create-entity",
-							entity_name = "explosion"
-						  }
 						}
 					  }
 					},
@@ -920,12 +916,14 @@ firestickerutil.makefiresticker("napalm-fire-sticker", mortar_napalm_firesticker
             type = "create-entity",
             entity_name = "uranium-medium-explosion"
           },
+		  -- ENEMIES DAMAGE
           {
             type = "nested-result",
             action =
             {
               type = "area",
-              radius = 3,
+              radius = bullet_nuke_radius,
+			  force_condition = "not-same",
               action_delivery =
               {
                 type = "instant",
@@ -947,6 +945,32 @@ firestickerutil.makefiresticker("napalm-fire-sticker", mortar_napalm_firesticker
               }
             },
           },
+		  -- PLAYER DAMAGE
+		   {
+            type = "nested-result",
+            action =
+            {
+              type = "area",
+              radius = bullet_nuke_radius / friendly_fire_radius_reduction_factor,
+			  show_in_tooltip = false,
+			  force_condition = "same",
+              action_delivery =
+              {
+                type = "instant",
+                target_effects =
+                {
+				{
+                    type = "damage",
+                    damage = {amount = bullet_nuke_physical * friendly_fire_modifier, type = "physical"}
+                  },
+                  {
+                    type = "damage",
+                    damage = {amount = bullet_nuke_explosive * friendly_fire_modifier, type = "explosion"}
+                  },
+                }
+              }
+            },
+          },
 		  {
             type = "set-tile",
             tile_name = "nuclear-ground",
@@ -962,11 +986,11 @@ firestickerutil.makefiresticker("napalm-fire-sticker", mortar_napalm_firesticker
           {
             type = "camera-effect",
             effect = "screen-burn",
-            duration = 80,
+            duration = 60,
             ease_in_duration = 5,
             ease_out_duration = 60,
             delay = 0,
-            strength = 1.5,
+            strength = 1.25,
             full_strength_max_distance = 100,
             max_distance = 400
           },
@@ -1858,6 +1882,7 @@ firestickerutil.makefiresticker("napalm-fire-sticker", mortar_napalm_firesticker
             }
           }
         },
+		-- OUTER CONE
         {
           type = "direct",
           repeat_count = shell_explosive_pellets/2,
@@ -1872,6 +1897,7 @@ firestickerutil.makefiresticker("napalm-fire-sticker", mortar_napalm_firesticker
             max_range = shell_range + 2
           }
         },
+		-- INNER CONE
 		{
           type = "direct",
           repeat_count = shell_explosive_pellets/2,
@@ -1922,85 +1948,109 @@ firestickerutil.makefiresticker("napalm-fire-sticker", mortar_napalm_firesticker
     },
 	final_action =
     {
-	  {
-      type = "direct",
-      action_delivery =
-      {
-        type = "instant",
-        target_effects =
-        {
-          {
-            type = "create-entity",
-            entity_name = "explosion"
-          },
-          {
-            type = "nested-result",
-            action =
-            {
-              type = "area",
-              radius = shell_explosive_radius,
-              action_delivery =
-              {
-                type = "instant",
-                target_effects =
-                {
-                  {
-                    type = "damage",
-                    damage = {amount = shell_explosive_explosive, type = "explosion"}
-                  },
-                  {
-                    type = "create-entity",
-                    entity_name = "explosion"
-                  },
-				  {
-					type = "create-trivial-smoke",
-					smoke_name = "artillery-smoke",
-					initial_height = 0,
-					speed_from_center = 0.1,
-					speed_from_center_deviation = 0.005,
-					offset_deviation = {{-4, -4}, {4, 4}},
-					max_radius = 1.5,
-					repeat_count = 2 * 2 * 15
-				  },
-                }
-              }
-            }
-          },
-          {
-            type = "create-entity",
-            entity_name = "small-scorchmark-tintable",
-            check_buildability = true
-          },
-          {
-          type = "invoke-tile-trigger",
-          repeat_count = 1,
-          },
-          {
-          type = "destroy-decoratives",
-          from_render_layer = "decorative",
-          to_render_layer = "object",
-          include_soft_decoratives = true, -- soft decoratives are decoratives with grows_through_rail_path = true
-          include_decals = false,
-          invoke_decorative_trigger = true,
-          decoratives_with_trigger_only = false, -- if true, destroys only decoratives that have trigger_effect set
-          radius = 1 -- large radius for demostrative purposes
-          },
 		  {
-            type = "create-trivial-smoke",
-            smoke_name = "artillery-smoke",
-            initial_height = 0,
-            speed_from_center = 0.1,
-            speed_from_center_deviation = 0.005,
-            offset_deviation = {{-4, -4}, {4, 4}},
-            max_radius = 2.5,
-            repeat_count = 2 * 2 * 10
-            },
-        }
-      }
+		  type = "direct",
+		  action_delivery =
+		  {
+			type = "instant",
+			target_effects =
+			{
+			  {
+				type = "create-entity",
+				entity_name = "explosion"
+			  },
+			  {
+				type = "nested-result",
+				action =
+				{
+				  type = "area",
+				  radius = shell_explosive_radius,
+				  force_condition = "not-same",
+				  action_delivery =
+				  {
+					type = "instant",
+					target_effects =
+					{
+					  {
+						type = "damage",
+						damage = {amount = shell_explosive_explosive, type = "explosion"}
+					  },
+					  {
+						type = "create-entity",
+						entity_name = "explosion"
+					  },
+					  {
+						type = "create-trivial-smoke",
+						smoke_name = "artillery-smoke",
+						initial_height = 0,
+						speed_from_center = 0.1,
+						speed_from_center_deviation = 0.005,
+						offset_deviation = {{-4, -4}, {4, 4}},
+						max_radius = 1.5,
+						repeat_count = 2 * 2 * 15
+					  },
+					}
+				  }
+				}
+			  },
+			   {
+				type = "nested-result",
+				action =
+				{
+				  type = "area",
+				  radius = shell_explosive_radius / friendly_fire_radius_reduction_factor,
+				  show_in_tooltip = false,
+				  force_condition = "same",
+				  action_delivery =
+				  {
+					type = "instant",
+					target_effects =
+					{
+					  {
+						type = "damage",
+						damage = {amount = shell_explosive_explosive * friendly_fire_modifier, type = "explosion"}
+					  },
+					}
+				  }
+				}
+			  },
+			  {
+				type = "create-entity",
+				entity_name = "small-scorchmark-tintable",
+				check_buildability = true
+			  },
+			  {
+			  type = "invoke-tile-trigger",
+			  repeat_count = 1,
+			  },
+			  {
+			  type = "destroy-decoratives",
+			  from_render_layer = "decorative",
+			  to_render_layer = "object",
+			  include_soft_decoratives = true, -- soft decoratives are decoratives with grows_through_rail_path = true
+			  include_decals = false,
+			  invoke_decorative_trigger = true,
+			  decoratives_with_trigger_only = false, -- if true, destroys only decoratives that have trigger_effect set
+			  radius = 1 -- large radius for demostrative purposes
+			  },
+			  {
+				type = "create-trivial-smoke",
+				smoke_name = "artillery-smoke",
+				initial_height = 0,
+				speed_from_center = 0.1,
+				speed_from_center_deviation = 0.005,
+				offset_deviation = {{-4, -4}, {4, 4}},
+				max_radius = 2.5,
+				repeat_count = 2 * 2 * 10
+				},
+			}
+		  }
 	  },
+	  -- SIMPLE FALLOFF
 	  {
 		  type = "area",
 		  radius = shell_explosive_radius*2,
+		  force_condition = "not-same",
 		  action_delivery =
 		  {
 			type = "instant",
@@ -2023,6 +2073,24 @@ firestickerutil.makefiresticker("napalm-fire-sticker", mortar_napalm_firesticker
 			}
 		  }
        },
+	   {
+		  type = "area",
+		  radius = (shell_explosive_radius*2)/friendly_fire_radius_reduction_factor,
+		  show_in_tooltip = false,
+		  force_condition = "same",
+		  action_delivery =
+		  {
+			type = "instant",
+			target_effects =
+			{
+				{
+				type = "damage",
+				damage = {amount = (shell_explosive_explosive/4) * friendly_fire_modifier, type = "explosion"}
+				},
+			}
+		  }
+       },
+	   
     },
 
 	
@@ -2228,7 +2296,7 @@ firestickerutil.makefiresticker("napalm-fire-sticker", mortar_napalm_firesticker
             max_range = shell_range + 8
           }
         },
-		      {
+	    {
           type = "direct",
           repeat_count = shell_nuke_pellets/2,
           action_delivery =
@@ -2276,100 +2344,127 @@ firestickerutil.makefiresticker("napalm-fire-sticker", mortar_napalm_firesticker
 		    }
 		}	  
     },
+	
 	final_action =
     {
 	  {
       type = "direct",
       action_delivery =
-      {
-        type = "instant",
-        target_effects =
-        {
-          {
-            type = "create-entity",
-            entity_name = "uranium-cannon-shell-explosion"
-          },
-          {
-            type = "nested-result",
-            action =
-            {
-              type = "area",
-              radius = shell_nuke_radius,
-              action_delivery =
-              {
-                type = "instant",
-                target_effects =
-                {
-                  {
-                    type = "damage",
-                    damage = {amount = shell_nuke_explosive, type = "explosion"}
-                  },
-                  {
-                    type = "create-entity",
-                    entity_name = "uranium-cannon-explosion"
-                  }
-                }
-              }
-            }
-          },
-		   {
-            type = "set-tile",
-            tile_name = "nuclear-ground",
-            radius = 2,
-            apply_projection = true,
-            tile_collision_mask = {layers={water_tile=true}},
-          },
-          {
-            type = "destroy-cliffs",
-            radius = 1,
-            explosion = "explosion"
-          },
-          {
-            type = "camera-effect",
-            effect = "screen-burn",
-            duration = 40,
-            ease_in_duration = 5,
-            ease_out_duration = 40,
-            delay = 0,
-            strength = 4,
-            full_strength_max_distance = 100,
-            max_distance = 500
-          },
-          {
-            type = "create-entity",
-            entity_name = "small-scorchmark-tintable",
-            check_buildability = true
-          },
-          {
-          type = "invoke-tile-trigger",
-          repeat_count = 1,
-          },
-          {
-          type = "destroy-decoratives",
-          from_render_layer = "decorative",
-          to_render_layer = "object",
-          include_soft_decoratives = true, -- soft decoratives are decoratives with grows_through_rail_path = true
-          include_decals = false,
-          invoke_decorative_trigger = true,
-          decoratives_with_trigger_only = false, -- if true, destroys only decoratives that have trigger_effect set
-          radius = 1 -- large radius for demostrative purposes
-          },
 		  {
-            type = "create-trivial-smoke",
-            smoke_name = "artillery-smoke",
-            initial_height = 0,
-            speed_from_center = 0.2,
-            speed_from_center_deviation = 0.005,
-            offset_deviation = {{-4, -4}, {4, 4}},
-            max_radius = 5.5,
-            repeat_count = 2 * 2 * 15
-            },
-        }
-      }
+			type = "instant",
+			target_effects =
+			{
+			  {
+				type = "create-entity",
+				entity_name = "uranium-cannon-shell-explosion"
+			  },
+			  {
+				type = "nested-result",
+				action =
+				{
+				  type = "area",
+				  radius = shell_nuke_radius,
+				  show_in_tooltip = true,
+				  force_condition = "not-same",
+				  action_delivery =
+				  {
+					type = "instant",
+					target_effects =
+					{
+					  {
+						type = "damage",
+						damage = {amount = shell_nuke_explosive, type = "explosion"}
+					  },
+					  {
+						type = "create-entity",
+						entity_name = "uranium-cannon-explosion"
+					  }
+					}
+				  }
+				}
+			  },
+			   {
+				type = "nested-result",
+				action =
+				{
+				  type = "area",
+				  radius = shell_nuke_radius / friendly_fire_radius_reduction_factor,
+				  show_in_tooltip = false,
+				  force_condition = "same",
+				  action_delivery =
+				  {
+					type = "instant",
+					target_effects =
+					{
+					  {
+						type = "damage",
+						damage = {amount = shell_nuke_explosive * friendly_fire_modifier, type = "explosion"}
+					  },
+					}
+				  }
+				}
+			  },
+			   {
+				type = "set-tile",
+				tile_name = "nuclear-ground",
+				radius = 2,
+				apply_projection = true,
+				tile_collision_mask = {layers={water_tile=true}},
+			  },
+			  {
+				type = "destroy-cliffs",
+				radius = 1,
+				explosion = "explosion"
+			  },
+			  {
+				type = "camera-effect",
+				effect = "screen-burn",
+				duration = 40,
+				ease_in_duration = 5,
+				ease_out_duration = 40,
+				delay = 0,
+				strength = 4,
+				full_strength_max_distance = 100,
+				max_distance = 500
+			  },
+			  {
+				type = "create-entity",
+				entity_name = "small-scorchmark-tintable",
+				check_buildability = true
+			  },
+			  {
+			  type = "invoke-tile-trigger",
+			  repeat_count = 1,
+			  },
+			  {
+			  type = "destroy-decoratives",
+			  from_render_layer = "decorative",
+			  to_render_layer = "object",
+			  include_soft_decoratives = true, -- soft decoratives are decoratives with grows_through_rail_path = true
+			  include_decals = false,
+			  invoke_decorative_trigger = true,
+			  decoratives_with_trigger_only = false, -- if true, destroys only decoratives that have trigger_effect set
+			  radius = 1 -- large radius for demostrative purposes
+			  },
+			  {
+				type = "create-trivial-smoke",
+				smoke_name = "artillery-smoke",
+				initial_height = 0,
+				speed_from_center = 0.2,
+				speed_from_center_deviation = 0.005,
+				offset_deviation = {{-4, -4}, {4, 4}},
+				max_radius = 5.5,
+				repeat_count = 2 * 2 * 15
+				},
+			}
+		  }
 	  },
+	  -- BASIC FALLOFF
 	  {
 		  type = "area",
 		  radius = shell_nuke_radius*2,
+		  show_in_tooltip = true,
+		  force_condition = "not-same",
 		  action_delivery =
 		  {
 			type = "instant",
@@ -2388,6 +2483,23 @@ firestickerutil.makefiresticker("napalm-fire-sticker", mortar_napalm_firesticker
 				offset_deviation = {{-4, -4}, {4, 4}},
 				max_radius = 2.5,
 				repeat_count = 1 * 2 * 4
+				},
+			}
+		  }
+       },
+	   {
+		  type = "area",
+		  radius = (shell_nuke_radius*2) / friendly_fire_radius_reduction_factor,
+		  show_in_tooltip = false,
+		  force_condition = "same",
+		  action_delivery =
+		  {
+			type = "instant",
+			target_effects =
+			{
+				{
+				type = "damage",
+				damage = {amount = (shell_nuke_explosive/4) * friendly_fire_modifier, type = "explosion"}
 				},
 			}
 		  }
@@ -3021,258 +3133,6 @@ firestickerutil.makefiresticker("napalm-fire-sticker", mortar_napalm_firesticker
     }
   },
   
-     ----------------------------- ELECTRIC BEAM -----------------------------
- 
-  
-   -- {
-    -- type = "beam",
-	-- name = "electric-beam",
-    -- flags = {"not-on-map"},
-    -- width = 0.5,
-    -- damage_interval = laserbeam_electric_damage_interval,
-    -- random_target_offset = true,
-    -- action_triggered_automatically = false,
-    -- action =
-    -- {
-      -- type = "direct",
-      -- action_delivery =
-      -- {
-        -- type = "instant",
-        -- target_effects =
-        -- {
-          -- {
-            -- type = "damage",
-            -- damage = { amount = laserbeam_electric_damage, type = "electric"}
-          -- }
-        -- }
-      -- }
-    -- },
-	-- start =
-    -- {
-
-        -- filename = "__base__/graphics/entity/beam/tileable-beam-START.png",
-        -- flags = { "trilinear-filtering" },
-        -- line_length = 4,
-        -- width = 94,
-        -- height = 66,
-        -- frame_count = 16,
-        -- direction_count = 1,
-        -- shift = {0.53125, 0},
-        -- tint = nil,
-        -- scale = 0.5
-      
-    -- },
-	-- ending =
-    -- {
-
-        -- filename = "__base__/graphics/entity/beam/tileable-beam-END.png",
-        -- flags = { "trilinear-filtering" },
-        -- line_length = 4,
-        -- width = 91,
-        -- height = 93,
-        -- frame_count = 16,
-        -- direction_count = 1,
-        -- shift = {-0.078125, -0.046875},
-        -- tint = nil,
-        -- scale = 0.5
-      
-    -- },
-	-- head =
-    -- {
-      -- filename = "__base__/graphics/entity/beam/beam-head.png",
-      -- flags = { "trilinear-filtering" },
-      -- line_length = 16,
-      -- width = 45 - 7,
-      -- height = 39,
-      -- frame_count = 16,
-      -- shift = util.by_pixel(-7/2, 0),
-      -- tint = nil,
-      -- blend_mode =  "additive-soft"
-    -- },
-	-- tail =
-    -- {
-      -- filename = "__base__/graphics/entity/beam/beam-tail.png",
-      -- flags = { "trilinear-filtering" },
-      -- line_length = 16,
-      -- width = 45 - 6,
-      -- height = 39,
-      -- frame_count = 16,
-      -- shift = util.by_pixel(6/2, 0),
-      -- tint = nil,
-      -- blend_mode =  "additive-soft"
-    -- },
-	-- body =
-    -- {
-      -- {
-        -- filename = "__base__/graphics/entity/beam/beam-body-1.png",
-        -- flags = { "trilinear-filtering" },
-        -- line_length = 16,
-        -- width = 32,
-        -- height = 39,
-        -- frame_count = 16,
-        -- tint = nil,
-        -- blend_mode =  "additive-soft"
-      -- },
-      -- {
-        -- filename = "__base__/graphics/entity/beam/beam-body-2.png",
-        -- flags = { "trilinear-filtering" },
-        -- line_length = 16,
-        -- width = 32,
-        -- height = 39,
-        -- frame_count = 16,
-        -- blend_mode =  "additive-soft"
-      -- },
-      -- {
-        -- filename = "__base__/graphics/entity/beam/beam-body-3.png",
-        -- flags = { "trilinear-filtering" },
-        -- line_length = 16,
-        -- width = 32,
-        -- height = 39,
-        -- frame_count = 16,
-        -- blend_mode =  "additive-soft"
-      -- },
-      -- {
-        -- filename = "__base__/graphics/entity/beam/beam-body-4.png",
-        -- flags = { "trilinear-filtering" },
-        -- line_length = 16,
-        -- width = 32,
-        -- height = 39,
-        -- frame_count = 16,
-        -- blend_mode =  "additive-soft"
-      -- },
-      -- {
-        -- filename = "__base__/graphics/entity/beam/beam-body-5.png",
-        -- flags = { "trilinear-filtering" },
-        -- line_length = 16,
-        -- width = 32,
-        -- height = 39,
-        -- frame_count = 16,
-        -- blend_mode =  "additive-soft"
-      -- },
-      -- {
-        -- filename = "__base__/graphics/entity/beam/beam-body-6.png",
-        -- flags = { "trilinear-filtering" },
-        -- line_length = 16,
-        -- width = 32,
-        -- height = 39,
-        -- frame_count = 16,
-        -- blend_mode =  "additive-soft"
-      -- }
-    -- },
-	-- graphics_set = {},
-	-- light_animations =
-    -- {
-      -- start =
-      -- {
-        -- filename = "__base__/graphics/entity/beam/tileable-beam-START-light.png",
-        -- line_length = 4,
-        -- width = 94,
-        -- height = 66,
-        -- frame_count = 16,
-        -- direction_count = 1,
-        -- shift = {0.53125, 0},
-        -- scale = 0.5,
-        -- tint = nil
-      -- },
-
-      -- ending =
-      -- {
-        -- filename = "__base__/graphics/entity/beam/tileable-beam-END-light.png",
-        -- line_length = 4,
-        -- width = 91,
-        -- height = 93,
-        -- frame_count = 16,
-        -- direction_count = 1,
-        -- shift = {-0.078125, -0.046875},
-        -- scale = 0.5,
-        -- tint = nil
-      -- },
-
-      -- head =
-      -- {
-        -- filename = "__base__/graphics/entity/beam/beam-head-light.png",
-        -- line_length = 16,
-        -- width = 45 - 7,
-        -- height = 39,
-        -- frame_count = 16,
-        -- shift = util.by_pixel(-7/2, 0),
-        -- tint = nil
-      -- },
-
-      -- tail =
-      -- {
-        -- filename = "__base__/graphics/entity/beam/beam-tail-light.png",
-        -- line_length = 16,
-        -- width = 45 - 6,
-        -- height = 39,
-        -- shift = util.by_pixel(6/2, 0),
-        -- frame_count = 16,
-        -- tint = nil
-      -- },
-
-      -- body =
-      -- {
-        -- {
-          -- filename = "__base__/graphics/entity/beam/beam-body-1-light.png",
-          -- line_length = 16,
-          -- width = 32,
-          -- height = 39,
-          -- frame_count = 16,
-          -- tint = nil
-        -- },
-        -- {
-          -- filename = "__base__/graphics/entity/beam/beam-body-2-light.png",
-          -- line_length = 16,
-          -- width = 32,
-          -- height = 39,
-          -- frame_count = 16,
-          -- tint = nil
-        -- },
-        -- {
-          -- filename = "__base__/graphics/entity/beam/beam-body-3-light.png",
-          -- line_length = 16,
-          -- width = 32,
-          -- height = 39,
-          -- frame_count = 16,
-          -- tint = nil
-        -- },
-        -- {
-          -- filename = "__base__/graphics/entity/beam/beam-body-4-light.png",
-          -- line_length = 16,
-          -- width = 32,
-          -- height = 39,
-          -- frame_count = 16,
-          -- tint = nil
-        -- },
-        -- {
-          -- filename = "__base__/graphics/entity/beam/beam-body-5-light.png",
-          -- line_length = 16,
-          -- width = 32,
-          -- height = 39,
-          -- frame_count = 16,
-          -- tint = nil
-        -- },
-        -- {
-          -- filename = "__base__/graphics/entity/beam/beam-body-6-light.png",
-          -- line_length = 16,
-          -- width = 32,
-          -- height = 39,
-          -- frame_count = 16,
-          -- tint = nil
-        -- }
-      -- }
-    -- },
-	
-	-- working_sound =
-    -- {
-      -- sound =
-      -- {
-        -- filename = "__base__/sound/fight/electric-beam.ogg",
-        -- volume = 0.7
-      -- },
-      -- max_sounds_per_type = 4
-    -- }
-  -- },
   
   -----------------------------  MORTAR ROUNDS -----------------------------
 {
@@ -3350,18 +3210,6 @@ firestickerutil.makefiresticker("napalm-fire-sticker", mortar_napalm_firesticker
         type = "instant",
         target_effects =
         {	 
-			
-          -- {
-            -- type = "damage",
-			-- force = "not-same",
-            -- damage = { amount = mortar_hit_physicaldamage, type = "physical"}
-          -- },
-		  -- {
-            -- type = "damage",
-			-- show_in_tooltip = false,
-			-- force = "same",
-            -- damage = { amount = mortar_hit_physicaldamage * friendly_fire_modifier, type = "physical"}
-          -- },
 		
           {
             type = "nested-result",
@@ -3385,9 +3233,9 @@ firestickerutil.makefiresticker("napalm-fire-sticker", mortar_napalm_firesticker
 				},
 				{
 				  type = "area",
-				  radius = mortar_regular_damageradius,
-				 show_in_tooltip = false,
-					force = "same",
+				  radius = mortar_regular_damageradius / friendly_fire_radius_reduction_factor,
+				  show_in_tooltip = false,
+				  force = "same",
 				  action_delivery =
 				  {
 					type = "instant",
@@ -3419,7 +3267,7 @@ firestickerutil.makefiresticker("napalm-fire-sticker", mortar_napalm_firesticker
 				},
 				{
 				  type = "area",
-				  radius = mortar_regular_damageradius/2,
+				  radius = (mortar_regular_damageradius/2) / friendly_fire_radius_reduction_factor,
 				  show_in_tooltip = false,
 				  force = "same",
 				  action_delivery =
@@ -3453,7 +3301,7 @@ firestickerutil.makefiresticker("napalm-fire-sticker", mortar_napalm_firesticker
 				},
 				{
 				  type = "area",
-				  radius = 1,
+				  radius = 1 / friendly_fire_radius_reduction_factor,
 				  show_in_tooltip = false,
 				  force = "same",
 				  action_delivery =
@@ -3677,27 +3525,6 @@ firestickerutil.makefiresticker("napalm-fire-sticker", mortar_napalm_firesticker
     particle_loop_exit_threshold = 0.25,
 	initial_action =
 	{
-		-- {
-		-- type = "direct",
-        -- action_delivery =
-		-- {
-			-- type = "instant",
-			-- target_effects =
-			-- {
-				-- {
-				-- type = "play-sound",
-				-- sound =  
-				-- {
-					
-					  -- filename = "__base__/sound/fight/artillery-shoots-1.ogg",
-					  -- volume = 0.1
-					
-				-- },
-				
-				-- },
-			-- },
-		-- },
-		-- },
 		{
         type = "cluster",
         cluster_count = mortar_napalm_bomblet_count,
@@ -3747,7 +3574,7 @@ firestickerutil.makefiresticker("napalm-fire-sticker", mortar_napalm_firesticker
 			  type = "area",
 			  force = "same",
 			  show_in_tooltip = false,
-              radius = mortar_napalm_explosivedamageradius,
+              radius = mortar_napalm_explosivedamageradius / friendly_fire_radius_reduction_factor,
               action_delivery =
               {
                 type = "instant",
@@ -3987,7 +3814,7 @@ firestickerutil.makefiresticker("mortar-fire-sticker", mortar_napalm_firesticker
 			  },
 			  {
 				  type = "area",
-				  radius = rocket_radius,
+				  radius = rocket_radius / friendly_fire_radius_reduction_factor,
 				  force = "same",
 				  show_in_tooltip = false,
 				  action_delivery =
@@ -4040,7 +3867,7 @@ firestickerutil.makefiresticker("mortar-fire-sticker", mortar_napalm_firesticker
        },
 	   {
 		  type = "area",
-		  radius = rocket_radius*2,
+		  radius = (rocket_radius*2) / friendly_fire_radius_reduction_factor,
 		  force = "same",
 		  show_in_tooltip = false,
 		  action_delivery =
@@ -4051,16 +3878,6 @@ firestickerutil.makefiresticker("mortar-fire-sticker", mortar_napalm_firesticker
 				{
 				type = "damage",
 				damage = {amount = (rocket_damage_explosive/4) * friendly_fire_modifier, type = "explosion"}
-				},
-				{
-				type = "create-trivial-smoke",
-				smoke_name = "artillery-smoke",
-				initial_height = 0,
-				speed_from_center = 0.2,
-				speed_from_center_deviation = 0.005,
-				offset_deviation = {{-4, -4}, {4, 4}},
-				max_radius = 2.5,
-				repeat_count = 1 * 2 * 4
 				},
 			}
 		  }
@@ -4301,25 +4118,7 @@ firestickerutil.makefiresticker("mortar-fire-sticker", mortar_napalm_firesticker
     acceleration = rocket_explosive_speed_acceleration,
     turn_speed = 0.003,
     turning_speed_increases_exponentially_with_projectile_speed = true,
-	-- action =
-    -- {
-      -- type = "direct",
-      -- action_delivery =
-      -- {
-        -- type = "instant",
-        -- target_effects =
-        -- {
-          -- {
-            -- type = "damage",
-            -- damage = {amount = rocket_damage_explosive, type = "explosion"}
-          -- },
-          -- {
-            -- type = "create-entity",
-            -- entity_name = "explosion"
-          -- },
-        -- }
-      -- }
-    -- },
+	
     final_action =
     {
 		{
@@ -4333,6 +4132,7 @@ firestickerutil.makefiresticker("mortar-fire-sticker", mortar_napalm_firesticker
 		  },
 	  },
     },
+	
     light = {intensity = 0.5, size = 4},
     animation = require("__base__.prototypes.entity.rocket-projectile-pictures").animation({1, 0.2, 0.2}),
     shadow = require("__base__.prototypes.entity.rocket-projectile-pictures").shadow,
@@ -4733,6 +4533,8 @@ firestickerutil.makefiresticker("mortar-fire-sticker", mortar_napalm_firesticker
             {
               type = "area",
               radius = cannon_shell_radius,
+			  show_in_tooltip = true,
+			  force_condition = "not-same",
               action_delivery =
               {
                 type = "instant",
@@ -4750,6 +4552,32 @@ firestickerutil.makefiresticker("mortar-fire-sticker", mortar_napalm_firesticker
               }
             }
           },
+		  {
+            type = "nested-result",
+            action =
+            {
+              type = "area",
+              radius = cannon_shell_radius/friendly_fire_radius_reduction_factor,
+			  show_in_tooltip = false,
+			  force_condition = "same",
+              action_delivery =
+              {
+                type = "instant",
+                target_effects =
+                {
+                  {
+                    type = "damage",
+                    damage = {amount = cannon_shell_damage_explosive * friendly_fire_modifier, type = "explosion"}
+                  },
+                  {
+                    type = "create-entity",
+                    entity_name = "explosion"
+                  }
+                }
+              }
+            }
+          },
+		  
           {
             type = "create-entity",
             entity_name = "medium-scorchmark-tintable",
@@ -4892,68 +4720,6 @@ firestickerutil.makefiresticker("mortar-fire-sticker", mortar_napalm_firesticker
         type = "instant",
         target_effects =
 		make_explosion_wave_target_effects("cannon-explosive",cannon_shell_explosive_damage_explosive,cannon_shell_explosive_radius),
-        -- {
-          -- {
-            -- type = "create-entity",
-            -- entity_name = "massive-explosion"
-          -- },
-          -- {
-            -- type = "nested-result",
-            -- action =
-            -- {
-              -- type = "area",
-              -- radius = cannon_shell_explosive_radius/4,
-              -- action_delivery =
-              -- {
-                -- type = "instant",
-                -- target_effects =
-                -- {
-                  -- {
-                    -- type = "damage",
-                    -- damage = {amount = cannon_shell_explosive_damage_explosive, type = "explosion"}
-                  -- },
-                  -- {
-                    -- type = "create-entity",
-                    -- entity_name = "explosion"
-                  -- }
-                -- }
-              -- }
-            -- }
-          -- },
-          -- {
-            -- type = "create-entity",
-            -- entity_name = "medium-scorchmark-tintable",
-            -- check_buildability = true
-          -- },
-          -- {
-          -- type = "invoke-tile-trigger",
-          -- repeat_count = 1,
-          -- },
-          -- {
-          -- type = "destroy-decoratives",
-          -- from_render_layer = "decorative",
-          -- to_render_layer = "object",
-          -- include_soft_decoratives = true, -- soft decoratives are decoratives with grows_through_rail_path = true
-          -- include_decals = false,
-          -- invoke_decorative_trigger = true,
-          -- decoratives_with_trigger_only = false, -- if true, destroys only decoratives that have trigger_effect set
-          -- radius = 2 -- large radius for demostrative purposes
-          -- },
-
-		  -- -- end of nuke wave explosion stuff
-		  -- {
-            -- type = "create-trivial-smoke",
-            -- smoke_name = "artillery-smoke",
-            -- initial_height = 0,
-            -- speed_from_center = 0.12,
-            -- speed_from_center_deviation = 0.005,
-            -- offset_deviation = {{-4, -4}, {4, 4}},
-            -- max_radius = 10.5,
-            -- repeat_count = 2 * 2 * 25
-          -- },
-		  		  -- -- Nuke wave type thing?
-		  -- table.unpack(make_explosion_wave_effects("cannon-explosive",cannon_shell_explosive_damage_explosive, cannon_shell_explosive_radius)),
-        -- }
       }
     },
     animation =
@@ -5194,9 +4960,7 @@ firestickerutil.makefiresticker("mortar-fire-sticker", mortar_napalm_firesticker
     flags = {"not-on-map"},
     collision_box = {{-0.6, -1.6}, {0.6, 1.6}},
     acceleration = 0,
-    -- direction_only = true,
     piercing_damage = cannon_shell_depleted_damage_penetration,
-	-- hit_collision_mask
 	force_condition = "not-same",
     action =
     {
@@ -5570,7 +5334,7 @@ firestickerutil.makefiresticker("mortar-fire-sticker", mortar_napalm_firesticker
     ingredients =
     {
       {type="item", name="explosive-cannon-shell", amount=1},
-      {type="item", name="uranium-235", amount=10}
+      {type="item", name="uranium-235", amount=12}
     },
     results = {{type="item", name="explosive-uranium-cannon-shell", amount=1}},
   },
@@ -5588,38 +5352,55 @@ firestickerutil.makefiresticker("mortar-fire-sticker", mortar_napalm_firesticker
     ammo_type =
     {
       category = "plasma-cell",
-	  target_type = "position",
+	  target_type = "direction",
 	  clamp_position = true,
       action =
       {
+	  
 		{
           type = "direct",
-          repeat_count = 12,
+          repeat_count = plasmagun_innercone_projectile_count/2,
           action_delivery =
           {
             type = "projectile",
-            projectile = "plasma-ball",
-            starting_speed = speed_plasmagun,
+            projectile = "plasma-ball-huge",
+            starting_speed = speed_plasmagun * 1.4,
             starting_speed_deviation = 0.1,
-            direction_deviation = spread_plasmagun*2,
-			range_deviation = 1.9,
+            direction_deviation = spread_plasmagun/6,
+            range_deviation = 0.15,
+            max_range = range_plasmagun
+          },
+		},
+		{
+          type = "direct",
+          repeat_count = plasmagun_innercone_projectile_count,
+          action_delivery =
+          {
+            type = "projectile",
+            projectile = "plasma-ball-large",
+            starting_speed = speed_plasmagun * 1.2,
+            starting_speed_deviation = 0.2,
+            direction_deviation = spread_plasmagun/3,
+			range_deviation = 0.25,
             max_range = range_plasmagun
           }
         },
 		{
           type = "direct",
-          repeat_count = 3,
+          repeat_count = plasmagun_outercone_projectile_count,
           action_delivery =
           {
             type = "projectile",
-            projectile = "plasma-ball",
-            starting_speed = speed_plasmagun,
-            starting_speed_deviation = 0.1,
-            direction_deviation = spread_plasmagun/4,
-            range_deviation = 0.1,
+            projectile = "plasma-ball-small",
+            starting_speed = speed_plasmagun * 1,
+            starting_speed_deviation = 0.4,
+            direction_deviation = spread_plasmagun,
+            range_deviation = 0.45,
             max_range = range_plasmagun
           }
         }
+		
+
       },
 	  
     },
@@ -5631,18 +5412,19 @@ firestickerutil.makefiresticker("mortar-fire-sticker", mortar_napalm_firesticker
     weight = 20*kg
   },
   
-  {
+    {
     type = "projectile",
-    name = "plasma-ball",
+    name = "plasma-ball-huge",
     flags = {"not-on-map"},
-    collision_box = {{-0.75, -0.75}, {0.75, 0.75}},
+    collision_box = {{-2, -2}, {2, 2}},
 	hit_at_collision_position = true,
-    acceleration = acc_plasmagun,
-    -- direction_only = true,
+    acceleration = acc_plasmagun/1.5,
+    direction_only = true,
     action =
     {
 		{
 		type = "direct",
+		force = "not-same",
 		action_delivery =
 			{
 				{
@@ -5651,7 +5433,8 @@ firestickerutil.makefiresticker("mortar-fire-sticker", mortar_napalm_firesticker
 					{
 						{
 						type = "damage",
-						damage = {amount = plasma_damage_electric, type = "electric"}
+						
+						damage = {amount = plasma_damage_electric * 2, type = "electric"}
 						},
 						{
 						type = "create-sticker",
@@ -5659,7 +5442,7 @@ firestickerutil.makefiresticker("mortar-fire-sticker", mortar_napalm_firesticker
 						},
 						{
 						type = "push-back",
-						distance = 2.5
+						distance = plasmagun_pushback * 2
 						},			
 					},
 				},
@@ -5690,8 +5473,8 @@ firestickerutil.makefiresticker("mortar-fire-sticker", mortar_napalm_firesticker
 					sound =  
 						{
 						filename = "__base__/sound/fight/pulse.ogg",
-						volume = 0.55,
-						speed = 1.25,
+						volume = 0.95,
+						speed = 0.5,
 						play_on_target_position = true,
 						max_distance = 400,
 						audible_distance_modifier = 3
@@ -5704,8 +5487,167 @@ firestickerutil.makefiresticker("mortar-fire-sticker", mortar_napalm_firesticker
 						speed_from_center = 0.1,
 						speed_from_center_deviation = 0.005,
 						offset_deviation = {{-4, -4}, {4, 4}},
-						max_radius = 2.5,
-						repeat_count = 2 * 2 * 3
+						max_radius = 3.5,
+						repeat_count = 6 * 2 * 3
+					},
+				},
+			},
+		},
+		{
+            type = "area",
+			trigger_from_target = true,
+            radius = 12,
+            force = "not-same",
+            action_delivery =
+            {
+				{
+				type = "instant",
+				target_effects =
+					{
+						{
+						type = "create-sticker",
+						sticker =  "plasma-slow-sticker"
+						},
+						{
+						type = "push-back",
+						distance = 0.1
+						},	
+					},
+				},
+				{
+				   type = "beam",
+				   beam = "plasma-zap-beam",
+				   max_length = 12,
+				   duration = 55,
+				   source_offset = {0, -0.5},
+				   add_to_shooter = true
+				},
+            },
+         },
+		 {
+            type = "area",
+			trigger_from_target = true,
+            radius = 8,
+            force = "not-same",
+            action_delivery =
+            {
+				{
+				type = "instant",
+				target_effects =
+					{
+						{
+						type = "create-sticker",
+						sticker =  "plasma-slow-sticker"
+						},
+						{
+						type = "push-back",
+						distance = 0.25
+						},	
+					},
+				},
+				{
+				   type = "beam",
+				   beam = "plasma-zap-beam",
+				   max_length = 8,
+				   duration =145,
+				   source_offset = {0, -0.5},
+				   add_to_shooter = true
+				},
+            },
+         },
+	},
+		
+	light = {intensity = 1.0, size = 15, color={r=0.55, g=0.9 , b=0.95}},
+	
+    animation =
+    {
+	 filename = "__factorioplus__/graphics/plasma-ball.png",
+      frame_count = 4,
+      width = 64,
+      height = 64,
+	  scale = 1.0,
+      priority = "high",
+	  draw_as_glow = true,
+    },
+},
+  
+  {
+    type = "projectile",
+    name = "plasma-ball-large",
+    flags = {"not-on-map"},
+    collision_box = {{-1.2, -1.2}, {1.2, 1.2}},
+	hit_at_collision_position = true,
+    acceleration = acc_plasmagun/1.25,
+    direction_only = true,
+    action =
+    {
+		{
+		type = "direct",
+		force = "not-same",
+		action_delivery =
+			{
+				{
+				type = "instant",
+				target_effects =
+					{
+						{
+						type = "damage",
+						
+						damage = {amount = plasma_damage_electric * 1, type = "electric"}
+						},
+						{
+						type = "create-sticker",
+						sticker =  "plasma-slow-sticker"
+						},
+						{
+						type = "push-back",
+						distance = plasmagun_pushback * 1
+						},			
+					},
+				},
+			},
+		},
+    },
+	
+	final_action = 
+	{
+		{
+		type = "direct",
+		action_delivery =
+			{
+				type = "instant",
+				target_effects =
+				{
+					{
+					type = "create-entity",
+					entity_name = "gunshot-hit-puff-light"
+					},
+					{
+					type = "create-entity",
+					entity_name = "small-scorchmark-tintable",
+					check_buildability = true
+					},
+					{
+					type = "play-sound",
+					sound =  
+						{
+						filename = "__base__/sound/fight/pulse.ogg",
+						volume = 0.85,
+						speed = 1,
+						play_on_target_position = true,
+						max_distance = 400,
+						audible_distance_modifier = 3
+						},
+					},
+					{
+						type = "create-trivial-smoke",
+						smoke_name = "artillery-smoke",
+						initial_height = 0,
+						speed_from_center = 0.1,
+						speed_from_center_deviation = 0.005,
+						offset_deviation = {{-4, -4}, {4, 4}},
+						max_radius = 3.5,
+						repeat_count = 4 * 2 * 3
 					},
 				},
 			},
@@ -5774,7 +5716,7 @@ firestickerutil.makefiresticker("mortar-fire-sticker", mortar_napalm_firesticker
          },
 	},
 		
-	light = {intensity = 1.0, size = 6, color={r=0.25, g=0.7 , b=0.9}},
+	light = {intensity = 1.0, size = 10, color={r=0.45, g=0.8 , b=0.9}},
 	
     animation =
     {
@@ -5782,7 +5724,166 @@ firestickerutil.makefiresticker("mortar-fire-sticker", mortar_napalm_firesticker
       frame_count = 4,
       width = 64,
       height = 64,
-	  scale = 0.50,
+	  scale = 0.7,
+      priority = "high",
+	  draw_as_glow = true,
+    },
+},
+
+{
+    type = "projectile",
+    name = "plasma-ball-small",
+    flags = {"not-on-map"},
+    collision_box = {{-0.55, -0.55}, {0.55, 0.55}},
+	hit_at_collision_position = true,
+    acceleration = acc_plasmagun,
+    direction_only = true,
+    action =
+    {
+		{
+		type = "direct",
+		force = "not-same",
+		action_delivery =
+			{
+				{
+				type = "instant",
+				target_effects =
+					{
+						{
+						type = "damage",
+						
+						damage = {amount = plasma_damage_electric/2, type = "electric"}
+						},
+						{
+						type = "create-sticker",
+						sticker =  "plasma-slow-sticker"
+						},
+						{
+						type = "push-back",
+						distance = plasmagun_pushback/2
+						},			
+					},
+				},
+			},
+		},
+    },
+	
+	final_action = 
+	{
+		{
+		type = "direct",
+		action_delivery =
+			{
+				type = "instant",
+				target_effects =
+				{
+					{
+					type = "create-entity",
+					entity_name = "gunshot-hit-puff-light"
+					},
+					{
+					type = "create-entity",
+					entity_name = "small-scorchmark-tintable",
+					check_buildability = true
+					},
+					{
+					type = "play-sound",
+					sound =  
+						{
+						filename = "__base__/sound/fight/pulse.ogg",
+						volume = 0.25,
+						speed = 1.25,
+						play_on_target_position = true,
+						max_distance = 400,
+						audible_distance_modifier = 3
+						},
+					},
+					{
+						type = "create-trivial-smoke",
+						smoke_name = "artillery-smoke",
+						initial_height = 0,
+						speed_from_center = 0.1,
+						speed_from_center_deviation = 0.005,
+						offset_deviation = {{-4, -4}, {4, 4}},
+						max_radius = 1.5,
+						repeat_count = 2 * 2 * 3
+					},
+				},
+			},
+		},
+		{
+            type = "area",
+			trigger_from_target = true,
+            radius = 4,
+            force = "not-same",
+            action_delivery =
+            {
+				{
+				type = "instant",
+				target_effects =
+					{
+						{
+						type = "create-sticker",
+						sticker =  "plasma-slow-sticker"
+						},
+						{
+						type = "push-back",
+						distance = 0.1
+						},	
+					},
+				},
+				{
+				   type = "beam",
+				   beam = "plasma-zap-beam",
+				   max_length = 4,
+				   duration = 55,
+				   source_offset = {0, -0.5},
+				   add_to_shooter = true
+				},
+            },
+         },
+		 {
+            type = "area",
+			trigger_from_target = true,
+            radius = 2,
+            force = "not-same",
+            action_delivery =
+            {
+				{
+				type = "instant",
+				target_effects =
+					{
+						{
+						type = "create-sticker",
+						sticker =  "plasma-slow-sticker"
+						},
+						{
+						type = "push-back",
+						distance = 0.25
+						},	
+					},
+				},
+				{
+				   type = "beam",
+				   beam = "plasma-zap-beam",
+				   max_length = 2,
+				   duration =145,
+				   source_offset = {0, -0.5},
+				   add_to_shooter = true
+				},
+            },
+         },
+	},
+		
+	light = {intensity = 0.5, size = 4, color={r=0.25, g=0.7 , b=0.9}},
+	
+    animation =
+    {
+	 filename = "__factorioplus__/graphics/plasma-ball.png",
+      frame_count = 4,
+      width = 64,
+      height = 64,
+	  scale = 0.40,
       priority = "high",
 	  draw_as_glow = true,
     },

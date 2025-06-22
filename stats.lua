@@ -1,11 +1,12 @@
 -- GENERAL STATS
 
-friendly_fire_modifier = 0.1 -- this isn't used everywhere yet, but in the places it's used it multiplies the player targetd damage by this amount
-friendly_fire_radius_reduction_factor = 2 -- divide the radius that affects allies by this amount
+
+friendly_fire_modifier = settings.startup["settings-friendlyfire-percent"].value / 100 -- This modifies the player splash damage by this amount of weapons that have been affected (arbitary)
+friendly_fire_radius_reduction_factor = 2 -- divide the radius that affects allies by this amount (flat value across board)
 
 -- Vehicles
 
--- Vehicles aren't turrets than can be spammed, so give them a little buff over them.
+-- Vehicles aren't turrets than can be spammed, so give them a little compared to them.
 damage_modifier_vehicle_bonus = 1.25
 range_modifier_vehicle_bonus = 1.25
 attack_speed_vehicle_bonus = 1.25
@@ -503,25 +504,35 @@ rocket_nuke_stacksize = 10
 firerate_railgun = 60 / 0.5
 
 -------------
--- PLASMA GUN --
+-- PLASMA BLASTER --
 -------------
 
-firerate_plasmagun = 60 / 1
-range_plasmagun = 65
+firerate_plasmagun = 60 * 3
+range_plasmagun = 52
 
-spread_plasmagun = 0.35
-speed_plasmagun = -0.1
-acc_plasmagun = 0.03
+spread_plasmagun = 0.8
+speed_plasmagun = 0.5
+acc_plasmagun = -0.0015
+
+plasmagun_ammo_consumption_modifier = 10
+plasmagun_slow_down_factor = 0.75
+
+plasmagun_pushback = 2.0
+
+plasmagun_innercone_projectile_count = 9
+plasmagun_outercone_projectile_count = 28
  
-plasma_damage_electric = 105
+plasma_damage_electric = 125
 plasma_zap_damage_electric = 45
 
-plasma_stun_duration = 60 * 5
+plasma_stun_duration = 60 * 3
 plasma_stun_movement_modifier = 0.2
 
+--- plasma cell
+
 plasmagun_magazinesize = 80
-plasmagun_stacksize = 25
-plasmagun_reloadtime = 60 * 1
+plasmagun_stacksize = 20
+plasmagun_reloadtime = 60 * 5
 
 -- Cannons
 

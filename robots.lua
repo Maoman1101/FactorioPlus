@@ -27,12 +27,12 @@ data.raw["construction-robot"]["construction-robot"].resistances =
       {
         type = "fire",
 		decrease = 2,
-        percent = 80
+        percent = 95
       },
       {
         type = "acid",
         decrease = 2,
-        percent = 80
+        percent = 95
       }
     }
 
@@ -993,7 +993,7 @@ data:extend
     ingredients =
     {
       {type="item", name="distractor-capsule", amount=1},
-	  {type="item", name="accumulator", amount=20},
+	  {type="item", name="accumulator", amount=30},
 	  {type="item", name="processing-unit", amount=40} 
     },
     results = {{type="item", name="destroyer-capsule", amount=1}},
@@ -1483,12 +1483,15 @@ data:extend(robots)
             decoratives_with_trigger_only = false, -- if true, destroys only decoratives that have trigger_effect set
             radius = 1.5 -- large radius for demostrative purposes
           },
+		  
 		  {
             type = "nested-result",
             action =
             {
               type = "area",
               radius = rocket_radius/2,
+			  show_in_tooltip = true,
+			  force_condition = "not-same",
               action_delivery =
               {
                 type = "instant",
@@ -1505,13 +1508,38 @@ data:extend(robots)
                 }
               }
             },
-		  }
+		  },
+		  
+		  {
+            type = "nested-result",
+            action =
+            {
+              type = "area",
+              radius = (rocket_radius/2)/friendly_fire_radius_reduction_factor,
+			  show_in_tooltip = false,
+			  force_condition = "same",
+              action_delivery =
+              {
+                type = "instant",
+                target_effects =
+                {
+                  {
+                    type = "damage",
+                    damage = {amount = rocket_damage_explosive * friendly_fire_modifier, type = "explosion"}
+                  },
+                }
+              }
+            },
+		  },
+
         }
       }
 	  },
 	  {
 		  type = "area",
 		  radius = rocket_radius,
+		  show_in_tooltip = true,
+		  force_condition = "not-same",
 		  action_delivery =
 		  {
 			type = "instant",
@@ -1530,6 +1558,23 @@ data:extend(robots)
 				offset_deviation = {{-4, -4}, {4, 4}},
 				max_radius = 2.5,
 				repeat_count = 1 * 2 * 4
+				},
+			}
+		  }
+       },
+	   {
+		  type = "area",
+		  radius = rocket_radius/friendly_fire_radius_reduction_factor,
+		  show_in_tooltip = false,
+		  force_condition = "same",
+		  action_delivery =
+		  {
+			type = "instant",
+			target_effects =
+			{
+				{
+				type = "damage",
+				damage = {amount = (rocket_damage_explosive/4) * friendly_fire_modifier, type = "explosion"}
 				},
 			}
 		  }

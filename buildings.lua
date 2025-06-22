@@ -3738,6 +3738,8 @@ data.extend({
     {
       type = "burner",
       fuel_categories = {"chemical"},
+	  initial_fuel = "wood",
+      initial_fuel_percent = 0.25,
       effectivity = 1,
       fuel_inventory_size = 1,
       light_flicker = {color = {0,0,0}},

@@ -45,8 +45,8 @@ end
 
 --------------------------------------------------- LASER OVERRIDE  ------------------------------------------------------------
 
---data.raw["active-defense-equipment"]["personal-laser-defense-equipment"].attack_parameters.damage_modifier = 2
---data.raw["active-defense-equipment"]["personal-laser-defense-equipment"].attack_parameters.ammo_type.energy_consumption = "75kJ"
+data.raw["active-defense-equipment"]["personal-laser-defense-equipment"].attack_parameters.damage_modifier = 1.5
+data.raw["active-defense-equipment"]["personal-laser-defense-equipment"].attack_parameters.ammo_type.energy_consumption = "60kJ"
 
 --------------------------------------------------- EXOSKELETON OVERRIDE  ------------------------------------------------------------
 
@@ -59,7 +59,9 @@ data.raw["energy-shield-equipment"]["energy-shield-equipment"].energy_per_shield
 
 data.raw["energy-shield-equipment"]["energy-shield-mk2-equipment"].shape.width = 3
 data.raw["energy-shield-equipment"]["energy-shield-mk2-equipment"].shape.height = 3
-data.raw["energy-shield-equipment"]["energy-shield-mk2-equipment"].energy_per_shield = "60kJ",
+data.raw["energy-shield-equipment"]["energy-shield-mk2-equipment"].energy_per_shield = "60kJ"
+data.raw["energy-shield-equipment"]["energy-shield-mk2-equipment"].energy_source. buffer_capacity = "360kJ"
+data.raw["energy-shield-equipment"]["energy-shield-mk2-equipment"].energy_source.input_flow_limit = "720kW"
 
 --------------------------------------------------- BACKPACK  ------------------------------------------------------------
 
@@ -448,26 +450,6 @@ data:extend({
       height = 2,
       type = "full"
     },
-	-- burner =
-    -- {
-      -- type = "burner",
-	   -- usage_priority = "primary-output",
-      -- fuel_categories = {"chemical"},
-      -- effectivity = 2.0,
-      -- fuel_inventory_size = 2,
-      -- emissions_per_minute = {pollution = 8 },
-      -- smoke =
-      -- {
-        -- {
-          -- name = "smoke",
-          -- deviation = {0.1, 0.1},
-          -- frequency = 4,
-          -- position = {0.0, -0.8},
-          -- starting_vertical_speed = 0.08,
-          -- starting_frame_deviation = 60,
-        -- }
-      -- }
-    -- },
 	energy_source =
     {
       type = "electric",
@@ -477,7 +459,7 @@ data:extend({
     categories = {"armor"}
   },
   
-      {
+    {
     type = "item",
     name = "fuel-generator-equipment",
     icon = "__factorioplus__/graphics/icons/fuel-generator-equipment.png",

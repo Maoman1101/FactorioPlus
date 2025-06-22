@@ -1,16 +1,19 @@
+-- This exists already in the game 
+
 if (mods["space-age"]) then
 	-- Spoilage percent multiplier
-data:extend({
-	{
-        type = "int-setting",
-        name = "settings-spoilage-multiplier",
-        setting_type = "startup",
-		allowed_values = {50, 100, 200, 500, 1000},
-        default_value = 100,
-    },
-})
+-- data:extend({
+	-- {
+        -- type = "int-setting",
+        -- name = "settings-spoilage-multiplier",
+        -- setting_type = "startup",
+		-- allowed_values = {50, 100, 200, 500, 1000},
+        -- default_value = 100,
+    -- },
+-- })
 else
-	-- Rocket Recipe
+
+--	Rocket Recipe
 data:extend({
 	{
         type = "int-setting",
@@ -31,6 +34,13 @@ end
 
 
 data:extend({
+	{
+		type = "int-setting",
+		name = "settings-friendlyfire-percent",
+		setting_type = "startup",
+		allowed_values = {0, 25, 50, 100},
+		default_value = 25,
+    },
     {
         type = "bool-setting",
         name = "settings-crashsite",

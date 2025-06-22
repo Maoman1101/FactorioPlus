@@ -1106,8 +1106,8 @@ end
     subgroup = "tool",
     order = "b[repair]-a[repair-pack]",
     speed = 5,
-    durability = 500,
-    stack_size = 25
+    durability = 600,
+    stack_size = 500
   },
    {
     type = "item",
@@ -1362,6 +1362,7 @@ data.extend({
     type = "capsule",
     name = "meaty-chunks",
     icon = "__factorioplus__/graphics/icons/meaty-chunks.png",
+	flags = {"always-show"},
     icon_size = 64, icon_mipmaps = 3,
     subgroup = "raw-material",
     order = "gz[raw-fish]",

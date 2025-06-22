@@ -2938,12 +2938,13 @@ data:extend({
 	
     attack_parameters =
     {
-	  ammo_consumption_modifier = 20,
+	  ammo_consumption_modifier = plasmagun_ammo_consumption_modifier,
       type = "projectile",
       ammo_category = "plasma-cell",
       cooldown =  firerate_plasmagun ,
 	  damage_modifier = 1,
-      movement_slow_down_factor = 0.65,
+      movement_slow_down_factor = plasmagun_slow_down_factor,
+	  movement_slow_down_cooldown = firerate_plasmagun / 2,
       shell_particle =
       {
         name = "shell-particle",
