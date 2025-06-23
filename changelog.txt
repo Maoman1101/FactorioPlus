@@ -1,4 +1,46 @@
 ---------------------------------------------------------------------------------------------------
+Version: 2.2.2
+Date: 2025.06.23
+  Additions:
+    - Added medium rocks and sand rocks to map autoplacement.
+  Balance:
+    - Increased production values of all Abandonment solar panels by ~10-30%.
+    - Increased amount of inserters found in an abandoned warehouse that contains them.
+    - Added some more player equipment warehouses.
+    - Added rail based abandoned warehouses.
+    - Added transport based abandonded warehouses.
+    - Plasma cell recipe ingredients increased cost, uses electronic circuits instead of steel.
+    - Plasma blaster recipe increased ingredients cost by ~2-4x.
+    - Reworked Plasma blaster weapon, which now uses different sized projectiles that scales the damage and status effects.
+    - Increased health of medium and larger Tanker biters by about +33%, but slowed their movement speed.
+    - Increased health of all Webber spitters by about ~10-33%
+    - Increased health of all Stinger biters by about ~20-30%
+    - Increased health of big and larger Blaster biters by about ~10-25%
+    - Increased damage of all medium and larger Hatcher spitter attacks by x their tier (20, 30, 40, 50).
+    - Tanker physical & piercing resistances increased overall.
+    - Biter physical resistances increased overall.
+    - Blaster explosive resistancs increased overall and now have physical resistances.
+    - Bio fuel ingredient cost is a littler cheaper and produces 2x result.
+    - Pure iron patch size is a bit more sporadic and can be larger.
+    - Added friendly fire mod setting, which reduces explosive damage to self.
+    - Sniper rifles now slow down the player by 90& during firing.
+    - Reduced sniper ammo stack size 15 -> 10.
+    - Combat shotgun ammo consumption rate reduced 80% -> 50%.
+    - Increased Rocket launcher range by +4 (40 -> 44).
+    - Increased health of Distractors and Destroyers by +50 and +100hp respectively
+    - Reduced amount of Chaingun ammo found in Abandoned warehouses.
+    - Increased charge rate of Energy shield equipment MK2 by 2x.
+    - Increased Advanced repair pack durability by +100 (500 -> 600) and stack size by 2x. (25 -> 50)
+    - Construction robot fire & acid resistances both increased to 95%
+    - Reduced range of sniper ammo from 250 to 200.
+    - Reduced range of sniper turret from 160 to 128.
+    - Increased minimum range of mortar turret from 32 to 64.
+  Fixes:
+    - Removed spoilage settings. (It was already added to base)
+    - Alien chunks can now be filtered at game start.
+    - Fixed more advanced science packs not showing up in later abandoned warehouses.
+    - Long handed burner inserters now start with some fuel pre-loaded.
+---------------------------------------------------------------------------------------------------
 Version: 2.2.1
 Date: 2025.06.18
   Space Age:
