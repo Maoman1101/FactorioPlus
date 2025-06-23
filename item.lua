@@ -2,6 +2,7 @@
 
 local sounds = require ("__base__.prototypes.entity.sounds")
 local item_sounds = require("__base__.prototypes.item_sounds")
+local item_tints = require("__base__.prototypes.item-tints")
 
 local healing_cooldown = 60 * 5
 
@@ -1107,7 +1108,8 @@ end
     order = "b[repair]-a[repair-pack]",
     speed = 5,
     durability = 600,
-    stack_size = 500
+    stack_size = 50,
+	random_tint_color = item_tints.iron_rust
   },
    {
     type = "item",

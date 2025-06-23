@@ -94,7 +94,21 @@ local autoplace_rock_big =
   {
 	multiplier = 0.26,
 	penalty = 1.6,
-	region_box = rock_region_box,
+	region_box = "range_select_base(moisture, 0.35, 1, 0.2, -10, 0)",
+	control = "control:rocks:size"
+  }
+}
+
+ local autoplace_rock_bigmedium =
+{
+  control = "rocks",
+  order = "a[doodad]-a[rock]-c[medium]",
+  probability_expression = "multiplier * control * (region_box + rock_density - penalty)",
+  local_expressions =
+  {
+	multiplier = 0.32,
+	penalty = 1.5,
+	region_box = "range_select_base(moisture, 0.35, 1, 0.2, -10, 0)",
 	control = "control:rocks:size"
   }
 }
@@ -106,9 +120,9 @@ local autoplace_rock_big =
   probability_expression = "multiplier * control * (region_box + rock_density - penalty)",
   local_expressions =
   {
-	multiplier = 1.3,
+	multiplier = 0.5,
 	penalty = 1.2,
-	region_box = rock_region_box,
+	region_box = "range_select_base(moisture, 0.35, 1, 0.2, -10, 0)",
 	control = "control:rocks:size"
   }
 }
@@ -120,9 +134,9 @@ local autoplace_rock_big =
   probability_expression = "multiplier * control * (region_box + rock_density - penalty)",
   local_expressions =
   {
-	multiplier = 0.9,
-	penalty = 1.0,
-	region_box = rock_region_box,
+	multiplier = 0.7,
+	penalty = 1.1,
+	region_box = "range_select_base(moisture, 0.35, 1, 0.2, -10, 0)",
 	control = "control:rocks:size"
   }
 }
@@ -200,6 +214,21 @@ local autoplace_rocksandy_big =
     {
       control = "rocks",
       order = "a[doodad]-a[rock]-b[big]",
+      probability_expression = "multiplier * control * (region_box + rock_density - penalty)",
+      local_expressions =
+      {
+        multiplier = 0.4,
+        penalty = 1.6,
+        region_box = "min(aux_range, moisture_range)",
+        aux_range = "range_select_base(aux, 0.0 , 0.3, 0.3, -10, 0)",
+        moisture_range = "range_select_base(moisture, 0, 0.3, 0.2, -10, 0)",
+        control = "control:rocks:size"
+      }
+    }
+local autoplace_rocksandy_bigmedium =
+    {
+      control = "rocks",
+      order = "a[doodad]-a[rock]-b[bigmedium]",
       probability_expression = "multiplier * control * (region_box + rock_density - penalty)",
       local_expressions =
       {
@@ -792,6 +821,200 @@ data:extend
   },
   {
     name = "medium-rock",
+    type = "simple-entity",
+    flags = {"placeable-neutral", "placeable-off-grid", "not-on-map"},
+    icon = "__base__/graphics/icons/big-rock.png",
+    icon_size = 64, icon_mipmaps = 4,
+    subgroup = "grass",
+    order = "b[decorative]-l[rock]-b[medium]",
+    collision_box = {{-1.2, -1.1}, {1.2, 1.1}},
+    selection_box = {{-1.3, -1.3}, {1.3, 1.3}},
+	autoplace = autoplace_rock_bigmedium,
+    damaged_trigger_effect = hit_effects.rock(),
+    dying_trigger_effect = decorative_trigger_effects.big_rock(),
+    minable =
+    {
+      mining_particle = "stone-particle",
+      mining_time = 3,
+       results = 
+	  {
+	  {type = "item", name = "stone", amount_min = 10, amount_max = 20}, 
+	  {type = "item", name = "coal", amount_min = 2, amount_max = 6}
+	  },
+    },
+    loot =
+    {
+      {type = "item", item = "stone", probability = 1, count_min = 4, count_max = 10}
+    },
+    count_as_rock_for_filtered_deconstruction = true,
+    mined_sound = { filename = "__base__/sound/deconstruct-bricks.ogg" },
+    vehicle_impact_sound = sounds.car_stone_impact,
+    render_layer = "object",
+    max_health = 400,
+    resistances =
+   {
+	    {
+        type = "acid",
+        percent = -80
+      },
+      {
+        type = "fire",
+        percent = 100
+      },
+	  {
+        type = "physical",
+        percent = 95
+      },
+	  {
+        type = "impact",
+        percent = 95
+      },
+	  {
+        type = "piercing",
+        percent = 75
+      },
+	  {
+        type = "explosion",
+        percent = 25
+      },
+	  	  {
+        type = "electric",
+        percent = 100
+      },
+	  {
+        type = "laser",
+        percent = 90
+      },
+    },
+    pictures =
+    {
+      {
+
+          filename = "__base__/graphics/decorative/medium-rock/medium-rock-01.png",
+          priority = base_decorative_sprite_priority,
+          width = 89,
+          height = 63,
+          scale = 1.1,
+          shift = {0.078125, 0.109375}
+
+      },
+      {
+
+          filename = "__base__/graphics/decorative/medium-rock/medium-rock-02.png",
+          priority = base_decorative_sprite_priority,
+          width = 77,
+          height = 66,
+          scale = 1.1,
+          shift = {0.015625, 0.132812}
+ 
+      },
+      {
+
+          filename = "__base__/graphics/decorative/medium-rock/medium-rock-03.png",
+          priority = base_decorative_sprite_priority,
+          width = 92,
+          height = 63,
+          scale = 1.1,
+          shift = {0.148438, 0.179688}
+   
+      },
+      {
+
+          filename = "__base__/graphics/decorative/medium-rock/medium-rock-04.png",
+          priority = base_decorative_sprite_priority,
+          width = 91,
+          height = 59,
+          scale = 1.1,
+          shift = {-0.0078125, 0.1875}
+       
+      },
+      {
+     
+       
+          filename = "__base__/graphics/decorative/medium-rock/medium-rock-05.png",
+          priority = base_decorative_sprite_priority,
+          width = 104,
+          height = 72,
+          scale = 1.1,
+          shift = {0.203125, 0.179688}
+     
+      },
+      {
+       
+        
+          filename = "__base__/graphics/decorative/medium-rock/medium-rock-06.png",
+          priority = base_decorative_sprite_priority,
+          width = 83,
+          height = 82,
+          scale = 1.1,
+          shift = {0.015625, 0.21875}
+       
+      },
+      {
+        
+        
+          filename = "__base__/graphics/decorative/medium-rock/medium-rock-07.png",
+          priority = base_decorative_sprite_priority,
+          width = 111,
+          height = 65,
+          scale = 1.1,
+          shift = {0.0625, 0.3125}
+        
+      },
+      {
+      
+          filename = "__base__/graphics/decorative/medium-rock/medium-rock-08.png",
+          priority = base_decorative_sprite_priority,
+          width = 79,
+          height = 81,
+          scale = 1.1,
+          shift = {0.109375, 0.148438}
+        
+      },
+      {
+       
+          filename = "__base__/graphics/decorative/medium-rock/medium-rock-09.png",
+          priority = base_decorative_sprite_priority,
+          width = 98,
+          height = 56,
+          scale = 1.1,
+          shift = {0.015625, 0.140625}
+       
+      },
+      {
+       
+          filename = "__base__/graphics/decorative/medium-rock/medium-rock-10.png",
+          priority = base_decorative_sprite_priority,
+          width = 91,
+          height = 68,
+          scale = 1.1,
+          shift = {0, 0.132812}
+       
+      },
+      {
+       
+          filename = "__base__/graphics/decorative/medium-rock/medium-rock-11.png",
+          priority = base_decorative_sprite_priority,
+          width = 105,
+          height = 71,
+          scale = 1.1,
+          shift = {-0.0234375, 0.125}
+      
+      },
+      {
+      
+          filename = "__base__/graphics/decorative/medium-rock/medium-rock-12.png",
+          priority = base_decorative_sprite_priority,
+          width = 78,
+          height = 80,
+          scale = 1.1,
+          shift = {0.078125, -0.015625}
+      
+      }
+    }
+  },
+  {
+    name = "medium-rock",
     type = "optimized-decorative",
     order = "b[decorative]-l[rock]-c[medium]",
     collision_box = {{-1.1, -1.1}, {1.1, 1.1}},
@@ -1290,13 +1513,13 @@ data:extend
     selection_box = {{-2.0, -2.0}, {2.0, 2.25}},
     damaged_trigger_effect = hit_effects.rock(),
     render_layer = "object",
-    max_health = 500,
+    max_health = 400,
     autoplace = autoplace_rocksandy_big,
     dying_trigger_effect = decorative_trigger_effects.big_rock(),
     minable =
     {
       mining_particle = "stone-particle",
-      mining_time = 4,
+      mining_time = 3,
        results = 
 	  {
 	  {type = "item", name = "stone", amount_min = 10, amount_max = 30}, 
@@ -1482,7 +1705,227 @@ data:extend
       }
     }
   },
-  
+  {
+    name = "medium-sand-rock",
+    type = "simple-entity",
+    flags = {"placeable-neutral", "placeable-off-grid", "not-on-map"},
+    icon = "__base__/graphics/icons/big-sand-rock.png",
+    icon_size = 64, icon_mipmaps = 4,
+    subgroup = "grass",
+    order = "b[decorative]-l[rock]-a[big]",
+    collision_box = {{-1.15, -1.15}, {1.15, 1.15}},
+    selection_box = {{-1.25, -1.25}, {1.25, 1.25}},
+    damaged_trigger_effect = hit_effects.rock(),
+    render_layer = "object",
+    max_health = 200,
+    autoplace = autoplace_rocksandy_bigmedium,
+    dying_trigger_effect = decorative_trigger_effects.big_rock(),
+    minable =
+    {
+      mining_particle = "stone-particle",
+      mining_time = 1.5,
+       results = 
+	  {
+	  {type = "item", name = "stone", amount_min = 5, amount_max = 10}, 
+	  {type = "item", name = "sand-ore", amount_min = 15, amount_max = 35}
+	  },
+    },
+    loot =
+    {
+      {type = "item", item = "stone", probability = 1, count_min = 2, count_max = 8},
+	  {type = "item", item = "sand-ore", probability = 1, count_min = 5, count_max = 15}
+    },
+    resistances =
+    {
+      {
+        type = "fire",
+        percent = 90
+      },
+	  {
+        type = "physical",
+        percent = 70
+      },
+	  {
+        type = "impact",
+        percent = 70
+      },
+	  {
+        type = "piercing",
+        percent = 60
+      },
+	  {
+        type = "explosion",
+        percent = 10
+      },
+    },
+    count_as_rock_for_filtered_deconstruction = true,
+    mined_sound = { filename = "__base__/sound/deconstruct-bricks.ogg" },
+    vehicle_impact_sound = sounds.car_stone_impact,
+    pictures =
+    {
+      {
+
+          filename = "__base__/graphics/decorative/sand-rock/medium-sand-rock-01.png",
+          priority = base_decorative_sprite_priority,
+          width = 134,
+          height = 82,
+          shift = {0.328125, 0.515625},
+          scale = 1.0,
+        
+      },
+      {
+ 
+          filename = "__base__/graphics/decorative/sand-rock/medium-sand-rock-02.png",
+          priority = base_decorative_sprite_priority,
+          width = 110,
+          height = 79,
+          shift = {0.15625, 0.570312},
+          scale = 1.0,
+        
+      },
+      {
+
+          filename = "__base__/graphics/decorative/sand-rock/medium-sand-rock-03.png",
+          priority = base_decorative_sprite_priority,
+          width = 90,
+          height = 60,
+		  scale = 0.5,
+          shift = {0.34375, 0.484375},
+          scale = 1.0,
+        
+      },
+      {
+ 
+          filename = "__base__/graphics/decorative/sand-rock/medium-sand-rock-04.png",
+          priority = base_decorative_sprite_priority,
+          width = 110,
+          height = 89,
+          shift = {0.296875, 0.476562},
+          scale = 1.0,
+        
+      },
+      {
+
+          filename = "__base__/graphics/decorative/sand-rock/medium-sand-rock-05.png",
+          priority = base_decorative_sprite_priority,
+          width = 106,
+          height = 76,
+          shift = {0.359375, 0.25},
+          scale = 1.0,
+        
+      },
+      {
+
+          filename = "__base__/graphics/decorative/sand-rock/medium-sand-rock-06.png",
+          priority = base_decorative_sprite_priority,
+          width = 100,
+          height = 92,
+          shift = {0.4375, 0.296875},
+          scale = 1.0,
+        
+      },
+      {
+
+          filename = "__base__/graphics/decorative/sand-rock/medium-sand-rock-07.png",
+          priority = base_decorative_sprite_priority,
+          width = 82,
+          height = 83,
+          shift = {0.59375, 0.398438},
+          scale = 1.0,
+        
+      },
+      {
+
+          filename = "__base__/graphics/decorative/sand-rock/medium-sand-rock-08.png",
+          priority = base_decorative_sprite_priority,
+          width = 123,
+          height = 92,
+          shift = {0.601562, 0.328125},
+          scale = 1.0,
+        
+      },
+      {
+
+          filename = "__base__/graphics/decorative/sand-rock/medium-sand-rock-09.png",
+          priority = base_decorative_sprite_priority,
+          width = 146,
+          height = 76,
+          shift = {0.5625, 0.3125},
+          scale = 1.0,
+        
+      },
+      {
+
+          filename = "__base__/graphics/decorative/sand-rock/medium-sand-rock-10.png",
+          priority = base_decorative_sprite_priority,
+          width = 112,
+          height = 77,
+          shift = {0.46875, 0.460938},
+          scale = 1.0,
+        
+      },
+      {
+
+          filename = "__base__/graphics/decorative/sand-rock/medium-sand-rock-11.png",
+          priority = base_decorative_sprite_priority,
+          width = 91,
+          height = 61,
+          shift = {0.445312, 0.507812},
+          scale = 1.0,
+        
+      },
+      {
+ 
+          filename = "__base__/graphics/decorative/sand-rock/medium-sand-rock-12.png",
+          priority = base_decorative_sprite_priority,
+          width = 105,
+          height = 84,
+          shift = {0.398438, 0.453125},
+          scale = 1.0,
+        
+      },
+      {
+
+          filename = "__base__/graphics/decorative/sand-rock/medium-sand-rock-13.png",
+          priority = base_decorative_sprite_priority,
+          width = 94,
+          height = 73,
+          shift = {0.375, 0.632812},
+          scale = 1.0,
+        
+      },
+      {
+
+          filename = "__base__/graphics/decorative/sand-rock/medium-sand-rock-14.png",
+          priority = base_decorative_sprite_priority,
+          width = 122,
+          height = 89,
+          shift = {0.359375, 0.570312},
+          scale = 1.0,
+        
+      },
+      {
+
+          filename = "__base__/graphics/decorative/sand-rock/medium-sand-rock-15.png",
+          priority = base_decorative_sprite_priority,
+          width = 98,
+          height = 65,
+          shift = {0.1875, 0.773438},
+          scale = 1.0,
+        
+      },
+      {
+
+          filename = "__base__/graphics/decorative/sand-rock/medium-sand-rock-16.png",
+          priority = base_decorative_sprite_priority,
+          width = 144,
+          height = 76,
+          shift = {0.109375, 0.71875},
+          scale = 1.0,
+        
+      }
+    }
+  },
   {
     name = "medium-sand-rock",
     type = "optimized-decorative",

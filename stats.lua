@@ -1,7 +1,7 @@
 -- GENERAL STATS
 
 
-friendly_fire_modifier = settings.startup["settings-friendlyfire-percent"].value / 100 -- This modifies the player splash damage by this amount of weapons that have been affected (arbitary)
+friendly_fire_modifier = settings.startup["settings-combat-friendlyfire-percent"].value / 100 -- This modifies the player splash damage by this amount of weapons that have been affected (arbitary)
 friendly_fire_radius_reduction_factor = 2 -- divide the radius that affects allies by this amount (flat value across board)
 
 -- Vehicles
@@ -283,14 +283,14 @@ bullet_reloadtime = 1 * 60
 
 firerate_sniper = 60 / 0.25
 
-sniper_damage_modifier = 2.0 -- player modifier
-sniper_fired_movement_slow_down_factor = 0.9 -- player modifier
-sniper_movement_slow_down_cooldown_factor = 1 -- How long movement is slowed down between each shot -> firerate / X
+sniper_damage_modifier = 2.0 -- player sniper weapon modifier
+sniper_fired_movement_slow_down_factor = 0.9 -- player sniper weapon modifier
+sniper_movement_slow_down_cooldown_factor = 2 -- How long movement is slowed down between each shot -> firerate / X
 
-sniperbullet_range = 250
+sniperbullet_range = 200
 
-sniperbullet_piercing_damage = 500
-sniperbullet_regular_piercing = 250
+sniperbullet_piercing_damage = 500 -- more adnvanced ammo is *2 the previous
+sniperbullet_regular_piercing = 250 -- more adnvanced ammo is *2 the previous
 
 sniperbullet_magazinesize = 5
 sniperbullet_stacksize = 10
@@ -630,7 +630,7 @@ range_turret_laser = 28
 health_turret_laser = 500
 
 firerate_turret_rocket = firerate_rocketlauncher / 0.5
-rangemin_turret_rocket = 15
+rangemin_turret_rocket = 16
 range_turret_rocket = 42
 health_turret_rocket = 700
 
@@ -647,11 +647,11 @@ health_turret_minigun = 1500
 turnrange_mortar = 1/2.5
 firerate_mortar_factor = 2
 range_turret_mortar = 6 * 32
-rangemin_turret_mortar = 1 * 32
+rangemin_turret_mortar = 2 * 32
 health_turret_mortar = 600
 
 firerate_turret_sniper = 60 * 5
-range_turret_sniper = 5 * 32
+range_turret_sniper = 4 * 32
 rangemin_turret_sniper = 1 * 32
 health_turret_sniper = 300
 

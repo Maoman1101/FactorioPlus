@@ -36,7 +36,7 @@ end
 data:extend({
 	{
 		type = "int-setting",
-		name = "settings-friendlyfire-percent",
+		name = "settings-combat-friendlyfire-percent",
 		setting_type = "startup",
 		allowed_values = {0, 25, 50, 100},
 		default_value = 25,
