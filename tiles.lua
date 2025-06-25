@@ -23,6 +23,9 @@ local dirt_vehicle_speed_modifier = 1.6
 local sand_vehicle_speed_modifier = 2.3
 local snow_vehicle_speed_modifier = 2.7
 
+table.insert(water_tile_type_names, "oceanwater")
+table.insert(water_tile_type_names, "oceanwater-green")
+
 -- data.raw["tile"]["grass"].vehicle_friction_modifier = water_vehicle_friction_modifier
 -- data.raw["tile"]["dirt"].vehicle_friction_modifier = water_vehicle_friction_modifier
 -- data.raw["tile"]["sand"].vehicle_friction_modifier = water_vehicle_friction_modifier
@@ -102,7 +105,6 @@ update_tile_map_color ("grass-2")
 -- data.raw["tile"]["red-desert-3"].map_color[1]* data.raw["tile"]["red-desert-0"].tint[1],
 -- data.raw["tile"]["red-desert-3"].map_color[2]* data.raw["tile"]["red-desert-0"].tint[2],
 -- data.raw["tile"]["red-desert-3"].map_color[3]* data.raw["tile"]["red-desert-0"].tint[3] }
-
 
 -- Yellow Sandy Desert
 
@@ -275,19 +277,21 @@ update_tile_map_color ("dirt-6")
 -- data.raw["planet"]["nauvis"].map_gen_settings.autoplace_settings["tile"].settings["tundra-3"] = {}
  
 
+local oceanwater = util.table.deepcopy(data.raw["tile"]["deepwater"])
+oceanwater.name = "oceanwater"
+
+
 ---------------------------------- CLOUDS ------------------------------------
 data.raw["planet"]["nauvis"].surface_render_parameters.clouds.scale = 1/6
 data.raw["planet"]["nauvis"].surface_render_parameters.clouds.opacity = 0.2
 	
 ---------------------------------- DEEP WATER ------------------------------------
 data:extend
-({
-    
-{
-  type = "collision-layer",
-  name = "deep_water_tile",
-}
-
+({  
+	{
+	  type = "collision-layer",
+	  name = "deep_water_tile",
+	},
 })
 
 table.insert(data.raw["tile"]["deepwater"].collision_mask, { deep_water_tile = true } )
@@ -296,6 +300,7 @@ data.raw["tile"]["deepwater"].autoplace = {probability_expression = "water_base(
 data.raw["tile"]["deepwater"].walking_speed_modifier = 0.4
 data.raw["tile"]["deepwater"].effect_color = {21, 99, 111}
 data.raw["tile"]["deepwater"].effect_color_secondary = { 35, 68, 45 }
+data.raw["tile"]["deepwater"].allowed_neighbors = { "water", "oceanwater" }
 data.raw["tile"]["deepwater"].variants =
 {
   main =
@@ -348,6 +353,96 @@ data.raw["tile"]["deepwater-green"].variants =
   },
   empty_transitions = true
 }
+
+---------------------------------- OCEAN WATER ------------------------------------
+
+
+data:extend
+({  
+	{
+	  type = "collision-layer",
+	  name = "ocean_water_tile",
+	},	
+	oceanwater,
+})
+
+table.insert(data.raw["tile"]["oceanwater"].collision_mask, { ocean_water_tile = true } )
+
+data.raw["planet"]["nauvis"].map_gen_settings.autoplace_settings["tile"].settings["oceanwater"] = {}
+data.raw["tile"]["oceanwater"].autoplace = {probability_expression = "water_base(-30, 200)"}
+data.raw["tile"]["oceanwater"].effect_color = {21/1.5, 99/1.5, 111/1.5}
+data.raw["tile"]["oceanwater"].effect_color_secondary = { 35/1.5, 68/1.5, 45/1.5 }
+data.raw["tile"]["oceanwater"].map_color = {38/1.5, 64/1.5, 73/1.5}
+-- data.raw["tile"]["oceanwater"].transition_merges_with_tile = "deepwater"
+data.raw["tile"]["oceanwater"].allowed_neighbors = { "deepwater" }
+
+-- allowed to be covered by space-age advanced foundation tiles
+if (mods["space-age"]) then
+	data.raw["tile"]["oceanwater"].default_cover_tile = "foundation"
+	table.insert(data.raw["item"]["foundation"].place_as_tile.tile_condition, "oceanwater")
+end
+
+data.raw["tile"]["oceanwater"].variants =
+{
+  main =
+  {
+	{
+	  picture = "__factorioplus__/graphics/tiles/deepwater1.png",
+	  count = 1,
+	  scale = 0.5,
+	  size = 1
+	},
+	{
+	  picture = "__factorioplus__/graphics/tiles/deepwater2.png",
+	  count = 1,
+	  scale = 0.5,
+	  size = 2
+	},
+	{
+	  picture = "__factorioplus__/graphics/tiles/deepwater4.png",
+	  count = 1,
+	  scale = 0.5,
+	  size = 4
+	}
+  },
+  empty_transitions = true
+}
+
+local oceanwatergreen = util.table.deepcopy(data.raw["tile"]["deepwater-green"])
+oceanwatergreen.name = "oceanwater-green"
+
+data:extend
+({  
+	oceanwatergreen,
+})
+
+data.raw["tile"]["oceanwater-green"].effect_color = { 35/1.5, 58/1.5, 25/1.5 }
+data.raw["tile"]["oceanwater-green"].variants =
+{
+  main =
+  {
+	{
+	  picture = "__factorioplus__/graphics/tiles/deepwater-green1.png",
+	  count = 1,
+	  scale = 0.5,
+	  size = 1
+	},
+	{
+	  picture = "__factorioplus__/graphics/tiles/deepwater-green2.png",
+	  count = 1,
+	  scale = 0.5,
+	  size = 2
+	},
+	{
+	  picture = "__factorioplus__/graphics/tiles/deepwater-green4.png",
+	  count = 1,
+	  scale = 0.5,
+	  size = 4
+	}
+  },
+  empty_transitions = true
+}
+
 
 ---------------------------------- WATER ------------------------------------
 

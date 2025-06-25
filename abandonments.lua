@@ -9,15 +9,15 @@ if (settings.startup["settings-warehouse-abandonments"].value) then
 	local _warehouse_spacing_scale = 18 -- Normal value
 	
 	if (settings.startup["settings-warehouse-spacing"].value == "dense" ) then
-		_warehouse_spacing_scale = 10
-	elseif (settings.startup["settings-warehouse-spacing"].value == "common" ) then
 		_warehouse_spacing_scale = 14
+	elseif (settings.startup["settings-warehouse-spacing"].value == "common" ) then
+		_warehouse_spacing_scale = 16
 	elseif (settings.startup["settings-warehouse-spacing"].value == "uncommon" ) then
-		_warehouse_spacing_scale = 22
+		_warehouse_spacing_scale = 20
 	elseif (settings.startup["settings-warehouse-spacing"].value == "sparse" ) then
-		_warehouse_spacing_scale = 26
+		_warehouse_spacing_scale = 22
 	elseif (settings.startup["settings-warehouse-spacing"].value == "rare" ) then
-		_warehouse_spacing_scale = 30
+		_warehouse_spacing_scale = 24
 	end
 
 		

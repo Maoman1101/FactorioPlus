@@ -4000,7 +4000,7 @@ data:extend
         recipe = "atv"
       },
     },
-    prerequisites = {"steel-processing"},
+    prerequisites = {"steel-processing","logistic-science-pack"},
     unit =
     {
       count = 50,

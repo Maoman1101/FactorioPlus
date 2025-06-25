@@ -1,4 +1,16 @@
 ---------------------------------------------------------------------------------------------------
+Version: 2.2.3
+Date: 2025.06.25
+  Additions:
+    - Added Ocean water, deeper waters which cannot be filled by anything but foundation (space age).
+  Balance:
+    - Reduced scale of Abandonment "Warehouse spacing" settings to not be so extreme (+/-4 -> +/-2 per setting)
+  Fixes:
+    - Basic automobilism requires logistic science packs first.
+  Localization:
+    - Added Russian (RU) localization (JoyRax)
+    - Updated Polish (PL) localization (S3BA)
+---------------------------------------------------------------------------------------------------
 Version: 2.2.2
 Date: 2025.06.23
   Additions:
