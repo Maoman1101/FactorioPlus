@@ -1,4 +1,5 @@
 require ("__base__.prototypes.entity.entity-util")
+local resource_autoplace = require("resource-autoplace")
 
 local tile_trigger_effects = require("__base__.prototypes.tile.tile-trigger-effects")
 local tile_graphics = require("__base__/prototypes/tile/tile-graphics")
@@ -127,7 +128,21 @@ update_tile_map_color ("dry-dirt")
 update_tile_map_color ("dirt-5")
 update_tile_map_color ("dirt-6")
 
+--local newpath = util.copy(data.raw["tile"]["stone-path"])
+--local treetile = util.table.deepcopy(data.raw["tile"]["grass-2"])
+local treetile = util.table.deepcopy(data.raw["tile"]["grass-2"])
+treetile.name = "forest-floor"
+treetile.tint = { 0.7, 0.55 , 0.85}
+treetile.vehicle_friction_modifier = 6.0
+treetile.walking_speed_modifier = 0.65
+treetile.layer = 99,
 
+data:extend
+({  
+	treetile,
+})
+	
+update_tile_map_color ("forest-floor")
 -- New tiles
 -- Use deepcopies with tints to same storage cap.
 

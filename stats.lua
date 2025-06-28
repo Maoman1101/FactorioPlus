@@ -603,7 +603,7 @@ laserbeam_electric_duration = 60 / 3
 -- Turrets
 
 firerate_turret_pistol = firerate_pistol
-range_turret_pistol = range_pistol
+range_turret_pistol = range_pistol + 2
 health_turret_pistol = 200
 
 firerate_turret_smg = 60 / 5
@@ -615,7 +615,6 @@ firerate_turret_heavysmg = firerate_turret_smg / turret_heavysmg_modifier
 range_turret_heavysmg =  math.ceil(range_turret_smg * (turret_heavysmg_modifier - ((turret_heavysmg_modifier-1)/2)))
 health_turret_heavysmg = health_turret_smg * turret_heavysmg_modifier 
 damagemodifier_turret_heavysmg = turret_heavysmg_modifier
-
 
 firerate_turret_shotgun = 60 / 0.75
 range_turret_shotgun = 20

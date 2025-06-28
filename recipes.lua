@@ -1847,9 +1847,9 @@ end
     type = "recipe",
     name = "basic-wall",
     enabled = true,
-	energy_required = 1,
-    ingredients = {{type="item", name="stone", amount=4}},
-    results = {{type="item", name="basic-wall", amount=2}},
+	energy_required = 0.25,
+    ingredients = {{type="item", name="stone", amount=8}},
+    results = {{type="item", name="basic-wall", amount=4}},
   },
   -- {
     -- type = "recipe",
@@ -2098,7 +2098,7 @@ data.extend({
     },
     results = {{type="item", name="car-shotgun", amount=1}},
   },
-    {
+   {
     type = "recipe",
     name = "atv",
     enabled = false,
@@ -2110,6 +2110,31 @@ data.extend({
 		{type="item", name="electronic-circuit", amount=2}
     },
     results = {{type="item", name="atv", amount=1}},
+  },
+    {
+    type = "recipe",
+    name = "atv-drone",
+    enabled = false,
+    energy_required = 4,
+    ingredients =
+    {
+		{type="item", name="atv", amount=1},
+		{type="item", name="submachine-gun", amount=1},
+		{type="item", name="advanced-circuit", amount=3}
+    },
+    results = {{type="item", name="atv-drone", amount=1}},
+  },
+    {
+    type = "recipe",
+    name = "atv-exploding",
+    enabled = false,
+    energy_required = 4,
+    ingredients =
+    {
+		{type="item", name="atv", amount=1},
+		{type="item", name="grenade", amount=20}
+    },
+    results = {{type="item", name="atv-exploding", amount=1}},
   },
   {
     type = "recipe",

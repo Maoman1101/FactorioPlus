@@ -19,6 +19,7 @@ local sounds = require("__base__.prototypes.entity.sounds")
     damaged_trigger_effect = hit_effects.wall(),
     minable = 
 	{ 
+		transfer_entity_health_to_products = false,
 		mining_time = 0.25, 
 		results = 
 		{
@@ -29,6 +30,7 @@ local sounds = require("__base__.prototypes.entity.sounds")
 	next_upgrade = "stone-wall",
     max_health = 300,
     repair_speed_modifier = 0,
+	
 	loot =
 	{
 		{

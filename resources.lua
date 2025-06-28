@@ -2,6 +2,36 @@ local sounds = require ("__base__.prototypes.entity.sounds")
 local resource_autoplace = require("resource-autoplace")
 local tile_sounds = require("__base__.prototypes.tile.tile-sounds")
 
+--
+
+local function create_tiles(tilename, rad)
+  return {
+		type = "direct",
+		action_delivery =
+		{
+			type = "instant",
+			target_effects =
+			{
+				{
+					type = "set-tile",
+					tile_name = tilename,
+					radius = rad or 1,
+					apply_projectionoptional = true,
+				},
+				{
+					type = "create-decorative",
+					decorative = "sand-decal",
+					spawn_min = 2,
+					spawn_max = 4,
+					spawn_min_radius = 2,
+					spawn_max_radius = rad + 3 or 3,
+					spread_evenly = true,
+				}
+			}
+		}
+	}
+end
+
 ---------------------------------------------------  FUEL OVERRIDES  ------------------------------------------------------------
 
 data.raw["item"]["wood"].fuel_acceleration_multiplier = 0.5
@@ -23,6 +53,8 @@ data.raw["item"]["rocket-fuel"].order = "c[vehicle-fuel]"
 
 data.raw["item"]["nuclear-fuel"].subgroup = "fuel-product"
 data.raw["item"]["nuclear-fuel"].order = "f[vehicle-fuel]"
+
+--
 
 local gas_collision_box = {{-2.4, -2.4}, {2.4, 2.4}}
 local gas_selection_box = {{-1.0, -1.0}, {1.0, 1.0}}
@@ -437,7 +469,7 @@ data:extend
 	  seed1 = 100,
       order = "c",
       base_density = 6,
-      base_spots_per_km2 = 0.45,
+      base_spots_per_km2 = 0.45/3,
       has_starting_area_placement = false,
       random_spot_size_minimum = 2,
       random_spot_size_maximum = 6,
@@ -530,7 +562,7 @@ data:extend
 	  seed1 = 101,
       order = "c",
       base_density = 6,
-      base_spots_per_km2 =  0.45,
+      base_spots_per_km2 =  0.45/3,
       has_starting_area_placement = false,
       random_spot_size_minimum = 2,
       random_spot_size_maximum = 6,
@@ -623,7 +655,7 @@ data:extend
 	  seed1 = 102,
       order = "c",
       base_density = 6,
-      base_spots_per_km2 =  0.45,
+      base_spots_per_km2 =  0.45/3,
       has_starting_area_placement = false,
       random_spot_size_minimum = 2,
       random_spot_size_maximum = 6,
@@ -1129,8 +1161,9 @@ data:extend
 		}
 	  },
 	},
+	created_effect = create_tiles("forest-floor", 3.5),
 
-},
+	},
   
 	
 	{

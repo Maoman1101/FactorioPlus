@@ -1,5 +1,16 @@
 ---------------------------------------------------------------------------------------------------
 Version: 2.2.3
+Date: 2025.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  Additions:
+    -
+  Balance:
+    - Increased pistol turret range by +2
+  Fixes:
+    - Pistol turrets alt-icon size decreased to 50% so it doesn't lay over the entire entity.
+    - Fixed Tank mask image being unaligned.
+    - Radar technology is now ordered correctly behind logistic science.
+---------------------------------------------------------------------------------------------------
+Version: 2.2.3
 Date: 2025.06.25
   Additions:
     - Added Ocean water, deeper waters which cannot be filled by anything but foundation (space age).

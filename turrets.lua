@@ -1298,7 +1298,7 @@ data:extend({
         percent = 50
       }
     },
-    corpse = "gun-turret-remnants",
+    corpse = "small-remnants",
     dying_explosion = "gun-turret-explosion",
     collision_box = {{-0.7, -0.7 }, {0.7, 0.7}},
     selection_box = {{-1, -1 }, {1, 1}},
@@ -1401,7 +1401,7 @@ data:extend({
       range = range_turret_pistol,
       sound = soundsnew.turret_pistol,
     },
-
+	icon_draw_specification = { scale = 0.65},
     call_for_help_radius = 40,
     water_reflection =
     {
@@ -1641,7 +1641,7 @@ data:extend({
         percent = 50
       },
     },
-    corpse = "gun-turret-remnants",
+    corpse = "small-remnants",
     dying_explosion = "gun-turret-explosion",
     collision_box = {{-0.7, -0.7 }, {0.7, 0.7}},
     selection_box = {{-1, -1 }, {1, 1}},
@@ -1901,7 +1901,7 @@ data:extend({
         percent = 50
       },
     },
-    corpse = "gun-turret-remnants",
+    corpse = "medium-remnants",
     dying_explosion = "gun-turret-explosion",
     collision_box = {{-1.2, -1.2 }, {1.2, 1.2}},
     selection_box = {{-1.5, -1.5 }, {1.5, 1.5}},
@@ -2172,7 +2172,7 @@ data:extend({
         percent = 60
       },
     },
-    corpse = "gun-turret-remnants",
+    corpse = "small-remnants",
     dying_explosion = "gun-turret-explosion",
     collision_box = {{-0.7, -0.7 }, {0.7, 0.7}},
     selection_box = {{-1, -1 }, {1, 1}},

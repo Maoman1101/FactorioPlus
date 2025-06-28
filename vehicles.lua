@@ -5,10 +5,11 @@ local movement_triggers = require("__factorioplus__.movement_triggers")
 local tank_shift_y = 6
 local flametank_shift_y = 6
 
+require ("__factorioplus__.util-attack-helpers")
+require("stats")
+
 data.raw["spider-vehicle"]["spidertron"].chain_shooting_cooldown_modifier  = 0.25
 
-
-require("stats")
 
 local standard_train_wheels =
 {
@@ -1197,6 +1198,7 @@ local car_animations =
 local gun_turret_scale = 0.5
 local gun_turret_xy = {912/8, 832/8}
 local gun_turret_shift_xy = {0, -25 }
+local gun_turret_drone_shift_xy = {0, -8}
 
 data:extend({
 ----------------------------------------------------------  SIMPLE CAR  ----------------------------------------------------------
@@ -1415,6 +1417,9 @@ data:extend({
     },
     render_layer = "object",
     animation = car_animations,
+	
+	turret_rotation_speed = 0.75 / 60,
+	guns = { "vehicle-machine-gun" },
     turret_animation =
     {
       layers =
@@ -1458,7 +1463,7 @@ data:extend({
         }
       }
     },
-    turret_rotation_speed = 0.75 / 60,
+
     sound_no_fuel =
     {
       {
@@ -1506,7 +1511,7 @@ data:extend({
     close_sound = { filename = "__base__/sound/car-door-close.ogg", volume = 0.4 },
     rotation_speed = car_turnrate,
     weight = car_weight,
-    guns = { "vehicle-machine-gun" },
+    
     inventory_size = car_inventory_size,
     track_particle_triggers = movement_triggers.car,
     water_reflection = car_reflection(1)
@@ -1895,7 +1900,525 @@ data:extend({
       scale = 0.5,
     },
  },
+
+-----------------------------  ATV DRONE -----------------------------
+  -- remote attack vehicle thing
+{
+    type = "car",
+    name = "atv-drone",
+    icon = "__factorioplus__/graphics/icons/atv.png",
+    icon_size = 64, icon_mipmaps = 4,
+    flags = {"placeable-neutral", "player-creation", "placeable-off-grid", "not-flammable"},
+    minable = {mining_time = 0.4, result = "atv-drone"},
+    mined_sound = {filename = "__core__/sound/deconstruct-medium.ogg",volume = 0.8},
+    max_health = atv_health * 1.5,
+	resistances = atv_resistances,
+    corpse = "small-remnants",
+    dying_explosion = "car-explosion",
+    alert_icon_shift = util.by_pixel(0, -13),
+    energy_per_hit_point = atv_ephp,
+    crash_trigger = crash_trigger(),
+	has_belt_immunity = true,
+    collision_box = {{-0.6, -0.75}, {0.6, 0.75}},
+    selection_box = {{-0.8, -1.0}, {0.8, 1.0}},
+	--collision_mask = {"consider-tile-transitions","object-layer"},
+	
+	allow_remote_driving = true,
+	allow_passengers = true,
+	chunk_exploration_radius = 3,
+	is_military_target = true,
+	
+    damaged_trigger_effect = hit_effects.entity(),
+    effectivity = atv_effectivity,
+    braking_power = atv_braking,
+
+    energy_source =
+    {
+      type = "burner",
+      fuel_categories = {"chemical"},
+      effectivity = 1,
+      fuel_inventory_size = 1,
+      smoke =
+      {
+        {
+          name = "car-smoke",
+          deviation = {0.25, 0.25},
+          frequency = 100,
+          position = {0, 1},
+          starting_frame = 0,
+          starting_frame_deviation = 60
+        }
+      }
+    },
+    consumption = atv_consumption,
+    friction = atv_friction,
+    light =
+    {
+	
+	-- FRONT LIGHT
+	 {
+        type = "oriented",
+        minimum_darkness = 0.3,
+        picture =
+        {
+          filename = "__core__/graphics/light-cone.png",
+          priority = "extra-high",
+          flags = { "light" },
+          scale = 1,
+          width = 200,
+          height = 200
+        },
+        shift = {-1.1, -10},
+        size = 2.5,
+        intensity = 0.9,
+        color = {r = 0.92, g = 0.77, b = 0.3}
+      },
+      {
+        type = "oriented",
+        minimum_darkness = 0.3,
+        picture =
+        {
+          filename = "__core__/graphics/light-cone.png",
+          priority = "extra-high",
+          flags = { "light" },
+          scale = 1,
+          width = 200,
+          height = 200
+        },
+        shift = {1.1, -10},
+        size = 2.5,
+        intensity = 0.9,
+        color = {r = 0.92, g = 0.77, b = 0.3}
+      },
+    },
+    render_layer = "object",
+    animation =
+    {
+      layers =
+      {
+        {
+		  filename = "__factorioplus__/graphics/vehicles/atv_drone_base.png",
+          priority = "low",
+          width = 146,
+          height = 144,
+		  scale = 0.5,
+		  
+         direction_count = 64,
+		 frame_count = 1,
+		 line_length = 8,
+		  
+          shift = {0, 0.2},
+          animation_speed = 8,
+          max_advance = 0.2,
+        },
+		
+		 {
+		  filename = "__factorioplus__/graphics/vehicles/atv_drone_mask.png",
+          priority = "low",
+          width = 146,
+          height = 144,
+		  scale = 0.5,
+		  
+         direction_count = 64,
+		frame_count = 1,
+		line_length = 8,
+		  
+		  flags = { "mask" },
+		  apply_runtime_tint = true,
+		  
+          shift = {0, 0.2},
+          animation_speed = 8,
+          max_advance = 0.2,
+        },
+		
+		{
+		  filename = "__factorioplus__/graphics/vehicles/atv_drone_base.png",
+          priority = "low",
+          width = 146,
+          height = 144,
+		  scale = 0.5,
+		  
+         direction_count = 64,
+		frame_count = 1,
+		line_length = 8,
+		  
+		  draw_as_shadow = true,
+          shift = {0.2, 0.2},
+          animation_speed = 8,
+          max_advance = 0.2,
+        },
+      }
+	  
+    },
+	
+	turret_rotation_speed = 0.75 / 60,
+	guns = { "vehicle-machine-gun" },
+    turret_animation =
+    {
+      layers =
+      {
+		{
+          filename = "__factorioplus__/graphics/smg-turret/smg-turret.png",
+          priority = "low",
+          line_length = 8,
+			width = gun_turret_xy[1],
+			height = gun_turret_xy[2],
+          frame_count = 1,
+          direction_count = 64,
+          shift = util.by_pixel(table.unpack(gun_turret_drone_shift_xy) ),
+          animation_speed = 8,
+		  scale = gun_turret_scale,
+		},
+		{
+		  filename ="__factorioplus__/graphics/smg-turret/smg-turret-mask.png",
+		  flags = { "mask" },
+			width = gun_turret_xy[1],
+			height = gun_turret_xy[2],
+		  direction_count = 64,
+		  frame_count = 1,
+		  line_length = 8,
+		  run_mode =  "forward",
+		  shift = util.by_pixel(table.unpack(gun_turret_drone_shift_xy) ),
+		  axially_symmetrical = false,
+		  apply_runtime_tint = true,
+		  scale =  gun_turret_scale,
+		},
+        {
+          filename = "__base__/graphics/entity/car/car-turret-shadow.png",
+          priority = "low",
+          line_length = 8,
+          width = 46,
+          height = 31,
+          frame_count = 1,
+          draw_as_shadow = true,
+          direction_count = 64,
+          shift = {0.875, 0.359375}
+        }
+      }
+    },
+   
+    sound_no_fuel =
+    {
+      {
+        filename = "__base__/sound/fight/car-no-fuel-1.ogg",
+        volume = 0.7,
+		1.25,
+      }
+    },
+    stop_trigger_speed = 0.15,
+    stop_trigger =
+    {
+      {
+        type = "play-sound",
+        sound =
+        {
+          {
+            filename = "__base__/sound/car-breaks.ogg",
+            volume = 0.2
+          }
+        }
+      }
+    },
+    sound_minimum_speed = 0.1,
+    sound_scaling_ratio = 0.5,
+    vehicle_impact_sound = sounds.generic_impact,
+    working_sound =
+    {
+      sound =
+      {
+        filename = "__base__/sound/car-engine.ogg",
+        volume = 0.5,
+		speed = 1.25,
+      },
+      activate_sound =
+      {
+        filename = "__base__/sound/car-engine-start.ogg",
+        volume = 0.5,
+		speed = 1.25,
+      },
+      deactivate_sound =
+      {
+        filename = "__base__/sound/car-engine-stop.ogg",
+        volume = 0.5,
+		speed = 1.25,
+      },
+      match_speed_to_activity = true
+    },
+    rotation_speed = atv_turnrate,
+    weight = atv_weight,
+    inventory_size = atv_inventory_size,
+	
+    track_particle_triggers = movement_triggers_4wd(0.5, 0.7),
+    water_reflection = car_reflection(1),
+	minimap_representation =
+	{
+      filename = "__factorioplus__/graphics/vehicles/atv-map.png",
+      flags = {"icon"},
+      size = {64, 64},
+      scale = 0.5,
+    },
+ },
+ 
+ -----------------------------  ATV BOOM  -----------------------------
+  -- early puttering around vehicle
+{
+    type = "car",
+    name = "atv-exploding",
+    icon = "__factorioplus__/graphics/icons/atv.png",
+    icon_size = 64, icon_mipmaps = 4,
+    flags = {"placeable-neutral", "player-creation", "placeable-off-grid", "not-flammable"},
+    minable = {mining_time = 0.4, result = "atv-exploding"},
+    mined_sound = {filename = "__core__/sound/deconstruct-medium.ogg",volume = 0.8},
+    max_health = atv_health,
+	resistances = atv_resistances,
+    corpse = "car-remnants",
+	dying_trigger_effect = 
+	{
+		{
+			type = "nested-result",
+			action =
+			{
+				{
+					type = "area",
+					radius = 12,
+					action_delivery =
+					{
+						type = "instant",
+						target_effects =
+						{
+						type = "damage",
+						damage = { amount = 150, type = "explosion"}
+						},
+					},
+				},
+				{
+					type = "area",
+					radius = 7,
+					action_delivery =
+					{
+						type = "instant",
+						target_effects =
+						{
+						type = "damage",
+						damage = { amount = 150, type = "explosion"}
+						},
+					},
+				},
+				{
+					type = "area",
+					radius = 4,
+					action_delivery =
+					{
+						type = "instant",
+						target_effects =
+						{
+						type = "damage",
+						damage = { amount = 150, type = "explosion"}
+						},
+					},
+				},
+			},
+
+		},
+	},
+    dying_explosion = "massive-explosion",
+	is_military_target = true,
+	
+    alert_icon_shift = util.by_pixel(0, -13),
+    energy_per_hit_point = atv_ephp,
+    crash_trigger = crash_trigger(),
+	has_belt_immunity = true,
+    collision_box = {{-0.6, -0.75}, {0.6, 0.75}},
+    selection_box = {{-0.8, -1.0}, {0.8, 1.0}},
+	--collision_mask = {"consider-tile-transitions","object-layer"},
+    damaged_trigger_effect = hit_effects.entity(),
+    effectivity = atv_effectivity,
+    braking_power = atv_braking,
+
+    energy_source =
+    {
+      type = "burner",
+      fuel_categories = {"chemical"},
+      effectivity = 1,
+      fuel_inventory_size = 1,
+      smoke =
+      {
+        {
+          name = "car-smoke",
+          deviation = {0.25, 0.25},
+          frequency = 100,
+          position = {0, 1},
+          starting_frame = 0,
+          starting_frame_deviation = 60
+        }
+      }
+    },
+    consumption = atv_consumption,
+    friction = atv_friction,
+    light =
+    {
+	
+	-- FRONT LIGHT
+	 {
+        type = "oriented",
+        minimum_darkness = 0.3,
+        picture =
+        {
+          filename = "__core__/graphics/light-cone.png",
+          priority = "extra-high",
+          flags = { "light" },
+          scale = 1,
+          width = 200,
+          height = 200
+        },
+        shift = {-1.1, -10},
+        size = 2.5,
+        intensity = 0.9,
+        color = {r = 0.92, g = 0.77, b = 0.3}
+      },
+      {
+        type = "oriented",
+        minimum_darkness = 0.3,
+        picture =
+        {
+          filename = "__core__/graphics/light-cone.png",
+          priority = "extra-high",
+          flags = { "light" },
+          scale = 1,
+          width = 200,
+          height = 200
+        },
+        shift = {1.1, -10},
+        size = 2.5,
+        intensity = 0.9,
+        color = {r = 0.92, g = 0.77, b = 0.3}
+      },
+    },
+    render_layer = "object",
+    animation =
+    {
+      layers =
+      {
+        {
+		  filename = "__factorioplus__/graphics/vehicles/hr-atv.png",
+          priority = "low",
+          width = 1680/8,
+          height = 1584/8,
+		  scale = 0.5,
+		  
+         direction_count = 64,
+		 frame_count = 1,
+		 line_length = 8,
+		  
+          shift = {0, 0.2},
+          animation_speed = 8,
+          max_advance = 0.2,
+        },
+		
+		 {
+		  filename = "__factorioplus__/graphics/vehicles/hr-atv-mask.png",
+          priority = "low",
+         width = 1680/8,
+          height = 1584/8,
+		  scale = 0.5,
+		  
+         direction_count = 64,
+		frame_count = 1,
+		line_length = 8,
+		  
+		  flags = { "mask" },
+		  apply_runtime_tint = true,
+		  
+          shift = {0, 0.2},
+          animation_speed = 8,
+          max_advance = 0.2,
+        },
+		
+		{
+		  filename = "__factorioplus__/graphics/vehicles/hr-atv.png",
+          priority = "low",
+          width = 1680/8,
+          height = 1584/8,
+		  scale = 0.5,
+		  
+         direction_count = 64,
+		frame_count = 1,
+		line_length = 8,
+		  
+		  draw_as_shadow = true,
+          shift = {0.2, 0.2},
+          animation_speed = 8,
+          max_advance = 0.2,
+        },
+      }
+	  
+    },
+   
+    sound_no_fuel =
+    {
+      {
+        filename = "__base__/sound/fight/car-no-fuel-1.ogg",
+        volume = 0.7,
+		1.25,
+      }
+    },
+    stop_trigger_speed = 0.15,
+    stop_trigger =
+    {
+      {
+        type = "play-sound",
+        sound =
+        {
+          {
+            filename = "__base__/sound/car-breaks.ogg",
+            volume = 0.2
+          }
+        }
+      }
+    },
+    sound_minimum_speed = 0.1,
+    sound_scaling_ratio = 0.5,
+    vehicle_impact_sound = sounds.generic_impact,
+    working_sound =
+    {
+      sound =
+      {
+        filename = "__base__/sound/car-engine.ogg",
+        volume = 0.5,
+		speed = 1.25,
+      },
+      activate_sound =
+      {
+        filename = "__base__/sound/car-engine-start.ogg",
+        volume = 0.5,
+		speed = 1.25,
+      },
+      deactivate_sound =
+      {
+        filename = "__base__/sound/car-engine-stop.ogg",
+        volume = 0.5,
+		speed = 1.25,
+      },
+      match_speed_to_activity = true
+    },
+    rotation_speed = atv_turnrate,
+    weight = atv_weight,
+    inventory_size = atv_inventory_size,
+	
+    track_particle_triggers = movement_triggers_4wd(0.5, 0.7),
+    water_reflection = car_reflection(1),
+	minimap_representation =
+	{
+      filename = "__factorioplus__/graphics/vehicles/atv-map.png",
+      flags = {"icon"},
+      size = {64, 64},
+      scale = 0.5,
+    },
+ },
+
+ 
 })
+
   -----------------------------  APC  -----------------------------
   -- Medium Car with armour and better weapons
 
@@ -2931,7 +3454,7 @@ local twingun_turret_shift_xy = {0, -40 }
             frame_count = 2,
             apply_runtime_tint = true,
             direction_count = 64,
-            shift = util.by_pixel(0, -27.5 + tank_shift_y),
+            shift = util.by_pixel(0, -33.5 + tank_shift_y),
             max_advance = 1,
             line_length = 2,
             stripes = util.multiplystripes(2,

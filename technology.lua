@@ -1245,7 +1245,7 @@ data.raw["technology"]["radar"].unit =
       time = 30
 }
 
-data.raw["technology"]["radar"].prerequisites = {"military","logistics","electronics"}
+data.raw["technology"]["radar"].prerequisites = {"military","logistic-science-pack","electronics"}
 -- INSERT ENTRY table.insert(data.raw["technology"]["advanced-circuit"].effects,{type = "unlock-recipe",recipe = "silicon-wafer"})
 
 ------------------------------------------ RADAR TECH  ------------------------------------------
@@ -1945,6 +1945,10 @@ data.extend({
         type = "character-loot-pickup-distance",
         modifier = 0.5
       },
+	   {
+        type = "character-resource-reach-distance",
+        modifier = 0.5
+      },
     },
     prerequisites = {"toolbelt","steel-axe"},
     unit =
@@ -1987,6 +1991,10 @@ data.extend({
         type = "character-loot-pickup-distance",
         modifier = 0.5
       },
+	   {
+        type = "character-resource-reach-distance",
+        modifier = 0.5
+      },
     },
     prerequisites = {"lubricant","advanced-circuit","mining-productivity-2","upgraded-tools"},
     unit =
@@ -2024,6 +2032,10 @@ data.extend({
       },
 	   {
         type = "character-loot-pickup-distance",
+        modifier = 0.5
+      },
+	   {
+        type = "character-resource-reach-distance",
         modifier = 0.5
       },
     },
@@ -2068,6 +2080,10 @@ data.extend({
         type = "character-loot-pickup-distance",
         modifier = 0.5
       },
+	   {
+        type = "character-resource-reach-distance",
+        modifier = 0.5
+      },
     },
     prerequisites = {"portable-drill"},
     unit =
@@ -2109,6 +2125,10 @@ data.extend({
       },
 	   {
         type = "character-loot-pickup-distance",
+        modifier = 0.5
+      },
+	   {
+        type = "character-resource-reach-distance",
         modifier = 0.5
       },
     },

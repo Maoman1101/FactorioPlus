@@ -844,6 +844,28 @@ data.extend({
     stack_size = 1
   },
   
+    {
+    type = "item-with-entity-data",
+    name = "atv-drone",
+    icon = "__factorioplus__/graphics/icons/atv.png",
+    icon_size = 64, icon_mipmaps = 4,
+    subgroup = "cars",
+    order = "9[cars]",
+    place_result = "atv-drone",
+    stack_size = 1
+  },
+  
+    {
+    type = "item-with-entity-data",
+    name = "atv-exploding",
+    icon = "__factorioplus__/graphics/icons/atv.png",
+    icon_size = 64, icon_mipmaps = 4,
+    subgroup = "cars",
+    order = "9[cars]",
+    place_result = "atv-exploding",
+    stack_size = 1
+  },
+  
   
    {
     type = "item-with-entity-data",

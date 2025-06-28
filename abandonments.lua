@@ -740,7 +740,8 @@ data:extend{newturret3}
 
 local newturret2 = util.copy(data.raw["turret"]["abandonment-mortar-turret"]) 
 newturret2.localised_name = {"",abandonment_loc, " ", {"entity-name.mortar-turret"}}
-newturret2.attack_parameters.range = newturret2.attack_parameters.range * 0.45
+newturret2.attack_parameters.range = newturret2.attack_parameters.range * 0.5
+newturret2.attack_parameters.range = newturret2.attack_parameters.min_range * 0.75
 newturret2.damage_modifier = 1.0
 newturret2.flags = {"placeable-off-grid",  "player-creation"}
 newturret2.max_health = newturret2.max_health * enemy_health_scale
