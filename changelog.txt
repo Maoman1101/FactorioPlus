@@ -1,14 +1,23 @@
 ---------------------------------------------------------------------------------------------------
-Version: 2.2.3
-Date: 2025.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+Version: 2.2.4
+Date: 2025.06.29
   Additions:
-    -
+    - Deadwood fields now generate woodland tiles under them which slows movement speed.
   Balance:
     - Increased pistol turret range by +2
+    - Increased Abandonment mortar turret overall range by +5% max range, and reduced min_range by 30%
+    - Increased Kobold miner character mining speed by x2 (2.0 -> 4.0)
+    - Reduced Hauler robot speed from 1.0x to 0.8x
+    - Basic Wall is 4x faster to make, and 2x faster to mine/pickup compared to before.
+    - Reduced chance of Goblin ore autoplacement by 3x
+    - Advanced tools sciences now upgrade character mining resource range by +0.5 tiles each time.
   Fixes:
     - Pistol turrets alt-icon size decreased to 50% so it doesn't lay over the entire entity.
     - Fixed Tank mask image being unaligned.
     - Radar technology is now ordered correctly behind logistic science.
+    - Fixed Hauler robot character not being able to mine Deadwood fields and craft certain base categories.
+    - Fixed some wrong corpse remnants for turrets.
+    - Fixed damaged Basic walls from returning damaged raw stone when picked up.
 ---------------------------------------------------------------------------------------------------
 Version: 2.2.3
 Date: 2025.06.25
