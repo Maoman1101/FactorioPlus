@@ -231,6 +231,51 @@ createnewrareweapon("submachine-gun", "legendary"),
 })
 
 data:extend({
+-----------------------------  CAR HORN GUN  -----------------------------
+ 
+  {
+    type = "ammo-category",
+    name = "car-horn",
+	hidden = true
+  },
+
+ {
+    type = "gun",
+    name = "vehicle-horn-small",
+    icon = "__base__/graphics/icons/signal/signal-alarm.png",
+    icon_size = 64, icon_mipmaps = 4,
+    hidden = true,
+    -- subgroup = "utility",
+    order = "a[basic-clips]-b[vehicle-machine-gun]",
+    attack_parameters =
+    {
+      type = "projectile",
+      ammo_category = "car-horn",
+      cooldown = 60 ,
+      range = 1,
+      sound = soundsnew.car_horn,
+	  use_shooter_direction = true,
+	  
+	  ammo_type =
+      {
+        source_type = "default",
+        category = "car-horn",
+        target_type = "position",
+        clamp_position = true,
+		 action =
+        {
+          type = "direct",
+          action_delivery =
+          {
+            type = "stream",
+            stream = "acid-stream-worm-small",
+            source_offset = {0.15, -0.5}
+          }
+        }
+      },
+    },
+    stack_size = 1
+  },
 -----------------------------  CAR MACHINE GUN  -----------------------------
    {
     type = "gun",

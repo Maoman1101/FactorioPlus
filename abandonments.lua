@@ -1,8 +1,78 @@
 local hit_effects = require ("__base__.prototypes.entity.hit-effects")
 local sounds = require("__base__.prototypes.entity.sounds")
 local abandonments_autoplace = require ("__factorioplus__.abandonments-autoplace-util")
+require ("stats")
+
+local function create_decoratives(decorative, rad, probability)
+  return {
+		type = "direct",
+		action_delivery =
+		{
+			type = "instant",
+			target_effects =
+			{
+				{
+					type = "create-decorative",
+					decorative = decorative,
+					probability = probability or 1,
+					spawn_min = math.floor(rad / 4),
+					spawn_max = math.ceil(rad / 2),
+					spawn_min_radius = 1,
+					spawn_max_radius = rad + 2 or 2,
+					spread_evenly = true,
+				}
+			}
+		}
+	}
+end
+
+local function create_entity(entity, rad, probability, amount)
+  return {
+		type = "direct",
+		action_delivery =
+		{
+			type = "instant",
+			target_effects =
+			{
+				{
+					type = "create-entity",
+					entity_name = entity,
+					
+					probability = probability or 1,
+					repeat_count = amount or 2,
+					repeat_count_deviation = math.ceil( amount),
+					
+					check_buildability = true,
+					find_non_colliding_position  = true,
+					non_colliding_search_precision  = 0.25,
+					non_colliding_search_radius = rad or 6,
+					tile_collision_mask  = {not_colliding_with_itself = true, layers = {object = true} }
+				}
+			}
+		}
+	}
+end
 
 
+local function create_tiles(tilename, rad, probability)
+  return {
+		type = "direct",
+		action_delivery =
+		{
+			type = "instant",
+			target_effects =
+			{
+				{
+					type = "set-tile",	
+					tile_name = tilename,
+					probability = probability or 1,
+					radius = rad or 1,
+					apply_projectionoptional = true,
+				},
+			}
+		}
+	}
+end
 
 if (settings.startup["settings-warehouse-abandonments"].value) then
 
@@ -20,14 +90,9 @@ if (settings.startup["settings-warehouse-abandonments"].value) then
 		_warehouse_spacing_scale = 24
 	end
 
-		
--- TODO implement abandonments color, masking and map color.
-	local abandonments_color = {1.0,1.0,1.0,1.0}
 	local abandonment_loc = {"entity-name.abandonment"}
 
-
-
-	local newpath = util.copy(data.raw["tile"]["stone-path"])
+	local newpath = util.copy(data.raw["tile"]["nuclear-ground"])
 	--newpath.collision_mask = {"water-tile"}
 	newpath.localised_name = {"",abandonment_loc, " ", {"entity-name." .. newpath.name}}
 	newpath.name = "abandonment".."-"..newpath.name  
@@ -56,7 +121,8 @@ if (settings.startup["settings-warehouse-abandonments"].value) then
 	enemy_health_scale = 3.0 
 	end
 
-local newcrater = {}
+-- i think this is supposed to be an empty building space, which is just a crater decal.
+-- local newcrater = {}
 
 local function package_pictures (_tint, _tint_item)
 return
@@ -230,13 +296,12 @@ data:extend
 		name = "abandonment-debris-medium-decal-1",
 		type = "optimized-decorative",
 		order = "b[decorative]-z[abandonment]",
-		collision_box = {{-3, -3}, {3, 3}},
+		collision_box = {{-0.25, -0.25}, {0.25, 0.25}},
 		collision_mask = {layers={water_tile=true}},
-		render_layer = "decals",
-		tile_layer = 59,
-		map_generator_bounding_box = {{ -0.25, -0.25}, {0.25,0.25}},
+		render_layer = "object",
+		tile_layer = 70,
+		map_generator_bounding_box = {{ -0.1, -0.1}, {0.1,0.1}},
 		autoplace = abandonments_autoplace.abandonments_decoratives_autoplace("abandonments_autoplace_base(0, 0.95)"),
-		--autoplace = decal_autoplace_settgins("abandonment-debris-mudium-decal", {{0, 0.3}, {1, 1}}),
 		pictures =
 		{
 			{
@@ -246,21 +311,6 @@ data:extend
 			  variation_count = 1,
 			  scale = 0.5
 			},
-		}
-	},
-	{
-		name = "abandonment-debris-medium-decal-2",
-		type = "optimized-decorative",
-		order = "b[decorative]-z[abandonment]",
-		collision_box = {{-3, -3}, {3, 3}},
-		collision_mask = {layers={water_tile=true}},
-		render_layer = "decals",
-		tile_layer = 58,
-		map_generator_bounding_box = {{ -0.25, -0.25}, {0.25,0.25}},
-		autoplace = abandonments_autoplace.abandonments_decoratives_autoplace("abandonments_autoplace_base(0, 0.95)"),
-		--autoplace = decal_autoplace_settgins("abandonment-debris-mudium-decal", {{0, 0.3}, {1, 1}}),
-		pictures =
-		{
 			{
 			filename = "__factorioplus__/graphics/abandonment-rubble-medium-2.png",
 			  width = 256,
@@ -268,21 +318,6 @@ data:extend
 			  variation_count = 1,
 			  scale = 0.5
 			},
-		}
-	},
-	{
-		name =  "abandonment-debris-medium-decal-3",
-		type = "optimized-decorative",
-		order = "b[decorative]-z[abandonment]",
-		collision_box = {{-3, -3}, {3, 3}},
-		collision_mask = {layers={water_tile=true}},
-		render_layer = "floor",
-		tile_layer = 57,
-		map_generator_bounding_box = {{ -0.25, -0.25}, {0.25,0.25}},
-		autoplace =  abandonments_autoplace.abandonments_decoratives_autoplace("abandonments_autoplace_base(0, 0.95)"),
-		--autoplace = decal_autoplace_settgins("abandonment-debris-mudium-decal", {{0, 0.3}, {1, 1}}),
-		pictures =
-		{
 			{
 			filename = "__factorioplus__/graphics/abandonment-rubble-medium-3.png",
 			  width = 256,
@@ -290,21 +325,6 @@ data:extend
 			  variation_count = 1,
 			  scale = 0.5
 			},
-		}
-	},
-	{
-		name = "abandonment-debris-medium-decal-4",
-		type = "optimized-decorative",
-		order = "b[decorative]-z[abandonment]",
-		collision_box = {{-3, -3}, {3, 3}},
-		collision_mask = {layers={water_tile=true}},
-		render_layer = "floor",
-		tile_layer = 56,
-		map_generator_bounding_box = {{ -0.25, -0.25}, {0.25,0.25}},
-		autoplace =  abandonments_autoplace.abandonments_decoratives_autoplace("abandonments_autoplace_base(0, 0.95)"),
-		--autoplace = decal_autoplace_settgins("abandonment-debris-mudium-decal", {{0, 0.3}, {1, 1}}),
-		pictures =
-		{
 			{
 			filename = "__factorioplus__/graphics/abandonment-rubble-medium-4.png",
 			  width = 256,
@@ -314,15 +334,81 @@ data:extend
 			},
 		}
 	},
+	-- {
+		-- name = "abandonment-debris-medium-decal-2",
+		-- type = "optimized-decorative",
+		-- order = "b[decorative]-z[abandonment]",
+		-- collision_box = {{-3, -3}, {3, 3}},
+		-- collision_mask = {layers={water_tile=true}},
+		-- render_layer = "decals",
+		-- tile_layer = 58,
+		-- map_generator_bounding_box = {{ -0.25, -0.25}, {0.25,0.25}},
+		-- autoplace = abandonments_autoplace.abandonments_decoratives_autoplace("abandonments_autoplace_base(0, 0.95)"),
+		-- --autoplace = decal_autoplace_settgins("abandonment-debris-mudium-decal", {{0, 0.3}, {1, 1}}),
+		-- pictures =
+		-- {
+			-- {
+			-- filename = "__factorioplus__/graphics/abandonment-rubble-medium-2.png",
+			  -- width = 256,
+			  -- height = 181,
+			  -- variation_count = 1,
+			  -- scale = 0.5
+			-- },
+		-- }
+	-- },
+	-- {
+		-- name =  "abandonment-debris-medium-decal-3",
+		-- type = "optimized-decorative",
+		-- order = "b[decorative]-z[abandonment]",
+		-- collision_box = {{-3, -3}, {3, 3}},
+		-- collision_mask = {layers={water_tile=true}},
+		-- render_layer = "floor",
+		-- tile_layer = 57,
+		-- map_generator_bounding_box = {{ -0.25, -0.25}, {0.25,0.25}},
+		-- autoplace =  abandonments_autoplace.abandonments_decoratives_autoplace("abandonments_autoplace_base(0, 0.95)"),
+		-- --autoplace = decal_autoplace_settgins("abandonment-debris-mudium-decal", {{0, 0.3}, {1, 1}}),
+		-- pictures =
+		-- {
+			-- {
+			-- filename = "__factorioplus__/graphics/abandonment-rubble-medium-3.png",
+			  -- width = 256,
+			  -- height = 181,
+			  -- variation_count = 1,
+			  -- scale = 0.5
+			-- },
+		-- }
+	-- },
+	-- {
+		-- name = "abandonment-debris-medium-decal-4",
+		-- type = "optimized-decorative",
+		-- order = "b[decorative]-z[abandonment]",
+		-- collision_box = {{-3, -3}, {3, 3}},
+		-- collision_mask = {layers={water_tile=true}},
+		-- render_layer = "floor",
+		-- tile_layer = 56,
+		-- map_generator_bounding_box = {{ -0.25, -0.25}, {0.25,0.25}},
+		-- autoplace =  abandonments_autoplace.abandonments_decoratives_autoplace("abandonments_autoplace_base(0, 0.95)"),
+		-- --autoplace = decal_autoplace_settgins("abandonment-debris-mudium-decal", {{0, 0.3}, {1, 1}}),
+		-- pictures =
+		-- {
+			-- {
+			-- filename = "__factorioplus__/graphics/abandonment-rubble-medium-4.png",
+			  -- width = 256,
+			  -- height = 181,
+			  -- variation_count = 1,
+			  -- scale = 0.5
+			-- },
+		-- }
+	-- },
 	{
 		name = "abandonment-debris-large-decal-1",
 		type = "optimized-decorative",
 		order = "b[decorative]-z[abandonment]",
-		collision_box = {{-4, -4}, {4, 4}},
+		collision_box = {{-2, -2}, {2, 2}},
 		collision_mask = {layers={water_tile=true}},
 		render_layer = "decals",
 		tile_layer = 50,
-		map_generator_bounding_box = {{ -0.3, -0.3}, {0.3,0.3}},
+		map_generator_bounding_box = {{ -0.75, -0.75}, {0.75,0.75}},
 		autoplace = abandonments_autoplace.abandonments_decoratives_autoplace("abandonments_autoplace_base(0, 0.95)"),
 		--autoplace = decal_autoplace_settgins("abandonment-debris-mudium-decal", {{0, 0.3}, {1, 1}}),
 		pictures =
@@ -334,21 +420,6 @@ data:extend
 			  variation_count = 1,
 			  scale = 0.5
 			},
-		}
-	},
-	{
-		name = "abandonment-debris-large-decal-2",
-		type = "optimized-decorative",
-		order = "b[decorative]-z[abandonment]",
-		collision_box = {{-4, -4}, {4, 4}},
-		collision_mask = {layers={water_tile=true}},
-		render_layer = "decals",
-		tile_layer = 50,
-		map_generator_bounding_box = {{ -0.4, -0.4}, {0.4,0.4}},
-		autoplace =  abandonments_autoplace.abandonments_decoratives_autoplace("abandonments_autoplace_base(0, 0.95)"),
-		--autoplace = decal_autoplace_settgins("abandonment-debris-mudium-decal", {{0, 0.3}, {1, 1}}),
-		pictures =
-		{
 			{
 			filename = "__factorioplus__/graphics/abandonment-rubble-large-2.png",
 			  width = 512,
@@ -356,21 +427,6 @@ data:extend
 			  variation_count = 1,
 			  scale = 0.5
 			},
-		}
-	},
-	{
-		name = "abandonment-debris-large-decal-3",
-		type = "optimized-decorative",
-		order = "b[decorative]-z[abandonment]",
-		collision_box = {{-4, -4}, {4, 4}},
-		collision_mask = {layers={water_tile=true}},
-		render_layer = "floor",
-		tile_layer = 50,
-		map_generator_bounding_box = {{ -0.4, -0.4}, {0.4,0.4}},
-		autoplace = abandonments_autoplace.abandonments_decoratives_autoplace("abandonments_autoplace_base(0, 0.95)"),
-		--autoplace = decal_autoplace_settgins("abandonment-debris-mudium-decal", {{0, 0.3}, {1, 1}}),
-		pictures =
-		{
 			{
 			filename = "__factorioplus__/graphics/abandonment-rubble-large-3.png",
 			  width = 512,
@@ -378,21 +434,6 @@ data:extend
 			  variation_count = 1,
 			  scale = 0.5
 			},
-		}
-	},
-	{
-		name = "abandonment-debris-large-decal-4",
-		type = "optimized-decorative",
-		order = "b[decorative]-z[abandonment]",
-		collision_box = {{-4, -4}, {4, 4}},
-		collision_mask = {layers={water_tile=true}},
-		render_layer = "floor",
-		tile_layer = 50,
-		map_generator_bounding_box = {{ -0.4, -0.4}, {0.4,0.4}},
-		autoplace =  abandonments_autoplace.abandonments_decoratives_autoplace("abandonments_autoplace_base(0, 0.95)"),
-		--autoplace = decal_autoplace_settgins("abandonment-debris-mudium-decal", {{0, 0.3}, {1, 1}}),
-		pictures =
-		{
 			{
 			filename = "__factorioplus__/graphics/abandonment-rubble-large-4.png",
 			  width = 512,
@@ -402,6 +443,72 @@ data:extend
 			},
 		}
 	},
+	-- {
+		-- name = "abandonment-debris-large-decal-2",
+		-- type = "optimized-decorative",
+		-- order = "b[decorative]-z[abandonment]",
+		-- collision_box = {{-4, -4}, {4, 4}},
+		-- collision_mask = {layers={water_tile=true}},
+		-- render_layer = "decals",
+		-- tile_layer = 50,
+		-- map_generator_bounding_box = {{ -0.4, -0.4}, {0.4,0.4}},
+		-- autoplace =  abandonments_autoplace.abandonments_decoratives_autoplace("abandonments_autoplace_base(0, 0.95)"),
+		-- --autoplace = decal_autoplace_settgins("abandonment-debris-mudium-decal", {{0, 0.3}, {1, 1}}),
+		-- pictures =
+		-- {
+			-- {
+			-- filename = "__factorioplus__/graphics/abandonment-rubble-large-2.png",
+			  -- width = 512,
+			  -- height = 363,
+			  -- variation_count = 1,
+			  -- scale = 0.5
+			-- },
+		-- }
+	-- },
+	-- {
+		-- name = "abandonment-debris-large-decal-3",
+		-- type = "optimized-decorative",
+		-- order = "b[decorative]-z[abandonment]",
+		-- collision_box = {{-4, -4}, {4, 4}},
+		-- collision_mask = {layers={water_tile=true}},
+		-- render_layer = "floor",
+		-- tile_layer = 50,
+		-- map_generator_bounding_box = {{ -0.4, -0.4}, {0.4,0.4}},
+		-- autoplace = abandonments_autoplace.abandonments_decoratives_autoplace("abandonments_autoplace_base(0, 0.95)"),
+		-- --autoplace = decal_autoplace_settgins("abandonment-debris-mudium-decal", {{0, 0.3}, {1, 1}}),
+		-- pictures =
+		-- {
+			-- {
+			-- filename = "__factorioplus__/graphics/abandonment-rubble-large-3.png",
+			  -- width = 512,
+			  -- height = 363,
+			  -- variation_count = 1,
+			  -- scale = 0.5
+			-- },
+		-- }
+	-- },
+	-- {
+		-- name = "abandonment-debris-large-decal-4",
+		-- type = "optimized-decorative",
+		-- order = "b[decorative]-z[abandonment]",
+		-- collision_box = {{-4, -4}, {4, 4}},
+		-- collision_mask = {layers={water_tile=true}},
+		-- render_layer = "floor",
+		-- tile_layer = 50,
+		-- map_generator_bounding_box = {{ -0.4, -0.4}, {0.4,0.4}},
+		-- autoplace =  abandonments_autoplace.abandonments_decoratives_autoplace("abandonments_autoplace_base(0, 0.95)"),
+		-- --autoplace = decal_autoplace_settgins("abandonment-debris-mudium-decal", {{0, 0.3}, {1, 1}}),
+		-- pictures =
+		-- {
+			-- {
+			-- filename = "__factorioplus__/graphics/abandonment-rubble-large-4.png",
+			  -- width = 512,
+			  -- height = 363,
+			  -- variation_count = 1,
+			  -- scale = 0.5
+			-- },
+		-- }
+	-- },
 }
 
 building_ammocache_picture =     
@@ -636,7 +743,9 @@ local _trv = (math.random() / 10) +  tinyvalue
 		s.picture = building_barren
 		s.localised_description = {"entity-description.abandonment-warehouse-barren"} 
 	end
+	s.created_effect = {create_tiles("nuclear-ground", 5.5, 1.0), create_tiles("stone-path", 4, 1.0), create_tiles("stone-path", 5, 0.25) }
 	s.map_generator_bounding_box = {{ -boundingspace, -boundingspace}, {boundingspace, boundingspace}}
+	s.enemy_map_color = abandonments_force_color_map
 	
 	s.autoplace = abandonments_autoplace.abandonments_loot_autoplace("abandonments_autoplace_base(0,".. ( (((_autoplace_distance + _trv) ^ (1+(warehouse_scalingvalue-1))) / 1) +_trv ) ..")")
 	s.loot = loottable 
@@ -671,6 +780,7 @@ newpole.autoplace = abandonments_autoplace.abandonments_poles_autoplace("abandon
 newpole.build_base_evolution_requirement = 10
 newpole.map_generator_bounding_box = {{ -4.5, -4.5}, {4.5, 4.5}}
 newpole.remove_decoratives = "false"
+newpole.enemy_map_color = abandonments_force_color_map
 newpole.loot =
     {
       {item = "steel-plate", probability = 1, count_min = 0, count_max = 1},
@@ -678,70 +788,190 @@ newpole.loot =
     },
 data:extend{newpole}
 
+---------------------------
+-- ABANDONED LASER TURRETS
+---------------------------
+
+abandonmentTurretLayer = 11
+
+local function makeNewAbandonmentTurret(data)
+
+	local _suffix = data.suffix or error("no suffix defined")
+	-- local _type = data.type or "electric-turret"
+	-- local _turret = data.turret or "laser-turret"
+	local _scale = data.scale or 1.0 -- scale of turret art, collision, etc.
+	local _mny = data.masknudge_y or 0
+	local _energy_consumption_modifier = data.energy_consumption_modifier or 1.0
+	local _autoplacedistance = data.autoplace_start_distance or error("no autoplace distance defined")
+	
+	local newturret = util.copy(data.baseturret)
+	local _oldname = data.baseturret.name
+	
+	newturret.localised_name =  {"",abandonment_loc, " ", {"entity-name." .._oldname}}
+	newturret.name = "abandonment".."-".._oldname.."-".._suffix  
+	newturretflags = {"placeable-off-grid"}
+	
+	local _extrabv = 0.1
+	local _nbv = _extrabv * _scale
+	-- add a number , don't scale the entire number
+	newturret.map_generator_bounding_box = {{ -1.25 - _nbv, -1.2 - _nbv}, {1.25 + _nbv, 1.2 + _nbv}}
+	newturret.build_base_evolution_requirement = math.inf -- Make a number so big it can't ever be placed by evo factor (0 - 1.0 range)
+	newturret.autoplace = abandonments_autoplace.abandonments_turrets_autoplace("abandonments_autoplace_base("..abandonmentTurretLayer..",".._autoplacedistance.." )")
+	
+	newturret.enemy_map_color = abandonments_force_color_map
+	--newturret.map_color = abandonments_force_color_map
+	
+	newturret.remove_decoratives = "false"
+
+	newturret.max_health = (newturret.max_health * _scale ) * enemy_health_scale
+	newturret.loot = data.loot or {}
+	
+	scaleTurretArt(newturret.graphics_set.base_visualisation.animation.layers, _scale, _mny)
+	scaleTurretArt(newturret.folding_animation.layers, _scale, _mny)
+	scaleTurretArt(newturret.prepared_animation.layers, _scale, _mny)
+	scaleTurretArt(newturret.preparing_animation.layers, _scale, _mny)
+	scaleTurretArt(newturret.folded_animation.layers, _scale, _mny)
+	scaleTurretArtSimple(newturret.energy_glow_animation, _scale, _mny)
+	
+	newturret.collision_box = {{ -0.7 * _scale, -0.7 * _scale}, {0.7 * _scale, 0.7 * _scale}}
+    newturret.selection_box = {{ -1 * _scale, -1 * _scale}, {1 * _scale, 1 * _scale}}
+	newturret.created_effect = { 
+	create_tiles("nuclear-ground", 2.5 * _scale, 1.0), 
+	create_tiles("stone-path", 1.5 * _scale, 0.5), 
+	create_entity("small-scorchmark-tintable", 14 * _scale, 1, 4 * _scale),
+	create_decoratives("abandonment-debris-medium-decal-1", 7 * _scale, 1),
+	}
+	
+	newturret.attack_parameters.range = math.ceil(newturret.attack_parameters.range * data.range_modifier) or newturret.attack_parameters.range
+	newturret.attack_parameters.damage_modifier = data.damage_modifier or newturret.attack_parameters.damage_modifier
+	
+	if (data.energy_consumption_modifier) then
+		newturret.attack_parameters.ammo_type.energy_consumption = ((string.match(newturret.attack_parameters.ammo_type.energy_consumption, '%d[%d.,]*'))  * _energy_consumption_modifier ) .."kJ"
+	end
+	
+	abandonmentTurretLayer = abandonmentTurretLayer + abandonmentTurretLayer -- Just add the number to itself any tmie we make a new abandonment turret
+	
+	return newturret
+end
+
+function scaleTurretArt(image_data, scale, mny)
+	for i, v in pairs (image_data) do
+		v.scale = v.scale * scale
+		if v.flags then
+			if v.flags[1] == "mask" then
+				-- We're gonna do something to the mask to shift it into the correct position.
+				v.shift = {v.shift[1],v.shift[2]+ mny}
+			end
+		end
+	end
+end
+
+function scaleTurretArtSimple(image_data, scale, mny)
+	image_data.scale = image_data.scale * scale
+	if image_data.flags then
+		if image_data.flags[1] == "mask" then
+			-- We're gonna do something to the mask to shift it into the correct position.
+			image_data.shift = {image_data.shift[1],image_data.shift[2]+ mny}
+		end
+	end
+
+end
 
 
-local turret = data.raw["electric-turret"]["laser-turret"]
-local newturret = util.copy(turret)
-newturret.localised_name = {"",abandonment_loc, " ", {"entity-name." .. newturret.name}}
-newturret.name = "abandonment".."-"..newturret.name  
-newturret.attack_parameters.range = newturret.attack_parameters.range * 0.8
-newturret.attack_parameters.damage_modifier = 0.75
-newturret.flags = {"placeable-off-grid",  "player-creation"}
-newturret.build_base_evolution_requirement = 10
-newturret.max_health = newturret.max_health * enemy_health_scale
-newturret.map_generator_bounding_box = {{ -1.25, -1.35}, {1.25, 1.35}}
--- newturret.autoplace = abandonments_autoplace.abandonment_turret_autoplace(1.2)
-newturret.autoplace = abandonments_autoplace.abandonments_turrets_autoplace("abandonments_autoplace_base(11, 1.2)")
-newturret.attack_parameters.ammo_type.energy_consumption = ((string.match(newturret.attack_parameters.ammo_type.energy_consumption, '%d[%d.,]*'))* 0.5).."kJ"
-newturret.spawn_decoration =
-{
-  {
-	decorative = "abandonment-debris-medium-decal-2",
-	spawn_min = 2,
-	spawn_max = 4,
-	spawn_min_radius = 2,
-	spawn_max_radius = 5,
-  },
+data:extend{
+	makeNewAbandonmentTurret({
+		baseturret = data.raw["electric-turret"]["laser-turret"],
+		suffix = "small",
+		scale = 0.75,
+		masknudge_y = 0.06,
+		range_modifier = 0.75,
+		damage_modifier = 0.75,
+		energy_consumption_modifier = 0.5,
+		autoplace_start_distance = 1.25,
+		loot =	
+		{
+		  {item = "electronic-circuit", probability = 0.75, count_min = 0, count_max = 3},
+		  {item = "battery", probability = 0.75, count_min = 0, count_max = 1},
+		  {item = "iron-gear-wheel", probability = 0.9, count_min = 0, count_max = 1},
+		  {item = "iron-plate", probability = 1, count_min = 0, count_max = 2},
+		  {item = "electronic-circuit", probability = 1, count_min = 0, count_max = 1},
+		},	
+	})
 }
---newturret.map_generator_bounding_box = {{ -3, -3}, {3, 3}}
-newturret.remove_decoratives = "false"
-newturret.loot =
-    {
-      {item = "electronic-circuit", probability = 0.5, count_min = 0, count_max = 4},
-	  {item = "battery", probability = 0.5, count_min = 0, count_max = 2},
-	  {item = "iron-gear-wheel", probability = 0.9, count_min = 0, count_max = 2},
-	  {item = "iron-plate", probability = 1, count_min = 0, count_max = 3},
-	  {item = "electronic-circuit", probability = 1, count_min = 0, count_max = 2},
-    },
-data:extend{newturret}
 
-local newturret3 = util.copy(data.raw["electric-turret"]["laser-turret"])
-newturret3.localised_name =  {"",abandonment_loc, " ", {"entity-name." .. newturret3.name}}
-newturret3.name = "abandonment".."-"..newturret3.name.."2"  
-newturret3.attack_parameters.range = newturret3.attack_parameters.range
-newturret3.attack_parameters.damage_modifier = 1.25
-newturret3.attack_parameters.ammo_type.energy_consumption = ((string.match(newturret3.attack_parameters.ammo_type.energy_consumption, '%d[%d.,]*'))  * 0.75) .."kJ"
-newturret3.flags = {"placeable-off-grid",  "player-creation"}
-newturret3.max_health = newturret3.max_health * enemy_health_scale
-newturret3.map_generator_bounding_box = {{ -1.25, -1.2}, {1.25, 1.2}}
-newturret3.build_base_evolution_requirement = 10
---newturret3.autoplace = abandonments_autoplace.abandonment_turret_autoplace(5)
-newturret3.autoplace = abandonments_autoplace.abandonments_turrets_autoplace("abandonments_autoplace_base(22, 6)")
-newturret3.remove_decoratives = "false"
-newturret3.loot =
-    {
-      {item = "electronic-circuit", probability = 0.75, count_min = 0, count_max = 4},
-	  {item = "battery", probability = 0.75, count_min = 0, count_max = 2},
-	  {item = "iron-gear-wheel", probability = 0.9, count_min = 0, count_max = 2},
-	  {item = "iron-plate", probability = 1, count_min = 0, count_max = 3},
-	  {item = "electronic-circuit", probability = 1, count_min = 0, count_max = 2},
-    },
-data:extend{newturret3}
+data:extend{
+	makeNewAbandonmentTurret({
+		baseturret = data.raw["electric-turret"]["laser-turret"],
+		suffix = "normal",
+		scale = 1,
+		range_modifier = 1,
+		damage_modifier = 1.25,
+		energy_consumption_modifier = 0.75,
+		autoplace_start_distance = 4,
+		loot =	
+		{
+		  {item = "electronic-circuit", probability = 0.75, count_min = 0, count_max = 4},
+		  {item = "battery", probability = 0.75, count_min = 0, count_max = 2},
+		  {item = "iron-gear-wheel", probability = 0.9, count_min = 0, count_max = 2},
+		  {item = "iron-plate", probability = 1, count_min = 0, count_max = 3},
+		  {item = "electronic-circuit", probability = 1, count_min = 0, count_max = 2},
+		},	
+	})
+}
+
+
+data:extend{
+	makeNewAbandonmentTurret({
+		baseturret = data.raw["electric-turret"]["laser-turret"],
+		suffix = "big",
+		scale = 1.5,
+		masknudge_y = -0.15,
+		range_modifier = 1.4,
+		damage_modifier = 2,
+		energy_consumption_modifier = 1,
+		autoplace_start_distance = 8,
+		loot =	
+		{
+		  {item = "electronic-circuit", probability = 0.75, count_min = 0, count_max = 6},
+		  {item = "battery", probability = 0.75, count_min = 0, count_max = 3},
+		  {item = "iron-gear-wheel", probability = 0.9, count_min = 0, count_max = 4},
+		  {item = "steel-plate", probability = 1, count_min = 0, count_max = 4},
+		  {item = "electronic-circuit", probability = 1, count_min = 0, count_max = 4},
+		},	
+	})
+}
+
+data:extend{
+	makeNewAbandonmentTurret({
+		baseturret = data.raw["electric-turret"]["laser-turret"],
+		suffix = "behemoth",
+		scale = 2,
+		masknudge_y = -0.26,
+		range_modifier = 1.8,
+		damage_modifier = 4,
+		energy_consumption_modifier = 1.5,
+		autoplace_start_distance = 12,
+		loot =	
+		{
+		  {item = "electronic-circuit", probability = 0.75, count_min = 0, count_max = 6},
+		  {item = "battery", probability = 0.75, count_min = 0, count_max = 5},
+		  {item = "iron-gear-wheel", probability = 0.9, count_min = 0, count_max = 5},
+		  {item = "steel-plate", probability = 1, count_min = 0, count_max = 5},
+		  {item = "advanced-circuit", probability = 1, count_min = 0, count_max = 6},
+		},	
+	})
+}
+
+---------------------------
+-- ABANDONED MORTAR TURRETS
+---------------------------
+
 
 local newturret2 = util.copy(data.raw["turret"]["abandonment-mortar-turret"]) 
+newturret2.name = newturret2.name .. "1"
 newturret2.localised_name = {"",abandonment_loc, " ", {"entity-name.mortar-turret"}}
 newturret2.attack_parameters.range = newturret2.attack_parameters.range * 0.5
-newturret2.attack_parameters.range = newturret2.attack_parameters.min_range * 0.75
+newturret2.attack_parameters.min_range = newturret2.attack_parameters.min_range * 0.65
 newturret2.damage_modifier = 1.0
 newturret2.flags = {"placeable-off-grid",  "player-creation"}
 newturret2.max_health = newturret2.max_health * enemy_health_scale
@@ -750,6 +980,8 @@ newturret2.autoplace = abandonments_autoplace.abandonments_turrets_autoplace("ab
 newturret2.map_generator_bounding_box = {{ -1.70, -1.70}, {1.70, 1.70}}
 newturret2.build_base_evolution_requirement = 10
 newturret2.remove_decoratives = "false"
+newturret2.enemy_map_color = abandonments_force_color_map
+newturret2.created_effect = { create_tiles("nuclear-ground", 2.5, 1.0), create_tiles("stone-path", 2, 0.5)}
 newturret2.loot =
     {
       {item = "electronic-circuit", probability =1, count_min = 0, count_max = 4},
@@ -761,6 +993,34 @@ data:extend{newturret2}
 
 
 
+local newturret3 = util.copy(data.raw["turret"]["abandonment-mortar-turret"]) 
+newturret3.name = newturret3.name .. "2"
+newturret3.localised_name = {"",abandonment_loc, " ", {"entity-name.mortar-turret"}}
+newturret3.attack_parameters.range = newturret3.attack_parameters.range * 0.75
+newturret3.attack_parameters.min_range = newturret3.attack_parameters.min_range * 0.65
+newturret3.damage_modifier = 1.75
+newturret3.flags = {"placeable-off-grid",  "player-creation"}
+newturret3.max_health = (newturret3.max_health * 1.5) * enemy_health_scale
+--newturret3.autoplace = abandonments_autoplace.abandonment_turret_autoplace(5)
+newturret3.autoplace = abandonments_autoplace.abandonments_turrets_autoplace("abandonments_autoplace_base(33, 12)")
+newturret3.map_generator_bounding_box = {{ -1.70, -1.70}, {1.70, 1.70}}
+newturret3.build_base_evolution_requirement = 10
+newturret3.remove_decoratives = "false"
+newturret3.enemy_map_color = abandonments_force_color_map
+newturret3.created_effect = { create_tiles("nuclear-ground", 3.5, 1.0), create_tiles("stone-path", 3, 0.5)}
+newturret3.loot =
+    {
+      {item = "electronic-circuit", probability =1, count_min = 0, count_max = 4},
+	  {item = "iron-gear-wheel", probability = 1, count_min = 0, count_max = 6},
+	  {item = "iron-plate", probability = 1, count_min = 0, count_max = 8},
+	  {item = "electronic-circuit", probability = 1, count_min = 0, count_max = 4},
+    },
+data:extend{newturret3}
+
+---------------------------
+-- ABANDONED SOLAR PANELS
+---------------------------
+
 local solarpanel = data.raw["solar-panel"]["solar-panel"]
 local newsolarpanel = util.copy(solarpanel)
 newsolarpanel.localised_name = {"",abandonment_loc, " ", {"entity-name." .. newsolarpanel.name}}
@@ -768,6 +1028,12 @@ newsolarpanel.name = "abandonment".."-"..newsolarpanel.name.."2"
 newsolarpanel.max_health = 300 * enemy_health_scale
 newsolarpanel.build_base_evolution_requirement = 10
 newsolarpanel.production = "397kW"
+newsolarpanel.energy_source =
+	{  
+		type = "electric",
+		usage_priority = "solar",
+		render_no_network_icon = false 
+	}
 newsolarpanel.flags = {"placeable-off-grid",  "player-creation"}
 newsolarpanel.picture = building_solararray_abandoned_1
 newsolarpanel.overlay = nil
@@ -775,7 +1041,9 @@ newsolarpanel.collision_box = solarpanel1_scale
 newsolarpanel.selection_box = solarpanel1_scale
 newsolarpanel.autoplace = abandonments_autoplace.abandonments_buildings_autoplace("abandonments_autoplace_base(44, 7.5)")
 newsolarpanel.map_generator_bounding_box = solarpanel1_autoplace
+newsolarpanel.enemy_map_color = abandonments_force_color_map
 newsolarpanel.remove_decoratives = "false"
+newsolarpanel.created_effect = { create_tiles("nuclear-ground", 4, 1.0), create_tiles("stone-path", 3.5, 0.5)}
 newsolarpanel.loot =
     {
       {item = "steel-plate", probability = 1, count_min = 0, count_max = 8},
@@ -792,6 +1060,12 @@ newsolarpanel2.name = "abandonment".."-"..newsolarpanel2.name.."3"
 newsolarpanel2.max_health = 200 * enemy_health_scale
 newsolarpanel2.build_base_evolution_requirement = 10
 newsolarpanel2.production = "219kW"
+newsolarpanel2.energy_source = 
+	{  
+		type = "electric",
+		usage_priority = "solar",
+		render_no_network_icon = false 
+	}
 newsolarpanel2.flags = {"placeable-off-grid",  "player-creation"}
 newsolarpanel2.picture = building_solararray_abandoned_2
 newsolarpanel2.overlay = nil
@@ -799,7 +1073,9 @@ newsolarpanel2.collision_box = solarpanel2_scale
 newsolarpanel2.selection_box = solarpanel2_scale
 newsolarpanel2.autoplace = abandonments_autoplace.abandonments_buildings2_autoplace("abandonments_autoplace_base(45, 4.5)")
 newsolarpanel2.map_generator_bounding_box = solarpanel2_autoplace
+newsolarpanel2.enemy_map_color = abandonments_force_color_map
 newsolarpanel2.remove_decoratives = "false"
+newsolarpanel2.created_effect = { create_tiles("nuclear-ground", 3.5, 1.0), create_tiles("stone-path", 3.0, 0.5)}
 newsolarpanel2.loot =
     {
       {item = "steel-plate", probability = 1, count_min = 0, count_max = 6},
@@ -815,6 +1091,12 @@ newsolarpanel3.name = "abandonment".."-"..newsolarpanel3.name
 newsolarpanel3.max_health = 125 * enemy_health_scale
 newsolarpanel3.build_base_evolution_requirement = 10
 newsolarpanel3.production = "91kW"
+newsolarpanel3.energy_source = 
+	{  
+		type = "electric",
+		usage_priority = "solar",
+		render_no_network_icon = false 
+	}
 newsolarpanel3.flags = {"placeable-off-grid",  "player-creation"}
 newsolarpanel3.picture = building_solararray_abandoned_3
 newsolarpanel3.overlay = nil
@@ -822,7 +1104,9 @@ newsolarpanel3.collision_box = solarpanel3_scale
 newsolarpanel3.selection_box = solarpanel3_scale
 newsolarpanel3.autoplace = abandonments_autoplace.abandonments_buildings2_autoplace("abandonments_autoplace_base(46, 1.2)")
 newsolarpanel3.map_generator_bounding_box = solarpanel3_autoplace
+newsolarpanel3.enemy_map_color = abandonments_force_color_map
 newsolarpanel3.remove_decoratives = "false"
+newsolarpanel3.created_effect ={ create_tiles("nuclear-ground", 2.25, 1.0), create_tiles("stone-path", 1.75, 0.5)} 
 newsolarpanel3.loot =
     {
       {item = "steel-plate", probability = 1, count_min = 0, count_max = 2},
@@ -830,6 +1114,10 @@ newsolarpanel3.loot =
 	  {item = "glass-plate", probability = 1, count_min = 0, count_max = 4},
     },
 data:extend{newsolarpanel3}
+
+---------------------------
+-- ABANDONED ACCUMULATORS
+---------------------------
 
 local newsaccumulator = util.copy(data.raw["accumulator"]["accumulator"])
 newsaccumulator.localised_name = {"",abandonment_loc, " ", {"entity-name." .. newsaccumulator.name}}
@@ -841,6 +1129,7 @@ newsaccumulator.autoplace = abandonments_autoplace.abandonments_auxbuildings_aut
 newsaccumulator.build_base_evolution_requirement = 10
 newsaccumulator.remove_decoratives = "false"
 newsaccumulator.map_generator_bounding_box = {{ -2.65, -1.35},{ 2.65, 1.35}}
+newsaccumulator.enemy_map_color = abandonments_force_color_map
 newsaccumulator.loot =
     {
       {item = "iron-plate", probability = 0.8, count_min = 0, count_max = 3},
@@ -848,11 +1137,19 @@ newsaccumulator.loot =
     },
 data:extend{newsaccumulator}
 
+---------------------------
+-- ABANDONED LOOT WAREHOUSE
+---------------------------
+
+-- Barren warehouses
+
 if settings.startup["settings-warehouse-barren"].value == true then
 	data:extend{
 		generate_storage_hut ("buildings-barren", loothutboundingbox, 18,{})
 	}
 end
+
+-- Loot Warehouses
 
 data:extend{
 generate_storage_hut ("buildings-poles-0", loothutboundingbox, 1,
@@ -954,12 +1251,12 @@ generate_storage_hut ("resource-extraction-6", loothutboundingbox, 8,
 data:extend{
 generate_storage_hut ("repair-packs-1", loothutboundingbox, 3,
 {
-	{item = "repair-pack", probability = 1, count_min = 10, count_max = 50},
+	{item = "repair-pack", probability = 1, count_min = 40, count_max = 150},
 }),
 
 generate_storage_hut ("repair-packs-2", loothutboundingbox, 7,
 {
-	{item = "repair-pack-advanced", probability = 1, count_min = 10, count_max = 50},
+	{item = "repair-pack-advanced", probability = 1, count_min = 30, count_max = 120},
 }),
 }
 

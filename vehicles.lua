@@ -1899,6 +1899,8 @@ data:extend({
       size = {64, 64},
       scale = 0.5,
     },
+	
+	guns = {"vehicle-horn-small"},
  },
 
 -----------------------------  ATV DRONE -----------------------------

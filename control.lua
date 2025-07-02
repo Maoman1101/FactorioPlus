@@ -2,6 +2,7 @@
 
 require ("util")
 require ("veteran-turrets")
+require ("stats")
 
 script.on_init(function() InitMod() end)
 script.on_load(function() OnLocalLoad()  end)
@@ -21,7 +22,7 @@ function InitMod()
 
 	if game.forces["abandonments"] ~= nil then 
 		game.forces["abandonments"].ai_controllable = false
-		game.forces["abandonments"].custom_color = {0.6,0.6,0.6,1}
+		game.forces["abandonments"].custom_color = abandonments_force_color_tint
 		else
 		CreateForce("abandonments")
 	end
@@ -31,7 +32,7 @@ end
 
 function CreateForce(force)
 f = game.create_force(force)
-f.custom_color = {0.6,0.6,0.6,1}
+f.custom_color = abandonments_force_color_tint
 f.ai_controllable = false
 end
 

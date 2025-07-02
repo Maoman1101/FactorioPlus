@@ -1,8 +1,12 @@
 -- GENERAL STATS
 
-
 friendly_fire_modifier = settings.startup["settings-combat-friendlyfire-percent"].value / 100 -- This modifies the player splash damage by this amount of weapons that have been affected (arbitary)
 friendly_fire_radius_reduction_factor = 2 -- divide the radius that affects allies by this amount (flat value across board)
+
+-- Abandonments force
+
+abandonments_force_color_tint = {0.25,0.25,0.25,1}
+abandonments_force_color_map = {0.9,0.25,0.25,1}
 
 -- Vehicles
 

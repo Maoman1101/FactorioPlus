@@ -66,7 +66,12 @@ end
  
 data.raw["tile"]["stone-path"].walking_speed_modifier = walking_speed_stone
 data.raw["tile"]["concrete"].walking_speed_modifier = walking_speed_concrete
+data.raw["tile"]["hazard-concrete-left"].walking_speed_modifier = walking_speed_concrete
+data.raw["tile"]["hazard-concrete-right"].walking_speed_modifier = walking_speed_concrete
 data.raw["tile"]["refined-concrete"].walking_speed_modifier = walking_speed_refinedconcrete
+data.raw["tile"]["refined-hazard-concrete-left"].walking_speed_modifier = walking_speed_refinedconcrete
+data.raw["tile"]["refined-hazard-concrete-right"].walking_speed_modifier = walking_speed_refinedconcrete
+
 
 function update_tile_map_color(tile) 
 	data.raw["tile"][tile].map_color = {

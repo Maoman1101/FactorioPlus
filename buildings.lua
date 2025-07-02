@@ -4181,6 +4181,7 @@ data.extend({
         percent = 60
       }
     },
+	icon_draw_specification = { scale = 0.5},
     collision_box = {{-0.9, -0.4}, {0.9, 0.4}},
     selection_box = {{-0.9, -0.5}, {0.9, 0.5}},
     damaged_trigger_effect = hit_effects.entity(),
@@ -5543,6 +5544,7 @@ data.extend({
         percent = 60
       }
     },
+	icon_draw_specification = { scale = 0.5},
     collision_box = {{-0.45, -0.9}, {0.45, 0.9}},
     selection_box = {{-0.5, -1}, {0.5, 1}},
     animation_speed_coefficient = 32,
@@ -5623,6 +5625,7 @@ data.extend({
         percent = 60
       }
     },
+	icon_draw_specification = { scale = 0.5},
     collision_box = {{-0.45, -0.9}, {0.45, 0.9}},
     selection_box = {{-0.5, -1}, {0.5, 1}},
     animation_speed_coefficient = 32,
@@ -5700,6 +5703,7 @@ data.extend({
         percent = 60
       }
     },
+	icon_draw_specification = { scale = 0.5},
    collision_box = {{-0.45, -0.9}, {0.45, 0.9}},
     selection_box = {{-0.5, -1}, {0.5, 1}},
     damaged_trigger_effect = hit_effects.entity(),
@@ -5777,6 +5781,7 @@ data.extend({
         percent = 60
       }
     },
+	icon_draw_specification = { scale = 0.5},
    collision_box = {{-0.45, -0.9}, {0.45, 0.9}},
     selection_box = {{-0.5, -1}, {0.5, 1}},
     damaged_trigger_effect = hit_effects.entity(),
@@ -5854,6 +5859,7 @@ data.extend({
         percent = 60
       }
     },
+	icon_draw_specification = { scale = 0.5},
     collision_box = {{-0.45, -0.9}, {0.45, 0.9}},
     selection_box = {{-0.5, -1}, {0.5, 1}},
     damaged_trigger_effect = hit_effects.entity(),
@@ -5930,6 +5936,7 @@ data.extend({
         percent = 60
       }
     },
+	icon_draw_specification = { scale = 0.5},
     collision_box = {{-0.45, -0.9}, {0.45, 0.9}},
     selection_box = {{-0.5, -1}, {0.5, 1}},
     damaged_trigger_effect = hit_effects.entity(),
@@ -6003,7 +6010,7 @@ data.extend({
     flags = {"placeable-player", "player-creation"},
     minable = {mining_time = 0.2, result = "listening-post"},
     max_health = 150,
-    corpse = "radar-remnants",
+    corpse = "small-remnants",
     dying_explosion = "radar-explosion",
     resistances =
     {
@@ -6112,7 +6119,7 @@ data.extend({
     flags = {"placeable-player", "player-creation"},
     minable = {mining_time = 0.8, result = "radar-large"},
     max_health = 550,
-    corpse = "radar-remnants",
+    corpse = "big-remnants",
     dying_explosion = "radar-explosion",
     resistances =
     {

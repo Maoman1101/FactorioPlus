@@ -76,18 +76,18 @@ end
 
 
 local bullet_trail_regular_color = {0.3,0.3,0.1, 0.4}
-local bullet_trail_explosive_color = {0.4,0.3,0.2, 0.4}
-local bullet_trail_piercing_color = {0.4,0.4,0.2, 0.4}
-local bullet_trail_uranium_color = {0.15,0.4,0.15, 0.4}
+local bullet_trail_explosive_color = {0.4,0.3,0.2, 0.5}
+local bullet_trail_piercing_color = {0.4,0.4,0.2, 0.5}
+local bullet_trail_uranium_color = {0.15,0.4,0.15, 0.5}
 local bullet_trail_nuke_color = {0.2,0.8,0.2, 0.7}
 local bullet_trail_duration = 2
 
 data.extend({
 make_bullet_trail("regular_bullet_trail",0.2, bullet_trail_regular_color),
 make_bullet_trail("piercing_bullet_trail",0.3, bullet_trail_piercing_color),
-make_bullet_trail("explosive_bullet_trail",0.3, bullet_trail_explosive_color),
+make_bullet_trail("explosive_bullet_trail",0.45, bullet_trail_explosive_color),
 make_bullet_trail("uranium_bullet_trail",0.3, bullet_trail_uranium_color),
-make_bullet_trail("nuke_bullet_trail",0.2, bullet_trail_nuke_color),
+make_bullet_trail("nuke_bullet_trail",0.45, bullet_trail_nuke_color),
 })
 
 
@@ -681,10 +681,10 @@ firestickerutil.makefiresticker("napalm-fire-sticker", mortar_napalm_firesticker
 	  consumption_modifier = 1,
       action =
       {
-      type = "direct",
-      action_delivery =
-	  {
-		{
+		  type = "direct",
+		  action_delivery =
+		  {
+			{
 				-- Bullet trail
 				type = "beam",
 				beam = "explosive_bullet_trail",
@@ -694,90 +694,93 @@ firestickerutil.makefiresticker("napalm-fire-sticker", mortar_napalm_firesticker
 				add_to_shooter = false,
 				destroy_with_source_or_target = false
 			},
-		  {
-		  
-			type = "instant",	
-			source_effects =
-				  {
-					type = "create-explosion",
-					entity_name = "explosion-gunshot"
-				  },
-			target_effects =
 			{
-				  {
-					type = "create-entity",
-					entity_name = "grenade-explosion"
-				  },
-				  {
-					type = "nested-result",
-					action =
+				type = "instant",
+				target_effects =
+				{
 					{
-					  type = "area",
-					  radius = bullet_explosive_radius,
-					  force_condition = "not-same",
-					  action_delivery =
+					  type = "damage",
+					  damage = { amount = bullet_explosive_physical, type = "physical"}
+					},
+				}
+			},
+			{
+			  
+				type = "instant",	
+				source_effects =
 					  {
-						type = "instant",
-						target_effects =
+						type = "create-explosion",
+						entity_name = "explosion-gunshot"
+					  },
+				target_effects =
+				{
+					  {
+						type = "create-entity",
+						entity_name = "grenade-explosion"
+					  },
+					  
+					  {
+						type = "nested-result",
+						action =
 						{
-						{
-							type = "damage",
-							damage = {amount = bullet_regular_physical, type = "physical"}
-						  },
+						  type = "area",
+						  radius = bullet_explosive_radius,
+						  force_condition = "not-same",
+						  action_delivery =
 						  {
-							type = "damage",
-							damage = {amount = bullet_explosive_explosive, type = "explosion"}
-						  },
-						  {
-							type = "create-entity",
-							entity_name = "explosion"
+							type = "instant",
+							target_effects =
+							{
+							  {
+								type = "damage",
+								damage = {amount = bullet_explosive_explosive, type = "explosion"}
+							  },
+							  {
+								type = "create-entity",
+								entity_name = "explosion"
+							  }
+							}
 						  }
-						}
-					  }
-					},
-				  },
-				   {
-					type = "nested-result",
-					action =
-					{
-					  type = "area",
-					  radius = bullet_explosive_radius / friendly_fire_radius_reduction_factor,
-					  show_in_tooltip = false,
-					  force_condition = "same",
-					  action_delivery =
-					  {
-						type = "instant",
-						target_effects =
+						},
+					  },
+					   {
+						type = "nested-result",
+						action =
 						{
-						{
-							type = "damage",
-							damage = {amount = bullet_regular_physical * friendly_fire_modifier, type = "physical"}
-						  },
+						  type = "area",
+						  radius = bullet_explosive_radius / friendly_fire_radius_reduction_factor,
+						  show_in_tooltip = false,
+						  force_condition = "same",
+						  action_delivery =
 						  {
-							type = "damage",
-							damage = {amount = bullet_explosive_explosive * friendly_fire_modifier, type = "explosion"}
-						  },
-						}
-					  }
+							type = "instant",
+							target_effects =
+							{
+							  {
+								type = "damage",
+								damage = {amount = bullet_explosive_explosive * friendly_fire_modifier, type = "explosion"}
+							  },
+							}
+						  }
+						},
+					  },
+				  -- {
+				  -- type = "invoke-tile-trigger",
+				  -- repeat_count = 1,
+				  -- },
+				  {
+					type = "create-trivial-smoke",
+					smoke_name = "artillery-smoke",
+					initial_height = 0,
+					speed_from_center = 0.1,
+					speed_from_center_deviation = 0.005,
+					offset_deviation = {{-1, -1}, {1, 1}},
+					max_radius = 1.5,
+					repeat_count = 2 * 4
 					},
-				  },
-			  -- {
-			  -- type = "invoke-tile-trigger",
-			  -- repeat_count = 1,
-			  -- },
-			  {
-				type = "create-trivial-smoke",
-				smoke_name = "artillery-smoke",
-				initial_height = 0,
-				speed_from_center = 0.1,
-				speed_from_center_deviation = 0.005,
-				offset_deviation = {{-1, -1}, {1, 1}},
-				max_radius = 1.5,
-				repeat_count = 2 * 4
-				},
-			}
+				}
+			  }
 		  }
-	  }
     },
     },
     magazine_size = bullet_explosive_magazinesize,
@@ -817,41 +820,41 @@ firestickerutil.makefiresticker("napalm-fire-sticker", mortar_napalm_firesticker
         type = "direct",
         action_delivery =
 		{
-		{
-				-- Bullet trail
-				type = "beam",
-				beam = "uranium_bullet_trail",
-				max_length = 100,
-				duration = bullet_trail_duration,
-				source_offset = {0, -0.8 },
-				add_to_shooter = false,
-				destroy_with_source_or_target = false
-		},
-        {
-          type = "instant",
-          source_effects =
-          {
-            type = "create-explosion",
-            entity_name = "uranium-explosion-gunshot"
-          },
-          target_effects =
-          {
-            {
-              type = "create-entity",
-              entity_name = "uranium-small-explosion",
-              offsets = {{0, 1}},
-              offset_deviation = {{-0.5, -0.5}, {0.5, 0.5}}
-            },
-            {
-              type = "damage",
-              damage = { amount = bullet_uranium_physical, type = "physical"}
-            },
 			{
-			  type = "damage",
-			  damage = { amount = bullet_uranium_piercing , type = "piercing"}
-            }
-          }
-        }
+					-- Bullet trail
+					type = "beam",
+					beam = "uranium_bullet_trail",
+					max_length = 100,
+					duration = bullet_trail_duration,
+					source_offset = {0, -0.8 },
+					add_to_shooter = false,
+					destroy_with_source_or_target = false
+			},
+			{
+			  type = "instant",
+			  source_effects =
+			  {
+				type = "create-explosion",
+				entity_name = "uranium-explosion-gunshot"
+			  },
+			  target_effects =
+			  {
+				{
+				  type = "create-entity",
+				  entity_name = "uranium-small-explosion",
+				  offsets = {{0, 1}},
+				  offset_deviation = {{-0.5, -0.5}, {0.5, 0.5}}
+				},
+				{
+				  type = "damage",
+				  damage = { amount = bullet_uranium_physical, type = "physical"}
+				},
+				{
+				  type = "damage",
+				  damage = { amount = bullet_uranium_piercing , type = "piercing"}
+				}
+			  }
+			}
 		}
       }
     },

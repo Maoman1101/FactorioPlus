@@ -2518,31 +2518,31 @@ data:extend({
         animation =
 		{
 
-      layers =
-      {
-        {
-            filename = "__base__/graphics/entity/laser-turret/laser-turret-base.png",
-            priority = "high",
-            width = 138,
-            height = 104,
-            direction_count = 1,
-            frame_count = 1,
-            shift = util.by_pixel(-0.5, 2),
-            scale = 0.5
-        },
-        {
-            filename = "__base__/graphics/entity/laser-turret/laser-turret-base-shadow.png",
-            line_length = 1,
-            width = 132,
-            height = 82,
-            draw_as_shadow = true,
-            direction_count = 1,
-            frame_count = 1,
-            shift = util.by_pixel(6, 3),
-            scale = 0.5
-        }
-      }
-    },
+		layers =
+		  {
+				{
+					filename = "__base__/graphics/entity/laser-turret/laser-turret-base.png",
+					priority = "high",
+					width = 138,
+					height = 104,
+					direction_count = 1,
+					frame_count = 1,
+					shift = util.by_pixel(-0.5, 2),
+					scale = 0.5
+				},
+				{
+					filename = "__base__/graphics/entity/laser-turret/laser-turret-base-shadow.png",
+					line_length = 1,
+					width = 132,
+					height = 82,
+					draw_as_shadow = true,
+					direction_count = 1,
+					frame_count = 1,
+					shift = util.by_pixel(6, 3),
+					scale = 0.5
+				}
+		  }
+		},
 	},
 	},
     vehicle_impact_sound = sounds.generic_impact,
