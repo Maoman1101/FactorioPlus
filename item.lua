@@ -631,16 +631,6 @@ data.extend({
     place_result = "floodlight-lamp",
     stack_size = 50
   },
- --[[ {
-    type = "item",
-    name = "bauxite-ore",
-    icon = "__factorioplus__/graphics/icons/bauxite-ore.png",
-    icon_size = 64,
-    icon_mipmaps = 4,
-    subgroup = "raw-resource",
-    order = "f[copper-ore]",
-    stack_size = 50
-  },]]--
     {
     type = "item",
     name = "aluminium-plate",
@@ -671,28 +661,6 @@ data.extend({
     stack_size = 100,
 	weight = 1*kg
   },
-   --[[ 
-   {
-    type = "item",
-    name = "lens",
-    icon = "__factorioplus__/graphics/icons/lens.png",
-    icon_size = 64, icon_mipmaps = 4,
-    subgroup = "raw-material",
-    order = "b[iron-plate]",
-    stack_size = 50
-	}, 
-	]]--
-	--[[
-	{
-    type = "item",
-    name = "sand",
-    icon = "__factorioplus__/graphics/icons/sand.png",
-    icon_size = 64, icon_mipmaps = 4,
-    subgroup = "raw-material",
-    order = "b[iron-plate]",
-    stack_size = 50
-	},
-	]]--
   {
     type = "item",
     name = "landfill",
@@ -741,14 +709,6 @@ data.extend({
     {
       result = "water",
       condition_size = 1,
-      -- condition = 
-	  -- { 
-	  -- "object-layer",
-	  -- "water-tile",
-      -- "item-layer",
-      -- "resource-layer",
-	  -- "floor-layer",
-	  -- },
 	  condition = {layers={floor=true, water_tile=true}},
     },
   },

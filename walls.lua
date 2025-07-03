@@ -13,7 +13,7 @@ local sounds = require("__base__.prototypes.entity.sounds")
     name = "basic-wall",
     icon = "__base__/graphics/icons/wall.png",
     icon_size = 64, icon_mipmaps = 4,
-    flags = {"placeable-neutral", "player-creation"},
+    flags = {"placeable-neutral", "player-creation", "not-repairable"},
     collision_box = {{-0.29, -0.29}, {0.29, 0.29}},
     selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
     damaged_trigger_effect = hit_effects.wall(),

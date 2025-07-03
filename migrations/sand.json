@@ -2,7 +2,9 @@
  "entity":
   [
     ["wooden-wall", "basic-wall"],
-	["factory-1", "factory-large"]
+	["factory-1", "factory-large"],
+	["abandonment-laser-turret", "abandonment-laser-turret-small"],
+	["abandonment-laser-turret2", "abandonment-laser-turret-normal"]
   ],
   "item":
   [

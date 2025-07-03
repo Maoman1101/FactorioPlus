@@ -32,6 +32,69 @@ local function create_tiles(tilename, rad)
 	}
 end
 
+local function create_decoratives(decorative, rad, probability, amount_multiplier)
+  return {
+		type = "direct",
+		action_delivery =
+		{
+			type = "instant",
+			target_effects =
+			{
+				{
+					type = "create-decorative",
+					decorative = decorative,
+					probability = probability or 1,
+					spawn_min = math.floor((rad * amount_multiplier) / 2),
+					spawn_max = math.ceil(rad * amount_multiplier),
+					spawn_min_radius = 1,
+					spawn_max_radius = rad + 2 or 2,
+					spread_evenly = true,
+				}
+			}
+		}
+	}
+end
+
+
+local geothermaldecal = util.copy(data.raw["optimized-decorative"]["light-mud-decal"])
+geothermaldecal.name = "geothermal-decal"
+geothermaldecal.autoplace = nil
+for i, v in pairs (geothermaldecal.pictures) do
+	v.tint = {0.9,0.95,1,1}
+	v.scale = 0.7
+end
+data:extend{geothermaldecal}
+
+local naturalgasdecal = util.copy(data.raw["optimized-decorative"]["sand-decal"])
+naturalgasdecal.collision_box = {{-4, -4}, {4, 4}}
+naturalgasdecal.name = "naturalgas-decal"
+naturalgasdecal.autoplace = nil
+for i, v in pairs (naturalgasdecal.pictures) do
+	v.tint = {0.6,0.7,1,1}
+	v.scale = 0.7
+end
+data:extend{naturalgasdecal}
+
+---------------------------------------------------  RESOURCE VARS  ------------------------------------------------------------
+local iron_ore_spotsperkm2 = 1.1
+local ironpure_spotsrelativetoiron = 1/4 -- how many spots of pure iron compared to regular iron
+
+local goblin_ore_spotsperkm2 = 1.5 -- this is /3 as there are 3 types of goblin ore
+
+local sand_ore_spotsperkm2 = 0.8
+---------------------------------------------------  BASE RESOURCE OVERRIDES  ------------------------------------------------------------
+data.raw["resource"]["iron-ore"].autoplace = resource_autoplace.resource_autoplace_settings
+    {
+      name = "iron-ore",
+      order = "b",
+      base_density =  10,
+      base_spots_per_km = iron_ore_spotsperkm2,
+      has_starting_area_placement = true,
+      regular_rq_factor_multiplier = 1.1,
+      starting_rq_factor_multiplier =  1.5,
+      candidate_spot_count = 22,
+    }
+--data.raw["resource"]["crude-oil"].created_effect = {create_decoratives("sand-decal", 8 ,1.0, 2),create_tiles("dirt-5", 5)},
 ---------------------------------------------------  FUEL OVERRIDES  ------------------------------------------------------------
 
 data.raw["item"]["wood"].fuel_acceleration_multiplier = 0.5
@@ -364,7 +427,7 @@ data:extend
       name = "bauxite-ore",
       order = "c",
       base_density = 0.6,
-      base_spots_per_km2 = 0.4,
+      base_spots_per_km2 = 0.6,
       has_starting_area_placement = false,
       random_spot_size_minimum = 1,
       random_spot_size_maximum = 3,
@@ -469,10 +532,10 @@ data:extend
 	  seed1 = 100,
       order = "c",
       base_density = 6,
-      base_spots_per_km2 = 0.45/3,
+      base_spots_per_km2 = goblin_ore_spotsperkm2*3,
       has_starting_area_placement = false,
       random_spot_size_minimum = 2,
-      random_spot_size_maximum = 6,
+      random_spot_size_maximum = 5,
 	  regular_blob_amplitude_multiplier =  5,
 	  regular_rq_factor_multiplier = 0.5,
 	  richness_post_multiplier = 0.05, 
@@ -562,10 +625,10 @@ data:extend
 	  seed1 = 101,
       order = "c",
       base_density = 6,
-      base_spots_per_km2 =  0.45/3,
+      base_spots_per_km2 =  goblin_ore_spotsperkm2*3,
       has_starting_area_placement = false,
       random_spot_size_minimum = 2,
-      random_spot_size_maximum = 6,
+      random_spot_size_maximum = 5,
 	  regular_blob_amplitude_multiplier =  5,
 	  regular_rq_factor_multiplier = 0.5,
 	  richness_post_multiplier = 0.05, 
@@ -655,10 +718,10 @@ data:extend
 	  seed1 = 102,
       order = "c",
       base_density = 6,
-      base_spots_per_km2 =  0.45/3,
+      base_spots_per_km2 =  goblin_ore_spotsperkm2*3,
       has_starting_area_placement = false,
       random_spot_size_minimum = 2,
-      random_spot_size_maximum = 6,
+      random_spot_size_maximum = 5,
 	  regular_blob_amplitude_multiplier =  5,
 	  regular_rq_factor_multiplier = 0.5,
 	  richness_post_multiplier = 0.05, 
@@ -739,7 +802,7 @@ data:extend
       name = "sand-ore",
       order = "c",
       base_density = 6,
-      base_spots_per_km2 = 1.5,
+      base_spots_per_km2 = sand_ore_spotsperkm2,
       has_starting_area_placement = false,
       random_spot_size_minimum = 1,
       random_spot_size_maximum = 2,
@@ -820,12 +883,12 @@ data:extend
     {
       name = "aquifer",
       order = "c", -- Other resources are "b"; oil won't get placed if something else is already there.
-      base_density = 0.3,
-      base_spots_per_km2 = 0.4,
+      base_density = 0.4,
+      base_spots_per_km2 = 0.6,
       random_probability = 1/50,
       random_spot_size_minimum = 1,
       random_spot_size_maximum = 2, -- don't randomize spot size
-      additional_richness = 220000, -- this increases the total everywhere, so base_density needs to be decreased to compensate
+      additional_richness = 280000, -- this increases the total everywhere, so base_density needs to be decreased to compensate
       has_starting_area_placement = false,
       regular_rq_factor_multiplier = 1
     },
@@ -903,10 +966,10 @@ data:extend
       name = "geothermal-vent",
       order = "c", -- Other resources are "b"; oil won't get placed if something else is already there.
       base_density = 0.2,
-      base_spots_per_km2 = 0.2,
+      base_spots_per_km2 = 0.6,
       random_probability = 1/80,
       random_spot_size_minimum = 2,
-      random_spot_size_maximum = 4, 
+      random_spot_size_maximum = 5, 
       additional_richness = 1690000, -- this increases the total everywhere, so base_density needs to be decreased to compensate
       has_starting_area_placement = false,
       regular_rq_factor_multiplier =1
@@ -963,7 +1026,7 @@ data:extend
         }
       }
     },
-
+	created_effect = {create_decoratives("geothermal-decal", 8 ,1.0, 2.5),create_tiles("dirt-2", 4)},
 	
     map_color = {0.7, 0.7, 0.7},
     map_grid = false
@@ -1033,7 +1096,7 @@ data:extend
 		order = "b",
 		base_density = 5,
 		random_probability = 1/3, -- 1
-		base_spots_per_km2 = 0.8, -- 2.5
+		base_spots_per_km2 = 1.25, -- 2.5
 		random_spot_size_minimum = 0.02, -- 0.25 scales with km
 		random_spot_size_maximum = 0.04, -- 2.0 scales with km
 		candidate_spot_count = 2, --21
@@ -1260,7 +1323,7 @@ data:extend
       base_spots_per_km2 = 2,
       random_probability = 1/50,
       random_spot_size_minimum = 3,
-      random_spot_size_maximum = 7, -- don't randomize spot size
+      random_spot_size_maximum = 7, -- how random are the sizes?
       additional_richness = 190000, -- this increases the total everywhere, so base_density needs to be decreased to compensate
       has_starting_area_placement = false,
       regular_rq_factor_multiplier = 1,
@@ -1316,7 +1379,7 @@ data:extend
         }
       }
     },
-
+	created_effect = {create_decoratives("naturalgas-decal", 8 ,1.0, 2),create_tiles("dirt-5", 5)},
 	
     map_color = {0.0, 0.9, 0.9},
     map_grid = false
@@ -1451,10 +1514,7 @@ data:extend
     main_product = ""
   },
 })  
- --------------------------------------------------- IRON OVERRIDE ------------------------------------------------------------
 
-data.raw["resource"]["iron-ore"].autoplace.candidate_spot_count = 20
-data.raw["resource"]["iron-ore"].base_spots_per_km2 =  0.4,
  
   	  --------------------------------------------------- PURE IRON  ------------------------------------------------------------
 data:extend
@@ -1491,21 +1551,6 @@ data:extend
 	weight = 1 * kg,	
 	},
 	
-	-- {
-	-- type = "autoplace-control",
-	-- name =  "iron-ore-pure",
-	-- localised_name = {
-        -- "",
-        -- "[item=bauxite-ore] ",
-        -- {
-          -- "entity-name.bauxite-ore"
-        -- }
-      -- },
-	-- richness = true,
-	-- order = "a-gf",
-	-- category = "resource"	
--- },
-
 	{
     type = "resource",
     name = "iron-ore-pure",
@@ -1532,17 +1577,17 @@ data:extend
       name = "iron-ore",
       order = "c",
 	  patch_set_name = "iron-ore-pure",
-	  seed1 = 69,
+	  seed1 = 69, -- hehe
       base_density = 7,
-      base_spots_per_km2 =  0.35,
+      base_spots_per_km2 = iron_ore_spotsperkm2 / ironpure_spotsrelativetoiron ,
       has_starting_area_placement = false,
-	  random_spot_size_minimum = 1,
-      random_spot_size_maximum = 6,
+	  random_spot_size_minimum = 10,
+      random_spot_size_maximum = 20,
 	  regular_blob_amplitude_multiplier =  1.5,
       regular_rq_factor_multiplier = 0.3,
       starting_rq_factor_multiplier = 0.3,
-      candidate_spot_count = 6,
-	  richness_post_multiplier = 0.050, 
+      candidate_spot_count = 8,
+	  richness_post_multiplier = 0.2, 
       --tile_restriction = autoplace_parameters.tile_restriction
     },
     stage_counts = {15000, 9500, 5500, 2900, 1300, 400, 150, 80},

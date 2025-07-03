@@ -743,7 +743,7 @@ local _trv = (math.random() / 10) +  tinyvalue
 		s.picture = building_barren
 		s.localised_description = {"entity-description.abandonment-warehouse-barren"} 
 	end
-	s.created_effect = {create_tiles("nuclear-ground", 5.5, 1.0), create_tiles("stone-path", 4, 1.0), create_tiles("stone-path", 5, 0.25) }
+	s.created_effect = {create_tiles("nuclear-ground", 6, 1.0), create_tiles("stone-path", 5, 1.0), create_tiles("stone-path", 6.5, 0.25) }
 	s.map_generator_bounding_box = {{ -boundingspace, -boundingspace}, {boundingspace, boundingspace}}
 	s.enemy_map_color = abandonments_force_color_map
 	
@@ -807,7 +807,7 @@ local function makeNewAbandonmentTurret(data)
 	local newturret = util.copy(data.baseturret)
 	local _oldname = data.baseturret.name
 	
-	newturret.localised_name =  {"",abandonment_loc, " ", {"entity-name." .._oldname}}
+	newturret.localised_name =  {"",abandonment_loc, " ", {"entity-name." .._oldname}, " (", {"factorioplus-adjectives.".._suffix}, ")" }
 	newturret.name = "abandonment".."-".._oldname.."-".._suffix  
 	newturretflags = {"placeable-off-grid"}
 	
@@ -902,7 +902,7 @@ data:extend{
 data:extend{
 	makeNewAbandonmentTurret({
 		baseturret = data.raw["electric-turret"]["laser-turret"],
-		suffix = "normal",
+		suffix = "medium",
 		scale = 1,
 		range_modifier = 1,
 		damage_modifier = 1.25,
@@ -981,7 +981,7 @@ newturret2.map_generator_bounding_box = {{ -1.70, -1.70}, {1.70, 1.70}}
 newturret2.build_base_evolution_requirement = 10
 newturret2.remove_decoratives = "false"
 newturret2.enemy_map_color = abandonments_force_color_map
-newturret2.created_effect = { create_tiles("nuclear-ground", 2.5, 1.0), create_tiles("stone-path", 2, 0.5)}
+newturret2.created_effect = { create_tiles("nuclear-ground", 3.5, 1.0), create_tiles("stone-path", 3, 0.5)}
 newturret2.loot =
     {
       {item = "electronic-circuit", probability =1, count_min = 0, count_max = 4},
@@ -1007,7 +1007,7 @@ newturret3.map_generator_bounding_box = {{ -1.70, -1.70}, {1.70, 1.70}}
 newturret3.build_base_evolution_requirement = 10
 newturret3.remove_decoratives = "false"
 newturret3.enemy_map_color = abandonments_force_color_map
-newturret3.created_effect = { create_tiles("nuclear-ground", 3.5, 1.0), create_tiles("stone-path", 3, 0.5)}
+newturret3.created_effect = { create_tiles("nuclear-ground", 4, 1.0), create_tiles("stone-path", 3.5, 0.5)}
 newturret3.loot =
     {
       {item = "electronic-circuit", probability =1, count_min = 0, count_max = 4},
@@ -1043,7 +1043,7 @@ newsolarpanel.autoplace = abandonments_autoplace.abandonments_buildings_autoplac
 newsolarpanel.map_generator_bounding_box = solarpanel1_autoplace
 newsolarpanel.enemy_map_color = abandonments_force_color_map
 newsolarpanel.remove_decoratives = "false"
-newsolarpanel.created_effect = { create_tiles("nuclear-ground", 4, 1.0), create_tiles("stone-path", 3.5, 0.5)}
+newsolarpanel.created_effect = { create_tiles("nuclear-ground", 4.5, 1.0), create_tiles("stone-path", 4, 0.5)}
 newsolarpanel.loot =
     {
       {item = "steel-plate", probability = 1, count_min = 0, count_max = 8},
@@ -1075,7 +1075,7 @@ newsolarpanel2.autoplace = abandonments_autoplace.abandonments_buildings2_autopl
 newsolarpanel2.map_generator_bounding_box = solarpanel2_autoplace
 newsolarpanel2.enemy_map_color = abandonments_force_color_map
 newsolarpanel2.remove_decoratives = "false"
-newsolarpanel2.created_effect = { create_tiles("nuclear-ground", 3.5, 1.0), create_tiles("stone-path", 3.0, 0.5)}
+newsolarpanel2.created_effect = { create_tiles("nuclear-ground", 4, 1.0), create_tiles("stone-path", 3.5, 0.5)}
 newsolarpanel2.loot =
     {
       {item = "steel-plate", probability = 1, count_min = 0, count_max = 6},
@@ -1106,7 +1106,7 @@ newsolarpanel3.autoplace = abandonments_autoplace.abandonments_buildings2_autopl
 newsolarpanel3.map_generator_bounding_box = solarpanel3_autoplace
 newsolarpanel3.enemy_map_color = abandonments_force_color_map
 newsolarpanel3.remove_decoratives = "false"
-newsolarpanel3.created_effect ={ create_tiles("nuclear-ground", 2.25, 1.0), create_tiles("stone-path", 1.75, 0.5)} 
+newsolarpanel3.created_effect ={ create_tiles("nuclear-ground", 3, 1.0), create_tiles("stone-path", 2.5, 0.5)} 
 newsolarpanel3.loot =
     {
       {item = "steel-plate", probability = 1, count_min = 0, count_max = 2},

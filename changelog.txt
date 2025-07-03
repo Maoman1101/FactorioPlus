@@ -1,12 +1,30 @@
 ---------------------------------------------------------------------------------------------------
 Version: 2.2.5
-Date: 2025
+Date: 2025.07.03
   Additions:
-    - 
+    - Added turret scaling to abandonment Laser turrets, so there is some size difference to their strength.
+  Graphics:
+    - Geothermal and Natural gas vents now create decal patches and tiles around them to better integrate them in the environment.
   Balance:
-    - 
+    - Reworked some of the Abandonment tile creation; you can now remove stone-tiles on the ground.
+    - Increased the visibility and width of some bullet trails.
+    - Removed physical damage of explosive magazines from the damage radius, and moved it to it's own direct hit damage.
+    - Abandonment force color is now a slightly brighter/lighter red to make a slight difference to biter enemies.
+    - Abandonment tint color changed from grey, to black, so that turrets are a littler easier to discern.
+    - Friendly fire percent starts on 10% by default (was 25%), and the options now scale in a rough doubling/halving amount.
+    - Warehouse loot scaling only goes as low as 75% (was 50%).
+    - Doubled Armored cargo wagon storage (10 -> 20). Increased health by a little (2000 -> 2500)
+    - Increased Electric Train max speed from 0.5x to 0.75x
   Fixes:
-    - 
+    - Removed no-connection icon from abandonment solar panels.
+    - Alt icon scale for basic-splitter is now the same 0.5x scale as other base game splitters.
+    - Alt icon scale for all loaders are now 0.5x.
+    - Small/Large radar corpses now use generic remnants.
+    - Included some new line formatting in character selector stats to look nicer.
+    - Hazard tile movespeed correctly matches their base counterparts.
+    - Fixed many mipmap icon issues that caused items to fade on belts at max view range.
+    - Marked Basic walls as 'not repairable' so bots will not attempt to repair them.
+    - Fixed some ores and resources values that made them less rare, instead of more rare.
 ---------------------------------------------------------------------------------------------------
 Version: 2.2.4
 Date: 2025.06.29
