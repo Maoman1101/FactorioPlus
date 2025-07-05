@@ -1054,7 +1054,7 @@ data:extend({
         type = "cluster",
         cluster_count = clustergrenade_count,
         distance = 9,
-        distance_deviation = 34,
+        distance_deviation = 3,
         action_delivery =
         {
           type = "projectile",

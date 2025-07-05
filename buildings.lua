@@ -1953,7 +1953,7 @@ data.extend({
     icon_size = 64, icon_mipmaps = 4,
     flags = {"placeable-neutral", "player-creation"},
     minable = {mining_time = 1, result = "singlestack-chest"},
-    max_health = 250,
+    max_health = 400,
     corpse =  "small-remnants",
     dying_explosion = "steel-chest-explosion",
     open_sound = { filename = "__base__/sound/metallic-chest-open.ogg", volume=0.53 },
