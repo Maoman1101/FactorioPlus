@@ -6080,7 +6080,7 @@ data.extend({
       sound =
       {
         {
-          filename = "__base__/sound/radar.ogg",
+          filename = "__base__/sound/small_radar.ogg",
           volume = 1.0,
 		  speed = 1.0,
         }
@@ -6180,7 +6180,7 @@ data.extend({
       sound =
       {
         {
-          filename = "__base__/sound/radar.ogg",
+          filename = "__base__/sound/large_radar.ogg",
 		  speed = 1.0,
           volume =1
         }
