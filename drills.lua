@@ -78,7 +78,7 @@ end
 
 
 data:extend({
-{
+	{
     type = "mining-drill",
     name = "large-burner-mining-drill",
     icon = "__factorioplus__/graphics/icons/large-burner-miner.png",
@@ -93,6 +93,16 @@ data:extend({
     selection_box = {{ -1.5, -1.5}, {1.5, 1.5}},
     damaged_trigger_effect = hit_effects.entity(),
     mining_speed = 1.0,
+	input_fluid_box =
+    {
+      pipe_picture = assembler3pipepictures(),
+      pipe_covers = pipecoverspictures(),
+      volume = 100,
+      pipe_connections =
+      {
+        { direction = defines.direction.south, position = {0, 1}}
+      }
+    },
      working_sound =
     {
       sound = sound_variations("__base__/sound/burner-mining-drill", 2, 0.6, volume_multiplier("tips-and-tricks", 0.8)),
@@ -126,8 +136,6 @@ data:extend({
     {
       drilling_vertical_movement_duration = 10 / electric_drill_animation_speed,
       animation_progress = 1,
-      min_animation_progress = 0,
-      max_animation_progress = 30,
 
       circuit_connector_layer = "object",
       circuit_connector_secondary_draw_order = { north = 14, east = 30, south = 30, west = 30 },
@@ -140,17 +148,17 @@ data:extend({
           {
             {
               priority = "high",
-              filename = "__factorioplus__/graphics/large-burner-mining-drill-n.png",
-              width = 984/4,
-              height = 570/2,
-			  scale = 0.5,
+              filename = "__factorioplus__/graphics/large-burner-miner/large-burner-mining-n.png",
+              width = 1148/4,
+              height = 746/2,
+			  scale = 0.375,
 			  line_length = 4,
               frame_count = 8,
               animation_speed = 1/2,
               shift = util.by_pixel(0, -18),
-            },
+            },  
 			{
-			  filename = "__factorioplus__/graphics/large-burner-mining-drill-n-shadow.png",
+			  filename = "__factorioplus__/graphics/large-burner-miner/large-burner-mining-drill-n-shadow.png",
 			  priority = "high",
 			  width = 339,
 			  height = 285,
@@ -168,18 +176,17 @@ data:extend({
           {
             {
               priority = "high",
-              filename = "__factorioplus__/graphics/large-burner-mining-drill-e.png",
-               width = 984/4,
-              height = 570/2,
-			  scale = 0.5,
+              filename = "__factorioplus__/graphics/large-burner-miner/large-burner-mining-e.png",
+              width = 1148/4,
+              height = 746/2,
+			  scale = 0.375,
 			  line_length = 4,
               frame_count = 8,
               animation_speed = 1/2,
-              direction_count = 1,
               shift = util.by_pixel(0, -18),
-            },   
+            },    
 			{
-			  filename = "__factorioplus__/graphics/large-burner-mining-drill-e-shadow.png",
+			  filename = "__factorioplus__/graphics/large-burner-miner/large-burner-mining-drill-e-shadow.png",
 			  priority = "high",
 			  width = 339,
 			  height = 285,
@@ -197,18 +204,17 @@ data:extend({
           {
            {
               priority = "high",
-              filename = "__factorioplus__/graphics/large-burner-mining-drill-s.png",
-               width = 984/4,
-              height = 570/2,
-			  scale = 0.5,
+              filename = "__factorioplus__/graphics/large-burner-miner/large-burner-mining-s.png",
+              width = 1148/4,
+              height = 746/2,
+			  scale = 0.375,
 			  line_length = 4,
               frame_count = 8,
               animation_speed = 1/2,
-              direction_count = 1,
               shift = util.by_pixel(0, -18),
-            },
+            },  
 			{
-			  filename = "__factorioplus__/graphics/large-burner-mining-drill-s-shadow.png",
+			  filename = "__factorioplus__/graphics/large-burner-miner/large-burner-mining-drill-s-shadow.png",
 			  priority = "high",
 			  width = 339,
 			  height = 285,
@@ -225,20 +231,146 @@ data:extend({
         {
           layers =
           {
-           {
+            {
               priority = "high",
-              filename = "__factorioplus__/graphics/large-burner-mining-drill-w.png",
-               width = 984/4,
-              height = 570/2,
-			  scale = 0.5,
+              filename = "__factorioplus__/graphics/large-burner-miner/large-burner-mining-w.png",
+              width = 1148/4,
+              height = 746/2,
+			  scale = 0.375,
 			  line_length = 4,
               frame_count = 8,
               animation_speed = 1/2,
-              direction_count = 1,
               shift = util.by_pixel(0, -18),
-            },   
+            },  
 			{
-			  filename = "__factorioplus__/graphics/large-burner-mining-drill-w-shadow.png",
+			  filename = "__factorioplus__/graphics/large-burner-miner/large-burner-mining-drill-w-shadow.png",
+			  priority = "high",
+			  width = 339,
+			  height = 285,
+			  direction_count = 1,
+			  shift = util.by_pixel(26, -18),
+			  draw_as_shadow = true,
+			  scale = 0.5,
+			  repeat_count = 8,
+			},					
+          }
+        },
+      },
+	},
+	  
+	wet_mining_graphics_set =
+    {
+      drilling_vertical_movement_duration = 10 / electric_drill_animation_speed,
+      animation_progress = 1,
+
+      circuit_connector_layer = "object",
+      circuit_connector_secondary_draw_order = { north = 14, east = 30, south = 30, west = 30 },
+
+
+      animation =
+       {
+        north =
+        {
+          layers =
+          {
+            {
+              priority = "high",
+              filename = "__factorioplus__/graphics/large-burner-miner/large-burner-wet-mining-n.png",
+              width = 1148/4,
+              height = 746/2,
+			  scale = 0.375,
+			  line_length = 4,
+              frame_count = 8,
+              animation_speed = 1/2,
+              shift = util.by_pixel(0, -18),
+            },
+			{
+			  filename = "__factorioplus__/graphics/large-burner-miner/large-burner-mining-drill-n-shadow.png",
+			  priority = "high",
+			  width = 339,
+			  height = 285,
+			  direction_count = 1,
+			  shift = util.by_pixel(26, -18),
+			  draw_as_shadow = true,
+			  scale = 0.5,
+			  repeat_count = 8,
+			},		
+          }
+        },
+        east =
+        {
+          layers =
+          {
+           {
+              priority = "high",
+              filename = "__factorioplus__/graphics/large-burner-miner/large-burner-wet-mining-e.png",
+              width = 1148/4,
+              height = 746/2,
+			  scale = 0.375,
+			  line_length = 4,
+              frame_count = 8,
+              animation_speed = 1/2,
+              shift = util.by_pixel(0, -18),
+            },
+			{
+			  filename = "__factorioplus__/graphics/large-burner-miner/large-burner-mining-drill-e-shadow.png",
+			  priority = "high",
+			  width = 339,
+			  height = 285,
+			  direction_count = 1,
+			  shift = util.by_pixel(26, -18),
+			  draw_as_shadow = true,
+			  scale = 0.5,
+			  repeat_count = 8,
+			},			
+          }
+        },
+        south =
+        {
+          layers =
+          {
+           {
+              priority = "high",
+              filename = "__factorioplus__/graphics/large-burner-miner/large-burner-wet-mining-s.png",
+              width = 1148/4,
+              height = 746/2,
+			  scale = 0.375,
+			  line_length = 4,
+              frame_count = 8,
+              animation_speed = 1/2,
+              shift = util.by_pixel(0, -18),
+            },
+			{
+			  filename = "__factorioplus__/graphics/large-burner-miner/large-burner-mining-drill-s-shadow.png",
+			  priority = "high",
+			  width = 339,
+			  height = 285,
+			  direction_count = 1,
+			  shift = util.by_pixel(26, -18),
+			  draw_as_shadow = true,
+			  scale = 0.5,
+			  repeat_count = 8,
+			},		
+            
+          }
+        },
+        west =
+        {
+          layers =
+          {
+            {
+              priority = "high",
+              filename = "__factorioplus__/graphics/large-burner-miner/large-burner-wet-mining-w.png",
+              width = 1148/4,
+              height = 746/2,
+			  scale = 0.375,
+			  line_length = 4,
+              frame_count = 8,
+              animation_speed = 1/2,
+              shift = util.by_pixel(0, -18),
+            },
+			{
+			  filename = "__factorioplus__/graphics/large-burner-miner/large-burner-mining-drill-w-shadow.png",
 			  priority = "high",
 			  width = 339,
 			  height = 285,
@@ -286,7 +418,7 @@ data:extend({
     circuit_wire_max_distance = default_circuit_wire_max_distance
   },
   
-{
+	{
     type = "mining-drill",
     name = "electric-grinder",
     icon = "__factorioplus__/graphics/icons/electric-grinder.png",
@@ -300,6 +432,18 @@ data:extend({
     collision_box = {{ -2.4, -2.4}, {2.4, 2.4}},
     selection_box = {{ -2.5, -2.5}, {2.5, 2.5}},
     damaged_trigger_effect = hit_effects.entity(),
+	input_fluid_box =
+    {
+      pipe_picture = assembler2pipepictures(),
+      pipe_covers = pipecoverspictures(),
+      volume = 200,
+      pipe_connections =
+      {
+        { direction = defines.direction.west, position = {-2, -2}},
+        { direction = defines.direction.east, position = {2, -2}},
+        --{ direction = defines.direction.south, position = {0, 2}}
+      }
+    },
 	working_sound =
 		{
 			  sound = sound_variations("__base__/sound/burner-mining-drill", 2, 0.5, volume_multiplier("tips-and-tricks", 0.8)),
@@ -471,7 +615,7 @@ data:extend({
 
 	circuit_connector = circuit_connector_definitions["grinder"],
     circuit_wire_max_distance = default_circuit_wire_max_distance,
-},
+	},
 
   
    {

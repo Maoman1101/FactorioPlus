@@ -1,5 +1,16 @@
 ---------------------------------------------------------------------------------------------------
 Version: 2.2.5
+Date: 2025.07.09
+  Additions:
+    - 
+  Graphics:
+    - 
+  Balance:
+    - 
+  Fixes:
+    - 
+---------------------------------------------------------------------------------------------------
+Version: 2.2.5
 Date: 2025.07.03
   Additions:
     - Added turret scaling to abandonment Laser turrets, so there is some size difference to their strength.

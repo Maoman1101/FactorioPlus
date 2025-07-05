@@ -1275,7 +1275,7 @@ data:extend({
     {
       {
         type = "fire",
-        decrease = 10,
+        decrease = 2,
         percent = 20
       },
        {
@@ -1618,7 +1618,7 @@ data:extend({
     {
       {
         type = "fire",
-        decrease = 10,
+        decrease = 2,
         percent = 20
       },
        {
@@ -1878,7 +1878,7 @@ data:extend({
     {
       {
         type = "fire",
-        decrease = 10,
+        decrease = 5,
         percent = 30
       },
        {
@@ -2149,7 +2149,7 @@ data:extend({
     {
       {
         type = "fire",
-        decrease = 10,
+        decrease = 3,
         percent = 30
       },
        {
@@ -2439,7 +2439,7 @@ data:extend({
     {
       {
         type = "fire",
-        decrease = 15,
+        decrease = 2,
         percent = 20
       },
       {
@@ -2722,7 +2722,7 @@ data:extend({
     {
       {
         type = "fire",
-        decrease = 10,
+        decrease = 5,
         percent = 20
       },
        {
@@ -3162,7 +3162,7 @@ data:extend({
     {
       {
         type = "fire",
-        decrease = 20,
+        decrease = 4,
         percent = 20
       },
       {
@@ -3451,7 +3451,7 @@ data:extend({
     {
       {
         type = "fire",
-        decrease = 10,
+        decrease = 2,
         percent = 20
       },
        {
@@ -3708,7 +3708,7 @@ data:extend({
     {
       {
         type = "fire",
-        decrease = 5,
+        decrease = 2,
         percent = 60
       },
       {
@@ -4038,7 +4038,7 @@ data:extend({
       {
       {
         type = "fire",
-        decrease = 4,
+        decrease = 2,
         percent = 60
       },
       {
@@ -4444,7 +4444,7 @@ data:extend({
     {
       {
         type = "fire",
-        decrease = 10,
+        decrease = 2,
         percent = 20
       },
       {

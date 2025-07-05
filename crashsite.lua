@@ -9,15 +9,15 @@ local crash_site_sprite_priority = "very-low"
 
 local cs_craft_speed = 0.5
 local cs_wreckage_loot = nil
-local cs_power_amount = "500kW"
+local cs_power_amount = "400kW"
 local cs_ship_gear = nil
 
 if settings.startup["settings-crashsite-bonus"].value == "more" then
 	cs_craft_speed = 1.0
-	 cs_power_amount = "2000kW"
+	 cs_power_amount = "1000kW"
 elseif settings.startup["settings-crashsite-bonus"].value == "extra" then
 	cs_craft_speed = 2.0
-	cs_power_amount = "8000kW"
+	cs_power_amount = "3000kW"
 end
 
 local wreck_flags =
@@ -583,7 +583,7 @@ data:extend
     {
       type = "electric",
       buffer_capacity = cs_power_amount,
-      usage_priority = "tertiary",
+      usage_priority = "primary-output",
       input_flow_limit = "0kW",
       output_flow_limit = cs_power_amount,
 	  render_no_power_icon = false

@@ -1053,15 +1053,15 @@ data:extend({
       {
         type = "cluster",
         cluster_count = clustergrenade_count,
-        distance = 12,
-        distance_deviation = 6,
+        distance = 9,
+        distance_deviation = 34,
         action_delivery =
         {
           type = "projectile",
           projectile = "grenade",
           direction_deviation = 0.6,
           starting_speed = 0.35,
-          starting_speed_deviation = 0.5
+          starting_speed_deviation = 0.25
         }
       }
     },
