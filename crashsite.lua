@@ -513,8 +513,8 @@ data:extend
         },
         wire =
         {
-          green = util.by_pixel(0, 0),
-          red = util.by_pixel(0, 0),
+          green = util.by_pixel(-16, -44),
+          red = util.by_pixel(-27, -39),
           copper = util.by_pixel(-24, -50),
         }
       },
@@ -527,8 +527,8 @@ data:extend
         },
         wire =
         {
-          green = util.by_pixel(0, 0),
-          red = util.by_pixel(0, 0),
+          green = util.by_pixel(8, -47),
+          red = util.by_pixel(22, -50),
           copper = util.by_pixel(16, -40),
         }
       },
@@ -541,8 +541,8 @@ data:extend
         },
         wire =
         {
-          green = util.by_pixel(0, 0),
-          red = util.by_pixel(0, 0),
+          green = util.by_pixel(-10, -46),
+          red = util.by_pixel(2, -40),
           copper =util.by_pixel(-11, -38),
         }
       },
@@ -555,8 +555,8 @@ data:extend
         },
         wire =
         {
-          green = util.by_pixel(0, 0),
-          red = util.by_pixel(0, 0),
+          green = util.by_pixel(-6, -35),
+          red = util.by_pixel(6, -37),
           copper = util.by_pixel(6, -29),
         }
       },
