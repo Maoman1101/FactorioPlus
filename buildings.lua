@@ -6081,8 +6081,8 @@ data.extend({
       {
         {
           filename = "__base__/sound/radar.ogg",
-          volume = 0.6,
-		  speed = 2.5,
+          volume = 1.0,
+		  speed = 1.0,
         }
       },
     max_sounds_per_type = 3,
@@ -6181,7 +6181,7 @@ data.extend({
       {
         {
           filename = "__base__/sound/radar.ogg",
-		  speed = 0.5,
+		  speed = 1.0,
           volume =1
         }
       },
