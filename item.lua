@@ -1089,7 +1089,7 @@ end
     subgroup = "tool",
     order = "b[repair]-a[repair-pack]",
     speed = 5,
-    durability = 600,
+    durability = 750,
     stack_size = 50,
 	random_tint_color = item_tints.iron_rust
   },

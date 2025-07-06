@@ -1,4 +1,20 @@
 ---------------------------------------------------------------------------------------------------
+Version: 2.2.6
+Date: 2025.07.05
+  Additions:
+    - Added liquid mining to Large burner miner.
+  Graphics:
+    - Increased image size of Large burner miner graphics.
+    - Increased brightness and exposure of many icons & graphics.
+  Balance:
+    - Increased Lockbox inventory size from 1 -> 2; and health from 250 -> 400
+    - Reduced Crash size generator power from 500,2000,8000kW -> 400,1000,3000kW
+    - Reduced many fire damage-decrease resistances of turrets (except flamethrower turret).
+  Fixes:
+    - Crash site generator is a now primary source of power (was tertiary).
+    - Reduced speed and range randomness to Cluster grenades.
+    - Fixed red/green circuit cabling on Crash site electric poles (Maoman)
+---------------------------------------------------------------------------------------------------
 Version: 2.2.5
 Date: 2025.07.03
   Additions:

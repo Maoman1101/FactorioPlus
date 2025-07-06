@@ -1,6 +1,7 @@
 local hit_effects = require ("__base__.prototypes.entity.hit-effects")
 local sounds = require("__base__.prototypes.entity.sounds")
 local movement_triggers = require("__base__.prototypes.entity.movement-triggers")
+require ("__base__.prototypes.entity.pipecovers")
 require ("__factorioplus__.transport-belt-pictures")
 require ("__factorioplus__.util-building-additions")
 
@@ -1952,7 +1953,7 @@ data.extend({
     icon_size = 64, icon_mipmaps = 4,
     flags = {"placeable-neutral", "player-creation"},
     minable = {mining_time = 1, result = "singlestack-chest"},
-    max_health = 250,
+    max_health = 400,
     corpse =  "small-remnants",
     dying_explosion = "steel-chest-explosion",
     open_sound = { filename = "__base__/sound/metallic-chest-open.ogg", volume=0.53 },
@@ -1984,7 +1985,7 @@ data.extend({
     collision_box = {{-0.45, -0.45}, {0.45, 0.45}},
     selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
     damaged_trigger_effect = hit_effects.entity(),
-    inventory_size = 1,
+    inventory_size = 2,
 	fast_replaceable_group = "container",
     vehicle_impact_sound = sounds.generic_impact,
     picture =
@@ -1992,17 +1993,17 @@ data.extend({
       layers =
       {
         {
-          filename = "__factorioplus__/graphics/singlestack-chest.png",
+          filename = "__factorioplus__/graphics/strongbox.png",
           priority = "extra-high",
-          width = 75,
-          height = 71,
+          width = 163,
+          height = 174,
 		  frame_count = 1,
 		  direction_count = 1,
           shift = util.by_pixel(0, -1),
-		  scale = 0.45,
+		  scale = 0.225,
         },
         {
-          filename = "__factorioplus__/graphics/singlestack-chest-shadow.png",
+          filename = "__factorioplus__/graphics/strongbox-shadow.png",
           priority = "extra-high",
           width = 87,
           height = 53,
@@ -5365,6 +5366,7 @@ data.extend({
     fluid_box =
     {
       volume = 500,
+	  pipe_picture = assembler2pipepictures(),
       pipe_covers = pipecoverspictures(),
       production_type = "output",
       -- filter = "water",
