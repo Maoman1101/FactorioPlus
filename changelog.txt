@@ -1,4 +1,33 @@
 ---------------------------------------------------------------------------------------------------
+Version: 2.2.7
+Date: 2025.07.08
+  Additions:
+    - Added alien polyps, which give a decent amount of large alien chunks when mined.
+  Balance:
+    - Electric grid distributors rebalanced: 400 -> 600 health, 14 -> 16 wire length, 20 -> 22 supply area.
+    - Mini roboports rebalanced: 500kW -> 250kW charging energy, 24 -> 20 logistic radius, 34 -> 40 construction radius.
+    - Listening posts revealed distance increased from 4 -> 5.
+    - Reduced max scan range of Large radars from 36 -> 28.
+    - Increased Stinger health overall by around 15-35%
+    - Increased base Biter speed by 10%
+    - Increased damage of Flamer attacks by around 25% - 50%
+    - Reduced Tanker piercing resistances per level, but increased their physical resistances.
+    - Increased Tanker spawner health regen by 10x.
+    - Doubled all Tanker biters health regen by 2x.
+    - All mini structure recipes require Aluminium in some way.
+    - Increased LR magazine coldown modifier from 1.6x -> 2.0x
+    - Mega roboport recipe time increased from 8s -> 30s
+  Space Age:
+    - Mini Assembling machines now have a the Space Age default assembler crafting categories
+  Fixes:
+    - Medium wooden poles, Big elecric poles and Substations can all be fast replaced with each other.
+    - Medium wooden poles are upgraded to Substations.
+    - Icon sizes now scale to Storage huts and warehouses footprint.
+    - Mini robo port construction radius is 2x their logistic radius.
+    - Fixed projected turning issue with rotating listening post and large radar graphics. (They don't spin with weird slowdowns)
+    - Blaster spawner coprses don't appear on death, and instead reveal a large crater.
+    - Fixed issue with Hatcher eggs removing player built ghosts.
+---------------------------------------------------------------------------------------------------
 Version: 2.2.6
 Date: 2025.07.05
   Additions:

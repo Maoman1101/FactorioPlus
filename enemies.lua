@@ -2268,7 +2268,7 @@ return
     subgroup = "enemies",
     collision_box = {{-2 * scale, -2 * scale}, {2 * scale, 2 * scale}},
     selection_box = {{-2 * scale, -2 * scale}, {2 * scale, 2 * scale}},
-
+	collision_mask = {layers={item=true, meltable=true, object=true, player=true, water_tile=true, is_object=true, is_lower_object=true, ghost=true}},
     render_layer = "object",
     max_health = math.floor((hatcher_egg_health_base * scale * scale)) * 10,
 	healing_per_tick = -( 1 * scale),
