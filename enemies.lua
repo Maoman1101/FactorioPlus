@@ -9,6 +9,9 @@ require ("__factorioplus__.worm-animations")
 require ("__factorioplus__.util-attack-helpers")
 require ("__factorioplus__.explosions")
 
+local sounds = require ("__base__.prototypes.entity.sounds")
+local hit_effects = require ("__base__.prototypes.entity.hit-effects")
+
 local enemy_health_scale = 1.0
 
 if settings.startup["settings-enemy-health"].value == "easy" then
@@ -20,6 +23,152 @@ enemy_health_scale = 2.0
 elseif settings.startup["settings-enemy-health"].value == "insane" then
 enemy_health_scale = 3.0 
 end
+
+local function create_entity(entity, rad, probability, amount)
+	return	
+	{
+		type = "nested-result",
+		action =
+		{
+		  type = "cluster",
+		  cluster_count = amount or 2,
+		  distance = rad/3,
+		  distance_deviation = rad/3,
+		  action_delivery =
+		  {
+			type = "instant",
+			target_effects =
+			{
+			  {
+					type = "create-entity",
+					entity_name = entity,
+					
+					probability = probability * (settings.startup["settings-chunks-probability"].value/100) or 1 * (settings.startup["settings-chunks-probability"].value/100),
+					--repeat_count = amount or 2,
+					--repeat_count_deviation = math.ceil( amount),
+					
+					--check_buildability = true,
+					--find_non_colliding_position  = true,
+					--non_colliding_search_precision  = 0.25,
+					--non_colliding_search_radius = 3,
+					tile_collision_mask  = {not_colliding_with_itself = true, layers = {object = true} }
+				}
+			}
+		  }
+		}
+	}
+end
+
+function create_alien_package(data)
+	local _size = data.size
+	local _count = data.count or 1
+	local _countdeviation = data.count_deviation or 1.5
+	local _count_max = _count
+	local _count_min = _count / _countdeviation
+
+	return
+	{
+		name = "alien-polyp".."-".._size,
+		type = "simple-entity",
+		
+		localised_name = {"entity-name.alien-polyp"},
+		localised_description = {"entity-description.alien-polyp"},
+		
+		flags = {"placeable-neutral", "placeable-off-grid", "not-on-map"},
+		icon = "__factorioplus__/graphics/icons/abandonment-package.png",
+		icon_size = 64, icon_mipmaps = 4,
+		
+		collision_box = {{-0.8, -0.8}, {0.8, 0.8}},
+		selection_box = {{-1, -1}, {1, 1}},
+		
+		damaged_trigger_effect = hit_effects.biter(),
+		impact_category = "organic",
+		dying_explosion = "medium-biter-die",
+		mined_sound = sounds.biter_dying(0.6),
+		-- corpse = "small-remnants",
+		minable =
+		{
+		  mining_time = 2,
+		   results = 
+		  {
+			{type = "item", name = "chunky-meat" , amount_min = _count_min, amount_max = _count_max}, 
+		  },
+		},
+		render_layer = "object",
+		max_health = 300,
+		resistances =
+	   {
+			{
+			type = "acid",
+			percent = 99
+		  },
+		  {
+			type = "physical",
+			percent = 15
+		  },
+		},
+		animations  = 
+		{
+		
+			layers =
+			{
+			  {
+				filename = "__factorioplus__/graphics/enemies/alien_polyp_s.png",
+				priority="high",
+				width = 996/4,
+				height = 438/2,
+				frame_count = 8,
+				line_length = 4,
+				animation_speed = 0.1,
+				run_mode = "forward-then-backward",
+				shift = util.by_pixel(0, 0),
+				scale = 0.4
+			  },
+			  {
+				filename = "__factorioplus__/graphics/enemies/alien_polyp_s_shadow.png",
+				priority="high",
+				width = 996/4,
+				height = 438/2,
+				frame_count = 8,
+				line_length = 4,
+				animation_speed = 0.1,
+				run_mode = "forward-then-backward",
+				draw_as_shadow = true,
+				shift = util.by_pixel(0, 0),
+				scale = 0.4
+			  }
+			},
+		},
+    }	
+end
+
+data:extend({
+	create_alien_package(
+	{
+		size = "small",
+		count = 5
+	}),
+	create_alien_package(
+	{
+		size = "medium",
+		count = 10
+	}),
+	create_alien_package(
+	{
+		size = "big",
+		count = 15
+	}),
+	create_alien_package(
+	{
+		size = "behemoth",
+		count = 20
+	}),
+	create_alien_package(
+	{
+		size = "boss",
+		count = 25
+	}),
+})
 
 local make_unit_melee_ammo_type = function(damage_value)
 local _showtooltip = false
@@ -1310,6 +1459,7 @@ function makeenemyspawner(spawnername, spawnerbasehealth, spawning_amount, spawn
 local _tierreductionfactor = 4
 local spawnertierfactor = 1 + ((spawnertier-1)/_tierreductionfactor)
 local build_base_tier = 0
+local hpt = 0.01
 
 local enemy_default_size = "small"
 local prefix = ""
@@ -1374,10 +1524,16 @@ if (string.find(spawnername, "swarmer")) then
 		  util.rotate_position({0,2*spawnerscale}, 0.75),
 		  util.rotate_position({0,2*spawnerscale}, 0.95),
 		}
-	  }
+	  },
+	  create_entity("alien-polyp-"..enemy_default_size , 6 *spawnerscale , 0.1 , 2 + (1 * spawnertier))
 	}
 	_ap.tile_restriction = {"sand-1","sand-2","sand-3","red-desert-0","red-desert-1","red-desert-2","red-desert-3"} 
-	
+elseif (string.find(spawnername, "tanker")) then	
+	hpt = hpt * 10
+	dte = 
+	{ 
+		create_entity("alien-polyp-"..enemy_default_size , 6 *spawnerscale , 0.1 , 2 + (1 * spawnertier))
+	}
 elseif (string.find(spawnername, "webber")) then
 	dte =
 	{
@@ -1399,7 +1555,8 @@ elseif (string.find(spawnername, "webber")) then
 		  util.rotate_position({0,5*spawnerscale}, 0.95),
 		  util.rotate_position({0,4*spawnerscale}, 0.25),
 		}
-	  }
+	  },
+	  create_entity("alien-polyp-"..enemy_default_size , 6 *spawnerscale , 0.1 , 2 + (1 * spawnertier))
 	}
 elseif (string.find(spawnername, "hatcher")) then	
 	dte =
@@ -1419,11 +1576,12 @@ elseif (string.find(spawnername, "hatcher")) then
           util.rotate_position({0,3*spawnerscale}, 0.5),
           util.rotate_position({0,4*spawnerscale}, 0.9),
 		}
-	  }
+	  },
+	  create_entity("alien-polyp-"..enemy_default_size , 6 *spawnerscale , 0.1 , 2 + (1 * spawnertier))
 	}
 	_ap.tile_restriction = spawner_tilerestrictions_hatcher
 elseif (string.find(spawnername, "spitter")) then	
-dte =
+	dte =
 	{
 	  {
 		type = "create-entity",
@@ -1443,11 +1601,16 @@ dte =
 		  util.rotate_position({0,5*spawnerscale}, 0.95),
 		  util.rotate_position({0,4*spawnerscale}, 0.25),
 		}
-	  }
+	  },
+	  create_entity("alien-polyp-"..enemy_default_size , 6 *spawnerscale , 0.1 , 2 + (1 * spawnertier))
 	}
 	_ap.tile_restriction = {"grass-1","grass-2","grass-3","grass-4" }
 elseif (string.find(spawnername, "stinger")) then	
 	_ap.tile_restriction = {"grass-1","grass-2","grass-3","grass-4" }
+	dte = 
+	{ 
+		create_entity("alien-polyp-"..enemy_default_size , 6 *spawnerscale , 0.1 , 2 + (1 * spawnertier))
+	}
 	-- TODO make a ipair iterator to go through the tint colour and reduce the values by half(?).
 elseif (string.find(spawnername, "blaster")) then
 	dte = make_explosion_trigger( damage_modifier_blaster_spawn * spawnertierfactor , damage_radius_blaster_spawn * spawnertierfactor , damage_falloff_blaster_spawn)
@@ -1493,7 +1656,8 @@ dte =
 		  util.rotate_position({0,5*spawnerscale}, 0.95),
 		  util.rotate_position({0,6*spawnerscale}, 0.25),
 		}
-	  }
+	  },
+	  create_entity("alien-polyp-"..enemy_default_size , 6 *spawnerscale , 0.1 , 2 + (1 * spawnertier))
 	}
 	_gs.animations[1].layers[4] = table.deepcopy(_gs.animations[1].layers[2])
 	_gs.animations[2].layers[4] = table.deepcopy(_gs.animations[2].layers[2])
@@ -1509,7 +1673,12 @@ dte =
 	_gs.animations[4].layers[4].draw_as_light = true
 	
 	_ap.tile_restriction = {"red-desert-0","red-desert-1","red-desert-2","red-desert-3"} 
-
+else if (string.find(spawnername, "biter")) then
+	dte = 
+	{ 
+		create_entity("alien-polyp-"..enemy_default_size , 6 * spawnerscale , 0.1 , 2 + (1 * spawnertier))
+	}
+	end
 end
 
 -- (function() 
@@ -1528,10 +1697,17 @@ else
 	cse = nil
 end
 
+local _corpse = nil
+if (string.find(spawnername, "blaster")) then
+	_corpse = nil
+else
+	_corpse = spawnername .. "-spawner-corpse-"..spawnertier
+end
+
 local res =
 {
 	{
-	makespawnercorpse(spawnername, spawnerscale * spawnertierfactor, spawnertint, spawnertier),
+		makespawnercorpse(spawnername, spawnerscale * spawnertierfactor, spawnertint, spawnertier),
 	},
 	{
 		{
@@ -1569,14 +1745,14 @@ local res =
 		  }
 		},
 		build_base_evolution_requirement = build_base_tier,
-		healing_per_tick = 0.01 * (spawnerscale * spawnertierfactor),
+		healing_per_tick = hpt * (spawnerscale * spawnertierfactor),
 		collision_box = {{-3.2 * (spawnerscale * spawnertierfactor), -2.2 * (spawnerscale * spawnertierfactor)}, {2.2 * (spawnerscale * spawnertierfactor), 2.2 * (spawnerscale * spawnertierfactor)}},
 		map_generator_bounding_box = {{-spawnerautoplace[2] * spawnertierfactor, -spawnerautoplace[2] * spawnertierfactor}, {spawnerautoplace[2] * spawnertierfactor, spawnerautoplace[2]* spawnertierfactor}},
 		selection_box = {{-3.5* (spawnerscale * spawnertierfactor), -2.5* (spawnerscale * spawnertierfactor)}, {2.5* (spawnerscale * spawnertierfactor), 2.5* (spawnerscale * spawnertierfactor)}},
 		damaged_trigger_effect = hit_effects.biter(),
 		-- in ticks per 1 pu
 		absorptions_per_second = { pollution = { absolute = 20 * spawnertierfactor, proportional = 0.01 * spawnertierfactor } },
-		corpse = spawnername .. "-spawner-corpse-"..spawnertier,
+		
 		dying_trigger_effect = dte,
 		dying_explosion = "biter-spawner-die",
 		max_count_of_owned_units = math.ceil( spawning_amount *  spawnertierfactor ),
@@ -1593,6 +1769,7 @@ local res =
 							res[2] = {"medium-" .. spawnername, {{0.2 , 0.0}, {1.0, 0.4}}}
 							res[3] = {"big-" .. spawnername, {{0.5 , 0.0}, {1.0, 0.75}}}
 							res[4] = {"behemoth-".. spawnername, {{0.8 , 0.0}, {1.0, 0.1}}}
+							res[5] = {"boss-".. spawnername, {{0.9 , 0.0}, {1.0, 0.01}}}
 						 elseif spawnertier == 2 then
 							res[1] = {"small-" .. spawnername, {{0.0, 0.4}, {0.6, 0.0}}}
 							res[2] = {"medium-" .. spawnername, {{0.3 , 0.0}, {0.7, 0.8}}}
@@ -1625,7 +1802,7 @@ local res =
 		max_spawn_shift = 0,
 		max_richness_for_spawn_shift = 100,
 		autoplace = _ap,
-		
+		corpse = _corpse,
 		captured_spawner_entity = cse,
 		
 		--enemy_autoplace.enemy_spawner_autoplace((spawnerautoplace[1] ) * ( (2* spawnertier) * spawnertier )),
@@ -1877,7 +2054,7 @@ elseif (string.find(enemyname, "tanker")) then
 	bms = movement_speed_tanker_base
 	ams = movement_speed_tanker
 	stm = spawning_time_scalar_tanker
-	hpt = (hpt * 30 * enemyscale) / enemy_health_scale
+	hpt = (hpt * 60 * enemyscale) / enemy_health_scale
 	ra =  biterrunanimation(enemyscale, enemytint, enemytint)
 	_da = _da_bite
 elseif (string.find(enemyname, "webber")) then

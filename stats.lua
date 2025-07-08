@@ -257,7 +257,7 @@ bullet_piercing_piercing = 5
 bullet_longrange_physical = 4
 bullet_longrange_piercing = 2
 bullet_longrange_range_modifier = 1.5
-bullet_longrange_cooldown_modifier = 1.6
+bullet_longrange_cooldown_modifier = 2.0
 bullet_longrange_magazine_size_modifier = 1.0
 
 bullet_explosive_physical = 4

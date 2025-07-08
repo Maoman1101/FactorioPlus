@@ -827,7 +827,8 @@ local damage_type = data.damage_type or "physical"
               type = "create-entity",
               entity_name = "hatcher-egg-"..data.size,
 			  find_non_colliding_position = true,
-              tile_collision_mask = {layers={ water_tile=true }},
+			  check_buildability  = true,
+              tile_collision_mask = {layers= {water_tile=true, ghost=true }},
 			  show_in_tooltip = true
             },
 

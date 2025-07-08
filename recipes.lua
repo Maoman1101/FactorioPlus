@@ -227,7 +227,7 @@ data:extend
     energy_required = 3,
     ingredients =
     {
-      {type="item", name="steel-plate", amount=15},
+      {type="item", name="aluminium-plate", amount=10},
       {type="item", name="iron-gear-wheel", amount=15},
       {type="item", name="electronic-circuit", amount=30}
     },
@@ -353,8 +353,9 @@ data:extend
 	enabled = false,
       ingredients =
       {
+		{type="item", name="aluminium-plate", amount=6},
         {type="item", name="efficiency-module", amount=2},
-        {type="item", name="assembling-machine-2", amount=2}
+        {type="item", name="assembling-machine-2", amount=1}
       },
       results = {{type="item", name="mini-assembling-machine-1", amount=1}},
 },
@@ -1765,7 +1766,7 @@ end
     {
     type = "recipe",
     name = "roboport-major",
-    energy_required = 8,
+    energy_required = 30,
 	enabled = false,
     ingredients =
     {

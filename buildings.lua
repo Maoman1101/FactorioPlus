@@ -37,6 +37,7 @@ require ("__factorioplus__.util-building-additions")
  ---------------------------------------------------  ELECTRIC POLE OVERRIDES  ------------------------------------------------------------
 
 data.raw["electric-pole"]["big-electric-pole"].maximum_wire_distance = 32
+data.raw["electric-pole"]["big-electric-pole"].fast_replaceable_group = "electric-pole"
 data.raw["electric-pole"]["substation"].fast_replaceable_group = "electric-pole"
 
 ---------------------------------------------------  CONTAINER OVERRIDES  ------------------------------------------------------------
@@ -493,12 +494,20 @@ data.extend({
 	circuit_connector = circuit_connector_definitions["mini-assembler"],
     circuit_wire_max_distance = default_circuit_wire_max_distance,
 	
-      module_slots = 3,
+    module_slots = 3,
     allowed_effects = {"consumption", "speed", "productivity", "pollution"},
 	
 	icon_draw_specification = {scale = 0.6},
 
 },
+})
+
+-- update mini assembler to use SA crafting categories.
+if (mods["space-age"]) then  
+	data.raw["assembling-machine"]["assembling-machine-1"].crafting_categories = {"crafting", "basic-crafting", "advanced-crafting", "electronics", "pressing"}
+end
+
+data.extend({
 
 --------------------------------------------------- HIGH POWERED MACHINE PRESS ------------------------------------------------------------
 {
@@ -2019,8 +2028,15 @@ data.extend({
     circuit_connector = circuit_connector_definitions["chest"],
     circuit_wire_max_distance = default_circuit_wire_max_distance
   },
-  ---------------------------------------------------  STORAGE HUT  ------------------------------------------------------------
-  {
+}) 
+  
+---------------------------------------------------  STORAGE HUT  ------------------------------------------------------------
+
+local storage_hut_iconspec = { scale = 1.15, scale_for_many = 1.4}
+local storage_warehouse_iconspec = { scale = 1.75, scale_for_many = 2.75}
+
+data.extend({ 
+	{
     type = "container",
     name = "storage-hut",
     icon = "__factorioplus__/graphics/icons/storage-hut.png",
@@ -2032,6 +2048,7 @@ data.extend({
     dying_explosion = "steel-chest-explosion",
     open_sound = { filename = "__base__/sound/metallic-chest-open.ogg", volume=0.53 },
     close_sound = { filename = "__base__/sound/metallic-chest-close.ogg", volume = 0.53 },
+	icon_draw_specification = storage_hut_iconspec,
     resistances =
     {
       {
@@ -2140,6 +2157,7 @@ data.extend({
     collision_box = {{-0.9, -0.9}, {0.9, 0.9}},
     selection_box = {{-1, -1}, {1, 1}},
     damaged_trigger_effect = hit_effects.entity(),
+	icon_draw_specification = storage_hut_iconspec,
     resistances =
     {
       {
@@ -2200,12 +2218,12 @@ data.extend({
     flags = {"placeable-player", "player-creation"},
     minable = {mining_time = 1.5, result = "logistic-active-provider-hut"},
     max_health = 650,
-
     corpse =  "medium-remnants",
     dying_explosion = "storage-chest-explosion",
     collision_box = {{-0.9, -0.9}, {0.9, 0.9}},
     selection_box = {{-1, -1}, {1, 1}},
     damaged_trigger_effect = hit_effects.entity(),
+	icon_draw_specification = storage_hut_iconspec,
     resistances =
     {
       {
@@ -2263,12 +2281,12 @@ data.extend({
     flags = {"placeable-player", "player-creation"},
     minable = {mining_time = 1.5, result = "logistic-passive-provider-hut"},
     max_health = 650,
-
     corpse =  "medium-remnants",
     dying_explosion = "storage-chest-explosion",
     collision_box = {{-0.9, -0.9}, {0.9, 0.9}},
     selection_box = {{-1, -1}, {1, 1}},
     damaged_trigger_effect = hit_effects.entity(),
+	icon_draw_specification = storage_hut_iconspec,
     resistances =
     {
       {
@@ -2327,12 +2345,12 @@ data.extend({
     flags = {"placeable-player", "player-creation"},
     minable = {mining_time = 1.5, result = "logistic-buffer-hut"},
     max_health = 650,
-
     corpse =  "medium-remnants",
     dying_explosion = "storage-chest-explosion",
     collision_box = {{-0.9, -0.9}, {0.9, 0.9}},
     selection_box = {{-1, -1}, {1, 1}},
     damaged_trigger_effect = hit_effects.entity(),
+	icon_draw_specification = storage_hut_iconspec,
     resistances =
     {
       {
@@ -2391,12 +2409,12 @@ data.extend({
     flags = {"placeable-player", "player-creation"},
     minable = {mining_time = 1.5, result = "logistic-requester-hut"},
     max_health = 650,
-
     corpse =  "medium-remnants",
     dying_explosion = "storage-chest-explosion",
     collision_box = {{-0.9, -0.9}, {0.9, 0.9}},
     selection_box = {{-1, -1}, {1, 1}},
     damaged_trigger_effect = hit_effects.entity(),
+	icon_draw_specification = storage_hut_iconspec,
     resistances =
     {
       {
@@ -2446,8 +2464,12 @@ data.extend({
     circuit_wire_max_distance = default_circuit_wire_max_distance,
 	
   },
+})
+ 
    
 ---------------------------------------------------  BASIC WAREHOUSE  ------------------------------------------------------------
+
+data.extend({
   {
     type = "container",
     name = "warehouse",
@@ -2460,6 +2482,7 @@ data.extend({
     dying_explosion = "steel-chest-explosion",
     open_sound = { filename = "__base__/sound/metallic-chest-open.ogg", volume=0.53 },
     close_sound = { filename = "__base__/sound/metallic-chest-close.ogg", volume = 0.53 },
+	icon_draw_specification = storage_warehouse_iconspec,
     resistances =
     {
       {
@@ -2551,6 +2574,7 @@ data.extend({
     collision_box = {{-2.25, -2.25}, {2.25, 2.25}},
     selection_box = {{-2.5, -2.5}, {2.5, 2.5}},
     damaged_trigger_effect = hit_effects.entity(),
+	icon_draw_specification = storage_warehouse_iconspec,
     resistances =
     {
       {
@@ -2613,6 +2637,7 @@ data.extend({
     collision_box = {{-2.25, -2.25}, {2.25, 2.25}},
     selection_box = {{-2.5, -2.5}, {2.5, 2.5}},
     damaged_trigger_effect = hit_effects.entity(),
+	icon_draw_specification = storage_warehouse_iconspec,
     resistances =
     {
       {
@@ -2675,6 +2700,7 @@ data.extend({
     collision_box = {{-2.25, -2.25}, {2.25, 2.25}},
     selection_box = {{-2.5, -2.5}, {2.5, 2.5}},
     damaged_trigger_effect = hit_effects.entity(),
+	icon_draw_specification = storage_warehouse_iconspec,
     resistances =
     {
       {
@@ -2737,6 +2763,7 @@ data.extend({
     collision_box = {{-2.25, -2.25}, {2.25, 2.25}},
     selection_box = {{-2.5, -2.5}, {2.5, 2.5}},
     damaged_trigger_effect = hit_effects.entity(),
+	icon_draw_specification = storage_warehouse_iconspec,
     resistances =
     {
       {
@@ -2799,6 +2826,7 @@ data.extend({
     collision_box = {{-2.25, -2.25}, {2.25, 2.25}},
     selection_box = {{-2.5, -2.5}, {2.5, 2.5}},
     damaged_trigger_effect = hit_effects.entity(),
+	icon_draw_specification = storage_warehouse_iconspec,
     resistances =
     {
       {
@@ -3492,7 +3520,7 @@ data.extend({
     close_sound = sounds.electric_network_close,
     track_coverage_during_build_by_moving = true,
     fast_replaceable_group = "electric-pole",
-	--next_upgrade = "substation",
+	next_upgrade = "substation",
     pictures =
     {
       layers =
@@ -3608,7 +3636,7 @@ data.extend({
     icon_size = 64, icon_mipmaps = 4,
     flags = {"placeable-neutral", "player-creation"},
     minable = {mining_time = 1.4, result = "electrical-distributor"},
-    max_health = 400,
+    max_health = 600,
     corpse = "substation-remnants",
     dying_explosion = "substation-explosion",
     track_coverage_during_build_by_moving = true,
@@ -3623,8 +3651,8 @@ data.extend({
     selection_box = {{-2, -2}, {2, 2}},
     damaged_trigger_effect = hit_effects.entity({{-0.5, -2.5}, {0.5, 0.5}}),
     drawing_box = {{-1, -3}, {1, 1}},
-    maximum_wire_distance = 14,
-    supply_area_distance = 20,
+    maximum_wire_distance = 16,
+    supply_area_distance = 22,
     pictures =
     {
       layers =
@@ -5031,9 +5059,9 @@ data.extend({
     recharge_minimum = "20MJ",
     energy_usage = "25kW",
     -- per one charge slot
-    charging_energy = "500kW",
-    logistics_radius = 24,
-    construction_radius = 34,
+    charging_energy = "250kW",
+    logistics_radius = 20,
+    construction_radius = 40,
     charge_approach_distance = 3,
     robot_slots_count = 2,
     material_slots_count = 1,
@@ -6029,8 +6057,8 @@ data.extend({
     selection_box = {{-1.0, -1.0}, {1.0, 1.0}},
     damaged_trigger_effect = hit_effects.entity(),
     energy_per_sector = "400kJ",
-    max_distance_of_sector_revealed = 4,
-    max_distance_of_nearby_sector_revealed = 3,
+    max_distance_of_sector_revealed = 5,
+    max_distance_of_nearby_sector_revealed = 4,
     energy_per_nearby_scan = "20kJ",
     energy_source =
     {
@@ -6058,7 +6086,8 @@ data.extend({
           width = 128,
           height = 384,
 		  scale = 0.5,
-
+			
+		  apply_projection = false,
           direction_count = 32,
           line_length = 8,
           shift = util.by_pixel(0, -64),
@@ -6069,6 +6098,8 @@ data.extend({
           width = 384,
           height = 96,
 		  scale = 0.5,
+		  
+		  apply_projection = false,
 		  draw_as_shadow = true,
           direction_count = 32,
           line_length = 4,
@@ -6138,8 +6169,8 @@ data.extend({
     selection_box = {{-3, -3}, {3, 3}},
     damaged_trigger_effect = hit_effects.entity(),
     energy_per_sector = "40MJ",
-    max_distance_of_sector_revealed = 36,
-    max_distance_of_nearby_sector_revealed = 3,
+    max_distance_of_sector_revealed = 28,
+    max_distance_of_nearby_sector_revealed = 2,
     energy_per_nearby_scan = "400kJ",
     energy_source =
     {
@@ -6157,6 +6188,7 @@ data.extend({
           priority = "low",
           width = 320,
           height = 384,
+		  
           apply_projection = false,
           direction_count = 64,
           line_length = 8,
@@ -6169,6 +6201,8 @@ data.extend({
           width = 384,
           height = 192,          
 		  scale = 0.65,
+		  
+		  apply_projection = false,
 		  draw_as_shadow = true,
           direction_count = 64,
           line_length = 8,

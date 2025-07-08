@@ -26,33 +26,63 @@ local function create_decoratives(decorative, rad, probability)
 	}
 end
 
+-- local function create_entity(entity, rad, probability, amount)
+  -- return {
+		-- type = "direct",
+		-- action_delivery =
+		-- {
+			-- type = "instant",
+			-- target_effects =
+			-- {
+				-- {
+					-- type = "create-entity",
+					-- entity_name = entity,
+					
+					-- probability = probability or 1,
+					-- repeat_count = amount or 2,
+					-- repeat_count_deviation = math.ceil( amount),
+					
+					-- check_buildability = true,
+					-- find_non_colliding_position  = true,
+					-- non_colliding_search_precision  = 0.25,
+					-- non_colliding_search_radius = rad or 6,
+					-- tile_collision_mask  = {not_colliding_with_itself = true, layers = {object = true} }
+				-- }
+			-- }
+		-- }
+	-- }
+-- end
+
 local function create_entity(entity, rad, probability, amount)
-  return {
-		type = "direct",
-		action_delivery =
+	return	
+	{
+	  type = "cluster",
+	  cluster_count = amount,
+	  distance = rad/2,
+	  distance_deviation = rad/2,
+	  action_delivery =
+	  {
+		type = "instant",
+		target_effects =
 		{
-			type = "instant",
-			target_effects =
-			{
-				{
-					type = "create-entity",
-					entity_name = entity,
-					
-					probability = probability or 1,
-					repeat_count = amount or 2,
-					repeat_count_deviation = math.ceil( amount),
-					
-					check_buildability = true,
-					find_non_colliding_position  = true,
-					non_colliding_search_precision  = 0.25,
-					non_colliding_search_radius = rad or 6,
-					tile_collision_mask  = {not_colliding_with_itself = true, layers = {object = true} }
-				}
+		  {
+				type = "create-entity",
+				entity_name = entity,
+				
+				probability = probability or 1,
+				--repeat_count = amount or 2,
+				--repeat_count_deviation = math.ceil( amount),
+				
+				check_buildability = true,
+				find_non_colliding_position  = true,
+				non_colliding_search_precision  = 0.25,
+				non_colliding_search_radius = 3,
+				tile_collision_mask  = {not_colliding_with_itself = true, layers = {object = true} }
 			}
 		}
+	  }
 	}
 end
-
 
 local function create_tiles(tilename, rad, probability)
   return {
@@ -807,19 +837,20 @@ local function makeNewAbandonmentTurret(data)
 	local newturret = util.copy(data.baseturret)
 	local _oldname = data.baseturret.name
 	
+	-- Construct a localization string from the existing one, and appending a suffix of turret size and prefix "Abandoned" from those localizations.
 	newturret.localised_name =  {"",abandonment_loc, " ", {"entity-name." .._oldname}, " (", {"factorioplus-adjectives.".._suffix}, ")" }
 	newturret.name = "abandonment".."-".._oldname.."-".._suffix  
 	newturretflags = {"placeable-off-grid"}
 	
-	local _extrabv = 0.1
+	-- Add some bounding box generator space when things get bigger/smaller
+	local _extrabv = 0.3
 	local _nbv = _extrabv * _scale
-	-- add a number , don't scale the entire number
-	newturret.map_generator_bounding_box = {{ -1.25 - _nbv, -1.2 - _nbv}, {1.25 + _nbv, 1.2 + _nbv}}
-	newturret.build_base_evolution_requirement = math.inf -- Make a number so big it can't ever be placed by evo factor (0 - 1.0 range)
+	-- add a number, which is scaled, don't scale the entire base value...
+	newturret.map_generator_bounding_box = {{ -1.1 - _nbv, -1.1 - _nbv}, {1.1 + _nbv, 1.1 + _nbv}}
+	newturret.build_base_evolution_requirement = 10 -- Make a number so big it can't ever be placed by evo factor (which is 0 - 1.0 range)
 	newturret.autoplace = abandonments_autoplace.abandonments_turrets_autoplace("abandonments_autoplace_base("..abandonmentTurretLayer..",".._autoplacedistance.." )")
 	
 	newturret.enemy_map_color = abandonments_force_color_map
-	--newturret.map_color = abandonments_force_color_map
 	
 	newturret.remove_decoratives = "false"
 
@@ -833,18 +864,23 @@ local function makeNewAbandonmentTurret(data)
 	scaleTurretArt(newturret.folded_animation.layers, _scale, _mny)
 	scaleTurretArtSimple(newturret.energy_glow_animation, _scale, _mny)
 	
-	newturret.collision_box = {{ -0.7 * _scale, -0.7 * _scale}, {0.7 * _scale, 0.7 * _scale}}
+	newturret.collision_box = {{ -0.8 * _scale, -0.8 * _scale}, {0.8 * _scale, 0.8 * _scale}}
     newturret.selection_box = {{ -1 * _scale, -1 * _scale}, {1 * _scale, 1 * _scale}}
-	newturret.created_effect = { 
-	create_tiles("nuclear-ground", 2.5 * _scale, 1.0), 
-	create_tiles("stone-path", 1.5 * _scale, 0.5), 
-	create_entity("small-scorchmark-tintable", 14 * _scale, 1, 4 * _scale),
-	create_decoratives("abandonment-debris-medium-decal-1", 7 * _scale, 1),
+	
+	-- When a turret is placed in the world, add these lovely details.
+	newturret.created_effect = 
+	{ 
+		-- tiles should be listed from largest to smallest as they will overwrite each other.
+		create_tiles("nuclear-ground", 2.5 * _scale, 1.0), 
+		create_tiles("stone-path", 1.5 * _scale, 0.5), 
+		create_entity("small-scorchmark-tintable", 8 * _scale, 1, 4 * _scale),
+		create_decoratives("abandonment-debris-medium-decal-1", 7 * _scale, 1),
 	}
 	
 	newturret.attack_parameters.range = math.ceil(newturret.attack_parameters.range * data.range_modifier) or newturret.attack_parameters.range
 	newturret.attack_parameters.damage_modifier = data.damage_modifier or newturret.attack_parameters.damage_modifier
 	
+	-- put in a check for non standard turret variables.
 	if (data.energy_consumption_modifier) then
 		newturret.attack_parameters.ammo_type.energy_consumption = ((string.match(newturret.attack_parameters.ammo_type.energy_consumption, '%d[%d.,]*'))  * _energy_consumption_modifier ) .."kJ"
 	end
@@ -854,6 +890,7 @@ local function makeNewAbandonmentTurret(data)
 	return newturret
 end
 
+-- This helper is used when there is multiple layers of graphics.
 function scaleTurretArt(image_data, scale, mny)
 	for i, v in pairs (image_data) do
 		v.scale = v.scale * scale
@@ -866,6 +903,7 @@ function scaleTurretArt(image_data, scale, mny)
 	end
 end
 
+-- this helper is used when there's only 1 entry in a layer.
 function scaleTurretArtSimple(image_data, scale, mny)
 	image_data.scale = image_data.scale * scale
 	if image_data.flags then
@@ -946,7 +984,7 @@ data:extend{
 		baseturret = data.raw["electric-turret"]["laser-turret"],
 		suffix = "behemoth",
 		scale = 2,
-		masknudge_y = -0.26,
+		masknudge_y = -0.31,
 		range_modifier = 1.8,
 		damage_modifier = 4,
 		energy_consumption_modifier = 1.5,

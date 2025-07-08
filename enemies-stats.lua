@@ -126,11 +126,11 @@ spawning_time_scalar_stinger = 0.75
 
 health_spawner_flamer   = 200
 
-health_small_flamer    = 50
-health_medium_flamer  = 150
-health_big_flamer      = 300
-health_behemoth_flamer = 500
-health_boss_flamer     = 1500
+health_small_flamer    = 70
+health_medium_flamer  = 250
+health_big_flamer      = 400
+health_behemoth_flamer = 700
+health_boss_flamer     = 1800
 
 health_spawner_blaster   = 350
 
@@ -180,7 +180,7 @@ movement_blaster_movement_scalar   = 0.6
 
 movement_speed_swarmer_base		=  0.15
 movement_speed_swarmer 			=  0.035
-movement_speed_biter_base 		=  0.11
+movement_speed_biter_base 		=  0.12
 movement_speed_biter 			=  0.025
 movement_speed_spitter_base 	=  0.10
 movement_speed_spitter 			=  0.015
@@ -326,14 +326,14 @@ range_spitter_boss 	   = 38
 
 attack_speed_flamer_base = 200
 
-damage_modifier_flamer_small    = 10
-damage_modifier_flamer_medium   = 20
-damage_modifier_flamer_big      = 30
-damage_modifier_flamer_behemoth = 40
-damage_modifier_flamer_boss     = 50
+damage_modifier_flamer_small    = 15
+damage_modifier_flamer_medium   = 25
+damage_modifier_flamer_big      = 40
+damage_modifier_flamer_behemoth = 50
+damage_modifier_flamer_boss     = 75
 
-cluster_amount_flamer_small    = 4
-cluster_amount_flamer_medium   = 8
+cluster_amount_flamer_small    = 5
+cluster_amount_flamer_medium   = 9
 cluster_amount_flamer_big      = 14
 cluster_amount_flamer_behemoth = 22
 cluster_amount_flamer_boss     = 30
@@ -549,8 +549,8 @@ tint_2_spitter_boss = spitter_spawner_tint
 
 function tankerresistances(v)
 local ntv = v
-local dinc = {3,5}
-local pinc = {2,8}
+local dinc = {4,5}
+local pinc = {3,6}
 local einc = {2,5}
 return 
 {
