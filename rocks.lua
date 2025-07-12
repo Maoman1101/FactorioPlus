@@ -23,6 +23,63 @@ data.raw["tree"]["tree-09-red"].max_health = 125
 		},
 	}
  end
+ 
+-- WATER DETAILS
+
+local water_grass = util.copy(data.raw["optimized-decorative"]["green-hairy-grass"])
+water_grass.name = "water-grass"
+water_grass.autoplace =
+  {
+	placement_density = 2,
+      order = "a[doodad]-f[grass]-a",
+      probability_expression = "-1.2 + rpi(0.6) + 0.8 * grass_noise - min(0, decorative_knockout) + region_box",
+      local_expressions =
+      {
+        region_box = "range_select{input = moisture, from = 0.5, to = 1, slope = 0.05, min = -10, max = 1}"
+      }
+    }
+water_grass.autoplace.tile_restriction = {"water-shallow"}
+water_grass.collision_mask = {layers={ground_tile=true}, colliding_with_tiles_only=true}
+data.raw["planet"]["nauvis"].map_gen_settings.autoplace_settings["decorative"].settings["water-grass"] = {}
+
+local water_bush = util.copy(data.raw["optimized-decorative"]["green-bush-mini"])
+water_bush.name = "water-bush"
+water_bush.autoplace =
+ {
+  order = "a[doodad]-c[croton]-a",
+  placement_density = 2,
+  probability_expression = "-2 + rpi(0.9) + 1.5 * croton_noise + max(0, decorative_knockout) + region_box",
+  local_expressions =
+  {
+	region_box = "min(range_select{input = moisture, from = 0.5, to = 1, slope = 0.05, min = -10, max = 1},\z
+					  range_select{input = temperature, from = 10, to = 14.5, slope = 0.5, min = -10, max = 1})"
+  }
+}
+water_bush.autoplace.tile_restriction = {"water-shallow"}
+water_bush.collision_mask = {layers={ground_tile=true}, colliding_with_tiles_only=true}
+data.raw["planet"]["nauvis"].map_gen_settings.autoplace_settings["decorative"].settings["water-bush"] = {}
+
+local water_rock = util.copy(data.raw["optimized-decorative"]["tiny-rock"])
+water_rock.name = "water-rock"
+water_rock.autoplace.tile_restriction = {"water-shallow"}
+water_rock.collision_mask = {layers={ground_tile=true}, colliding_with_tiles_only=true}
+data.raw["planet"]["nauvis"].map_gen_settings.autoplace_settings["decorative"].settings["water-rock"] = {}
+ 
+local water_sand_rock = util.copy(data.raw["optimized-decorative"]["small-sand-rock"])
+water_sand_rock.name = "water_sand_rock"
+water_sand_rock.autoplace.tile_restriction = {"water-shallow"}
+water_sand_rock.collision_mask = {layers={ground_tile=true}, colliding_with_tiles_only=true}
+data.raw["planet"]["nauvis"].map_gen_settings.autoplace_settings["decorative"].settings["water_sand_rock"] = {}
+  
+
+  
+ data:extend
+({
+water_grass,
+water_bush,
+water_rock,
+water_sand_rock
+ })
 
 --- ROCKS PASS
 

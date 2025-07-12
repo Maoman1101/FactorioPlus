@@ -69,7 +69,14 @@ data:extend({
 		allowed_values = {1, 2, 3, 4, 5, 10},
 		default_value = 1,
     },
-	-- Enemies
+	-- Enemies	
+	{
+        type = "string-setting",
+        name = "settings-enemy-spawntime",
+        setting_type = "startup",
+		default_value = "normal",
+		allowed_values = {"easy", "normal", "hard", "extreme", "insane"},
+    },
 	{
         type = "string-setting",
         name = "settings-enemy-health",

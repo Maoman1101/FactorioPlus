@@ -7,6 +7,8 @@ friendly_fire_radius_reduction_factor = 2 -- divide the radius that affects alli
 
 abandonments_force_color_tint = {0.25,0.25,0.25,1}
 abandonments_force_color_map = {0.9,0.25,0.25,1}
+abandonments_bonus_color_map = {0.9,0.7,0.1,1}
+abandonments_barren_color_map = {0.1,0.1,0.1,1}
 
 -- Vehicles
 

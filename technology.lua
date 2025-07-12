@@ -3834,6 +3834,10 @@ data.raw["technology"]["logistics"].unit = { count = 100, ingredients = { {"auto
 data.raw["technology"]["logistics"].prerequisites = {"logistics-basic"}
 table.insert(data.raw["technology"]["logistics"].effects,{type = "unlock-recipe",recipe = "transport-belt"})  
  
+table.removeentry(data.raw["technology"]["railway"].prerequisites, "logistics-2")  
+
+table.insert(data.raw["technology"]["railway"].prerequisites,"logistics")  
+
 data:extend
 ({
 
@@ -3904,7 +3908,7 @@ data:extend
         recipe = "lab-large"
       },
     },
-	prerequisites = {"chemical-science-pack","lab","processing-unit"},
+	prerequisites = {"logistics-3","lab","processing-unit"},
     unit =
     {
       count = 200,

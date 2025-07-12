@@ -12,17 +12,31 @@ require ("__factorioplus__.explosions")
 local sounds = require ("__base__.prototypes.entity.sounds")
 local hit_effects = require ("__base__.prototypes.entity.hit-effects")
 
-local enemy_health_scale = 1.0
+-- Spawntime Setting
 
-if settings.startup["settings-enemy-health"].value == "easy" then
-enemy_health_scale = 0.5
-elseif settings.startup["settings-enemy-health"].value == "hard" then
-enemy_health_scale = 1.5 
-elseif settings.startup["settings-enemy-health"].value == "extreme" then
-enemy_health_scale = 2.0 
-elseif settings.startup["settings-enemy-health"].value == "insane" then
-enemy_health_scale = 3.0 
-end
+	local enemy_spawntime_scale = 1.0
+	
+	if settings.startup["settings-enemy-spawntime"].value == "easy" then
+		enemy_spawntime_scale = 0.5
+	elseif settings.startup["settings-enemy-spawntime"].value == "hard" then
+		enemy_spawntime_scale = 1.5
+	elseif settings.startup["settings-enemy-spawntime"].value == "extreme" then
+		enemy_spawntime_scale = 2.0 
+	elseif settings.startup["settings-enemy-spawntime"].value == "insane" then
+		enemy_spawntime_scale = 3.0 
+	end
+	
+	local enemy_health_scale = 1.0
+
+	if settings.startup["settings-enemy-health"].value == "easy" then
+		enemy_health_scale = 0.5
+	elseif settings.startup["settings-enemy-health"].value == "hard" then
+		enemy_health_scale = 1.5 
+	elseif settings.startup["settings-enemy-health"].value == "extreme" then
+		enemy_health_scale = 2.0 
+	elseif settings.startup["settings-enemy-health"].value == "insane" then
+		enemy_health_scale = 3.0 
+	end
 
 local function create_entity(entity, rad, probability, amount)
 	return	
@@ -1796,7 +1810,7 @@ local res =
 					   end)(),				 
 		-- With zero evolution the spawn rate is 6 seconds, with max evolution it is 2.5 seconds
 		-- TODO link spawn cooldown to function
-		spawning_cooldown = {(360 * spawncooldownscalar) / spawnertierfactor, (160 * (spawncooldownscalar/2)) / spawnertierfactor } ,
+		spawning_cooldown = { ((360 * spawncooldownscalar) / spawnertierfactor ) / enemy_spawntime_scale , ( (160 * (spawncooldownscalar/2)) / spawnertierfactor ) / enemy_spawntime_scale  } ,
 		spawning_radius = 10 * (spawnerscale * spawnertierfactor),
 		spawning_spacing = 3 * (spawnerscale * spawnertierfactor),
 		max_spawn_shift = 0,
@@ -2011,7 +2025,7 @@ if (string.find(enemyname, "blaster")) then
 	ap = makeenemyattack(enemyname, "explode", enemydamage, attack_speed_blaster_base, enemyscale, enemyrange, enemytint)
 	lt = {intensity = 0.5 * enemyscale , size = 4 * enemyscale, color=enemytint}
 	bms = movement_speed_blaster_base
-	ams = movement_speed_blaster
+	ams = movement_speed_blaster 
 	stm = spawning_time_scalar_blaster
 	ra =  biterrunanimation(enemyscale, enemytint, enemytint)
 	ra.layers[2].draw_as_light = true
@@ -2378,3 +2392,57 @@ make_hatcher_egg("behemoth",behemoth_swarmer_scale,swarmer_spawner_tint),
 make_hatcher_egg("boss",boss_swarmer_scale,swarmer_spawner_tint),
 
 })
+
+-- FISH
+data.raw["fish"]["fish"].minable = {mining_time = 0.4, result = "raw-fish", count = 1}
+data.raw["fish"]["fish"].autoplace = {  tile_restriction = {"water", "water-shallow"}, probability_expression = 0.01 }
+data.raw["fish"]["fish"].pictures =
+{
+	sheet =
+	{
+		filename = "__factorioplus__/graphics/enemies/fish_simple.png",
+		priority = "extra-high",
+		width = 32,
+		height = 32,
+		variation_count = 8,
+		line_length = 4,
+	},
+}
+
+data:extend({
+ {
+    type = "fish",
+    name = "fish-shoal",
+    icon = "__base__/graphics/icons/fish-entity.png",
+    flags = {"placeable-neutral", "not-on-map"},
+     minable =
+    {
+      mining_time = 3,
+       results = 
+	  {
+	  {type = "item", name = "raw-fish", amount_min = 6, amount_max = 18}, 
+	  },
+    },
+    mined_sound = sounds.mine_fish,
+    max_health = 100,
+    subgroup = "creatures",
+    order = "b-b",
+    --factoriopedia_simulation = simulations.factoriopedia_fish,
+    collision_box = {{-1.0, -1.0}, {1.0, 1.0}},
+    selection_box = {{-1.3, -1.3}, {1.3, 1.3}},
+    pictures =
+    {
+		sheet =
+      {
+        filename = "__factorioplus__/graphics/enemies/fish_shoal.png",
+        priority = "extra-high",
+        width = 128,
+        height = 128,
+		scale = 0.8,
+      },
+    },
+    autoplace = { tile_restriction = { "deepwater", "oceanwater" }, probability_expression = 0.0005 },
+    protected_from_tile_building = false
+  },
+})
+data.raw["planet"]["nauvis"].map_gen_settings.autoplace_settings["entity"].settings["fish-shoal"] = {}

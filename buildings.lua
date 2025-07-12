@@ -1968,6 +1968,7 @@ data.extend({
     open_sound = { filename = "__base__/sound/metallic-chest-open.ogg", volume=0.53 },
     close_sound = { filename = "__base__/sound/metallic-chest-close.ogg", volume = 0.53 },
 	enable_inventory_bar = false,
+	icon_draw_specification = {scale = 0.75},
     resistances =
     {
       {
@@ -2473,7 +2474,7 @@ data.extend({
   {
     type = "container",
     name = "warehouse",
-    icon = "__base__/graphics/icons/steel-chest.png",
+    icon =  "__factorioplus__/graphics/icons/warehouse.png",
     icon_size = 64, icon_mipmaps = 4,
     flags = {"placeable-player", "player-creation"},
     minable = {mining_time = 2, result = "warehouse"},
@@ -3792,91 +3793,49 @@ data.extend({
     {
       filename = "__factorioplus__/graphics/entity/long-handed-burner-inserter/long-handed-inserter-hand-base.png",
       priority = "extra-high",
-      width = 8,
-      height = 34,
-      hr_version =
-      {
-        filename = "__factorioplus__/graphics/entity/long-handed-burner-inserter/hr-long-handed-inserter-hand-base.png",
-        priority = "extra-high",
-        width = 32,
-        height = 136,
-        scale = 0.25
-      }
+      width = 32,
+	height = 136,
+	scale = 0.25
     },
     hand_closed_picture =
     {
       filename = "__factorioplus__/graphics/entity/long-handed-burner-inserter/long-handed-inserter-hand-closed.png",
       priority = "extra-high",
-      width = 18,
-      height = 41,
-      hr_version =
-      {
-        filename = "__factorioplus__/graphics/entity/long-handed-burner-inserter/hr-long-handed-inserter-hand-closed.png",
-        priority = "extra-high",
-        width = 72,
+      width = 72,
         height = 164,
         scale = 0.25
-      }
     },
     hand_open_picture =
     {
       filename = "__factorioplus__/graphics/entity/long-handed-burner-inserter/long-handed-inserter-hand-open.png",
       priority = "extra-high",
-      width = 18,
-      height = 41,
-      hr_version =
-      {
-        filename = "__factorioplus__/graphics/entity/long-handed-burner-inserter/hr-long-handed-inserter-hand-open.png",
-        priority = "extra-high",
-        width = 72,
+      width = 72,
         height = 164,
         scale = 0.25
-      }
     },
     hand_base_shadow =
     {
       filename = "__base__/graphics/entity/burner-inserter/burner-inserter-hand-base-shadow.png",
       priority = "extra-high",
-      width = 8,
-      height = 33,
-      hr_version =
-      {
-        filename = "__base__/graphics/entity/burner-inserter/hr-burner-inserter-hand-base-shadow.png",
-        priority = "extra-high",
-        width = 32,
+      width = 32,
         height = 132,
         scale = 0.25
-      }
     },
     hand_closed_shadow =
     {
       filename = "__base__/graphics/entity/burner-inserter/burner-inserter-hand-closed-shadow.png",
       priority = "extra-high",
-      width = 18,
-      height = 41,
-      hr_version =
-      {
-        filename = "__base__/graphics/entity/burner-inserter/hr-burner-inserter-hand-closed-shadow.png",
-        priority = "extra-high",
-        width = 72,
+      width = 72,
         height = 164,
         scale = 0.25
-      }
     },
     hand_open_shadow =
     {
       filename = "__base__/graphics/entity/burner-inserter/burner-inserter-hand-open-shadow.png",
       priority = "extra-high",
-      width = 18,
-      height = 41,
-      hr_version =
-      {
-        filename = "__base__/graphics/entity/burner-inserter/hr-burner-inserter-hand-open-shadow.png",
-        priority = "extra-high",
-        width = 72,
+      width = 72,
         height = 164,
         scale = 0.25
-      }
     },
     platform_picture =
     {
@@ -3884,23 +3843,42 @@ data.extend({
       {
         filename = "__factorioplus__/graphics/entity/long-handed-burner-inserter/long-handed-inserter-platform.png",
         priority = "extra-high",
-        width = 46,
-        height = 46,
-        shift = {0.09375, 0},
-        hr_version =
-        {
-          filename = "__factorioplus__/graphics/entity/long-handed-burner-inserter/hr-long-handed-inserter-platform.png",
-          priority = "extra-high",
-          width = 105,
+        width = 105,
           height = 79,
           shift = util.by_pixel(1.5, 7.5-1),
           scale = 0.5
-        }
       }
     },
     circuit_connectors = circuit_connector_definitions["inserter"],
     circuit_wire_max_distance = inserter_circuit_wire_max_distance,
     default_stack_control_input_signal = inserter_default_stack_control_input_signal
+  },
+  
+  {
+    type = "corpse",
+    name = "long-burner-inserter-remnants",
+    icon = "__factorioplus__/graphics/icons/long-handed-burner-inserter.png",
+    hidden_in_factoriopedia = true,
+    flags = {"placeable-neutral", "not-on-map"},
+    subgroup = "inserter-remnants",
+    order = "a-a-a",
+    selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
+    tile_width = 1,
+    tile_height = 1,
+    selectable_in_game = false,
+    time_before_removed = 60 * 60 * 15, -- 15 minutes
+    expires = false,
+    final_render_layer = "remnants",
+    animation = make_rotated_animation_variations_from_sheet (4,
+    {
+      filename = "__factorioplus__/graphics/entity/long-handed-burner-inserter/remnants/long-handed-inserter-remnants.png",
+      line_length = 1,
+      width = 134,
+      height = 94,
+      direction_count = 1,
+      shift = util.by_pixel(3.5, -2),
+      scale = 0.5
+    })
   },
  
 ---------------------------------------------------  VERY LONG INSERTER  ------------------------------------------------------------
@@ -6261,14 +6239,14 @@ data.extend({
     icon = "__factorioplus__/graphics/icons/basic-lab.png",
     icon_size = 64, icon_mipmaps = 4,
     flags = {"placeable-player", "player-creation"},
-    minable = {mining_time = 0.2, result = "basic-lab"},
+    minable = {mining_time = 0.25, result = "basic-lab"},
     max_health = 100,
     corpse = "lab-remnants",
     dying_explosion = "lab-explosion",
     collision_box = {{-1.2, -1.2}, {1.2, 1.2}},
     selection_box = {{-1.5, -1.5}, {1.5, 1.5}},
     damaged_trigger_effect = hit_effects.entity(),
-    light = {intensity = 1.75, size = 6, color = {r = 1.0, g = 1.0, b = 1.0}},
+    light = {intensity = 0.25, size = 6, color = {r = 0.25, g = 0.5, b = 1.0}},
 	fast_replaceable_group = "lab",
 	next_upgrade = "lab",
     on_animation =
@@ -6276,37 +6254,39 @@ data.extend({
       layers =
       {
         {
-          filename = "__factorioplus__/graphics/basic-lab.png",
-          width = 2088/8,
-          height = 392/2,
+          filename = "__factorioplus__/graphics/basic-lab/basic-lab.png",
+          width = 2048/8,
+          height = 512/2,
           frame_count = 16,
           line_length = 8,
           animation_speed = 1 / 3,
+		  run_mode = "forward-then-backward",
           shift = util.by_pixel(0, 4),
-		   scale = 0.35,
+		   scale = 0.4,
         },
         {
-          filename = "__factorioplus__/graphics/basic_lab_shadow.png",
-          width = 207,
-          height = 167,
+          filename = "__factorioplus__/graphics/basic-lab/basic_lab_shadow.png",
+          width = 2048/8,
+          height = 512/2,
           frame_count = 1,
           line_length = 1,
-		  repeat_count = 16,
+		  repeat_count = 30,
           animation_speed = 1 / 3,
-          shift = util.by_pixel(13, -4),
+          shift = util.by_pixel(4, 4),
           draw_as_shadow = true,
-		  scale = 0.45,
+		  scale = 0.4,
         },
 		{
-		  filename = "__factorioplus__/graphics/basic-lab-light.png",
+		  filename = "__factorioplus__/graphics/basic-lab/basic-lab-mask.png",
           blend_mode = "additive",
           draw_as_light = true,
-          width = 2088/8,
-          height = 392/2,
+          width = 2048/8,
+          height = 512/2,
           frame_count = 16,
           line_length = 8,
           animation_speed = 1 / 3,
-		  scale = 0.35,
+		  run_mode = "forward-then-backward",
+		  scale = 0.4,
           shift = util.by_pixel(0, 4),	  
 		  },
 
@@ -6316,25 +6296,25 @@ data.extend({
     {
       layers =
       {
-        {
-          filename = "__factorioplus__/graphics/basic-lab.png",
-		  width = 2088/8,
-          height = 392/2,
-          frame_count = 1,
+		{
+          filename = "__factorioplus__/graphics/basic-lab/basic-lab.png",
+          width = 2048/8,
+          height = 512/2,
+		  frame_count = 1,
 		  line_length = 1,
           shift = util.by_pixel(0, 4),
-		   scale =  0.35,
+		   scale = 0.4,
         },
         {
-          filename = "__factorioplus__/graphics/basic_lab_shadow.png",
-          width = 207,
-          height = 167,
+          filename = "__factorioplus__/graphics/basic-lab/basic_lab_shadow.png",
+          width = 2048/8,
+          height = 512/2,
           frame_count = 1,
-		  line_length = 1,
-          shift = util.by_pixel(13, -4),
+          line_length = 1,
+          shift = util.by_pixel(4, 4),
           draw_as_shadow = true,
-		   scale = 0.45,
-        }
+		  scale = 0.4,
+        },
       }
     },
     working_sound =
@@ -6342,7 +6322,7 @@ data.extend({
       sound =
       {
         filename = "__base__/sound/lab.ogg",
-        volume = 0.7,
+        volume = 0.5,
 		speed = 1.3,
       },
       audible_distance_modifier = 0.7,
@@ -6350,8 +6330,8 @@ data.extend({
       fade_out_ticks = 20
     },
     vehicle_impact_sound = sounds.generic_impact,
-    open_sound = sounds.machine_open,
-    close_sound = sounds.machine_close,
+    open_sound = sounds.lab_open,
+    close_sound = sounds.lab_close,
     energy_source =
     {
       type = "electric",
@@ -6388,68 +6368,73 @@ data.extend({
     collision_box = {{-2.2, -2.2}, {2.2, 2.2}},
     selection_box = {{-2.5, -2.5}, {2.5, 2.5}},
     damaged_trigger_effect = hit_effects.entity(),
-    light = {intensity = 0.75, size = 10, color = {r = 0.6, g = 0.8, b = 1.0}},
+    light = {intensity = 0.15, size = 10, color = {r = 0.2, g = 0.5, b = 1.0}},
     on_animation =
     {
       layers =
       {
         {
-          filename = "__factorioplus__/graphics/lab-large-on.png",
-          width = 1440/6,
-          height = 664/3,
-          frame_count = 18,
+          filename = "__factorioplus__/graphics/large-lab/large-lab.png",
+          width = 2880/6,
+          height = 1398/3,
+          frame_count = 17,
+		  frame_sequence = { 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 },
           line_length = 6,
           animation_speed = 1 / 3,
-		  scale = 0.65,
-          shift = util.by_pixel(0, 1.5),
+          shift = util.by_pixel(0, 4),
+		   scale = 0.4,
         },
-		{
-          filename = "__factorioplus__/graphics/lab-large-shadow.png",
-          width = 388,
-          height = 295,
+        {
+          filename = "__factorioplus__/graphics/large-lab/large-lab-shadow.png",
+          width = 2880/6,
+          height = 1398/3,
           frame_count = 1,
-		  repeat_count = 18,
-          shift = util.by_pixel(16, 1.5),
-		  scale = 0.5,
+          line_length = 1,
+		  repeat_count = 16,
+          animation_speed = 1 / 3,
+          shift = util.by_pixel(4, 4),
           draw_as_shadow = true,
+		  scale = 0.4,
         },
 		{
-		filename = "__factorioplus__/graphics/lab-large-mask.png",
+		  filename = "__factorioplus__/graphics/large-lab/large-lab-mask.png",
           blend_mode = "additive",
           draw_as_light = true,
-           width = 1440/6,
-          height = 664/3,
-          frame_count = 18,
+          width = 2880/6,
+          height = 1398/3,
+          frame_count = 17,
+		  frame_sequence = { 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17},
           line_length = 6,
           animation_speed = 1 / 3,
-		  scale = 0.65,
-          shift = util.by_pixel(0, 1.5),
+		  scale = 0.4,
+          shift = util.by_pixel(0, 4),	  
 		  },
-      },
+
+      }
     },
     off_animation =
     {
       layers =
       {
 		{
-          filename = "__factorioplus__/graphics/lab-large-on.png",
-           width = 1440/6,
-          height = 664/3,
+          filename = "__factorioplus__/graphics/large-lab/large-lab.png",
+          width = 2880/6,
+          height = 1398/3,
+		  frame_count = 1,
+		  line_length = 1,
+          shift = util.by_pixel(0, 4),
+		   scale = 0.4,
+        },
+        {
+          filename = "__factorioplus__/graphics/large-lab/large-lab-shadow.png",
+          width = 2880/6,
+          height = 1398/3,
           frame_count = 1,
           line_length = 1,
-          -- animation_speed = 1 / 3,
-		  scale = 0.65,
-          shift = util.by_pixel(0, 1.5),
-		},
-		{
-          filename = "__factorioplus__/graphics/lab-large-shadow.png",
-          width = 388,
-          height = 295,
-          frame_count = 1,
-          shift = util.by_pixel(16, 1.5),
-		  scale = 0.5,
+          shift = util.by_pixel(4, 4),
           draw_as_shadow = true,
-        }
+		  scale = 0.4,
+        },
       }
     },
     working_sound =
@@ -6457,8 +6442,8 @@ data.extend({
       sound =
       {
         filename = "__base__/sound/lab.ogg",
-        volume = 0.7,
-		speed = 0.6,
+        volume = 0.8,
+		speed = 0.5,
       },
       audible_distance_modifier = 0.9,
       fade_in_ticks = 4,

@@ -92,30 +92,30 @@ autoplace_spacing_stinger = {0.55, 7}
 
 spawning_amount_biter = 5
 spawning_amount_spitter = 4
-spawning_amount_swarmer = 14
+spawning_amount_swarmer = 10
 spawning_amount_blaster = 3
 spawning_amount_tanker = 3
 spawning_amount_flamer = 3
-spawning_amount_stinger = 7
+spawning_amount_stinger = 6
 
 -- SPAWN TIME
 
 spawning_base_pollution_cost = 4
 
-spawning_time_small = 5
-spawning_time_medium = 10
-spawning_time_big = 20
-spawning_time_behemoth = 40
-spawning_time_boss = 80
+spawning_time_small = 4
+spawning_time_medium = 8
+spawning_time_big = 16
+spawning_time_behemoth = 32
+spawning_time_boss = 64
 
 spawning_time_scalar_spitter = 1.2
-spawning_time_scalar_swarmer = 0.55
+spawning_time_scalar_swarmer = 0.45
 spawning_time_scalar_biter = 0.9
 spawning_time_scalar_blaster = 2.0
 spawning_time_scalar_tanker = 1.75
 spawning_time_scalar_webber = 1.5
 spawning_time_scalar_flamer = 1.65
-spawning_time_scalar_stinger = 0.75
+spawning_time_scalar_stinger = 0.6
 
 -- TILE RESTRICTIONS
 -- Restrictions state what tiles can spawners be placed on.

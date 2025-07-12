@@ -62,7 +62,7 @@ end
 -- --data.raw["cliff"]["cliff-fulgora"].cliff_explosive = "cliff-explosives"
 -- --data.raw["cliff"]["cliff-gleba"].cliff_explosive = "cliff-explosives"
 -- end
-
+local pollution_ocean = { pollution = 0.000035 }
  
 data.raw["tile"]["stone-path"].walking_speed_modifier = walking_speed_stone
 data.raw["tile"]["concrete"].walking_speed_modifier = walking_speed_concrete
@@ -386,9 +386,11 @@ data:extend
 	oceanwater,
 })
 
+
 table.insert(data.raw["tile"]["oceanwater"].collision_mask, { ocean_water_tile = true } )
 
 data.raw["planet"]["nauvis"].map_gen_settings.autoplace_settings["tile"].settings["oceanwater"] = {}
+data.raw["tile"]["oceanwater"].absorptions_per_second = pollution_ocean
 data.raw["tile"]["oceanwater"].autoplace = {probability_expression = "water_base(-30, 200)"}
 data.raw["tile"]["oceanwater"].effect_color = {21/1.5, 99/1.5, 111/1.5}
 data.raw["tile"]["oceanwater"].effect_color_secondary = { 35/1.5, 68/1.5, 45/1.5 }
@@ -437,6 +439,7 @@ data:extend
 })
 
 data.raw["tile"]["oceanwater-green"].effect_color = { 35/1.5, 58/1.5, 25/1.5 }
+data.raw["tile"]["oceanwater-green"].absorptions_per_second = pollution_ocean
 data.raw["tile"]["oceanwater-green"].variants =
 {
   main =

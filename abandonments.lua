@@ -106,25 +106,25 @@ end
 
 if (settings.startup["settings-warehouse-abandonments"].value) then
 
-	local _warehouse_spacing_scale = 18 -- Normal value
+	local _warehouse_spacing_scale = 16 -- Normal value
 	
 	if (settings.startup["settings-warehouse-spacing"].value == "dense" ) then
-		_warehouse_spacing_scale = 14
+		_warehouse_spacing_scale = 12
 	elseif (settings.startup["settings-warehouse-spacing"].value == "common" ) then
-		_warehouse_spacing_scale = 16
+		_warehouse_spacing_scale = 14
 	elseif (settings.startup["settings-warehouse-spacing"].value == "uncommon" ) then
-		_warehouse_spacing_scale = 20
+		_warehouse_spacing_scale = 18
 	elseif (settings.startup["settings-warehouse-spacing"].value == "sparse" ) then
-		_warehouse_spacing_scale = 22
+		_warehouse_spacing_scale = 20
 	elseif (settings.startup["settings-warehouse-spacing"].value == "rare" ) then
-		_warehouse_spacing_scale = 24
+		_warehouse_spacing_scale = 22
 	end
 
 	local abandonment_loc = {"entity-name.abandonment"}
 
 	local newpath = util.copy(data.raw["tile"]["nuclear-ground"])
 	--newpath.collision_mask = {"water-tile"}
-	newpath.localised_name = {"",abandonment_loc, " ", {"entity-name." .. newpath.name}}
+	newpath.localised_name = {"tile-name.abandonment-ground"}
 	newpath.name = "abandonment".."-"..newpath.name  
 	--newpath.autoplace = abandonments_autoplace.abandonment_ground_autoplace(0.5)
 	newpath.autoplace = abandonments_autoplace.abandonments_ground_autoplace("abandonments_autoplace_base(1, 0.6)")
@@ -132,12 +132,11 @@ if (settings.startup["settings-warehouse-abandonments"].value) then
 
 	local newpath2 = util.copy(data.raw["tile"]["landfill"])
 	--newpath.collision_mask = {"water-tile"}
-	newpath2.localised_name = {"",abandonment_loc, " ", {"entity-name." .. newpath.name}}
+	newpath2.localised_name = {"tile-name.abandonment-ground-2"}
 	newpath2.name = "abandonment".."-"..newpath.name.."-2" 
 	newpath2.autoplace = abandonments_autoplace.abandonments_ground_autoplace("abandonments_autoplace_base(0, 0.5)")
 	data:extend{newpath2}
-
-
+	
 -- Health Setting
 
 	local enemy_health_scale = 1.0
@@ -364,72 +363,6 @@ data:extend
 			},
 		}
 	},
-	-- {
-		-- name = "abandonment-debris-medium-decal-2",
-		-- type = "optimized-decorative",
-		-- order = "b[decorative]-z[abandonment]",
-		-- collision_box = {{-3, -3}, {3, 3}},
-		-- collision_mask = {layers={water_tile=true}},
-		-- render_layer = "decals",
-		-- tile_layer = 58,
-		-- map_generator_bounding_box = {{ -0.25, -0.25}, {0.25,0.25}},
-		-- autoplace = abandonments_autoplace.abandonments_decoratives_autoplace("abandonments_autoplace_base(0, 0.95)"),
-		-- --autoplace = decal_autoplace_settgins("abandonment-debris-mudium-decal", {{0, 0.3}, {1, 1}}),
-		-- pictures =
-		-- {
-			-- {
-			-- filename = "__factorioplus__/graphics/abandonment-rubble-medium-2.png",
-			  -- width = 256,
-			  -- height = 181,
-			  -- variation_count = 1,
-			  -- scale = 0.5
-			-- },
-		-- }
-	-- },
-	-- {
-		-- name =  "abandonment-debris-medium-decal-3",
-		-- type = "optimized-decorative",
-		-- order = "b[decorative]-z[abandonment]",
-		-- collision_box = {{-3, -3}, {3, 3}},
-		-- collision_mask = {layers={water_tile=true}},
-		-- render_layer = "floor",
-		-- tile_layer = 57,
-		-- map_generator_bounding_box = {{ -0.25, -0.25}, {0.25,0.25}},
-		-- autoplace =  abandonments_autoplace.abandonments_decoratives_autoplace("abandonments_autoplace_base(0, 0.95)"),
-		-- --autoplace = decal_autoplace_settgins("abandonment-debris-mudium-decal", {{0, 0.3}, {1, 1}}),
-		-- pictures =
-		-- {
-			-- {
-			-- filename = "__factorioplus__/graphics/abandonment-rubble-medium-3.png",
-			  -- width = 256,
-			  -- height = 181,
-			  -- variation_count = 1,
-			  -- scale = 0.5
-			-- },
-		-- }
-	-- },
-	-- {
-		-- name = "abandonment-debris-medium-decal-4",
-		-- type = "optimized-decorative",
-		-- order = "b[decorative]-z[abandonment]",
-		-- collision_box = {{-3, -3}, {3, 3}},
-		-- collision_mask = {layers={water_tile=true}},
-		-- render_layer = "floor",
-		-- tile_layer = 56,
-		-- map_generator_bounding_box = {{ -0.25, -0.25}, {0.25,0.25}},
-		-- autoplace =  abandonments_autoplace.abandonments_decoratives_autoplace("abandonments_autoplace_base(0, 0.95)"),
-		-- --autoplace = decal_autoplace_settgins("abandonment-debris-mudium-decal", {{0, 0.3}, {1, 1}}),
-		-- pictures =
-		-- {
-			-- {
-			-- filename = "__factorioplus__/graphics/abandonment-rubble-medium-4.png",
-			  -- width = 256,
-			  -- height = 181,
-			  -- variation_count = 1,
-			  -- scale = 0.5
-			-- },
-		-- }
-	-- },
 	{
 		name = "abandonment-debris-large-decal-1",
 		type = "optimized-decorative",
@@ -473,72 +406,6 @@ data:extend
 			},
 		}
 	},
-	-- {
-		-- name = "abandonment-debris-large-decal-2",
-		-- type = "optimized-decorative",
-		-- order = "b[decorative]-z[abandonment]",
-		-- collision_box = {{-4, -4}, {4, 4}},
-		-- collision_mask = {layers={water_tile=true}},
-		-- render_layer = "decals",
-		-- tile_layer = 50,
-		-- map_generator_bounding_box = {{ -0.4, -0.4}, {0.4,0.4}},
-		-- autoplace =  abandonments_autoplace.abandonments_decoratives_autoplace("abandonments_autoplace_base(0, 0.95)"),
-		-- --autoplace = decal_autoplace_settgins("abandonment-debris-mudium-decal", {{0, 0.3}, {1, 1}}),
-		-- pictures =
-		-- {
-			-- {
-			-- filename = "__factorioplus__/graphics/abandonment-rubble-large-2.png",
-			  -- width = 512,
-			  -- height = 363,
-			  -- variation_count = 1,
-			  -- scale = 0.5
-			-- },
-		-- }
-	-- },
-	-- {
-		-- name = "abandonment-debris-large-decal-3",
-		-- type = "optimized-decorative",
-		-- order = "b[decorative]-z[abandonment]",
-		-- collision_box = {{-4, -4}, {4, 4}},
-		-- collision_mask = {layers={water_tile=true}},
-		-- render_layer = "floor",
-		-- tile_layer = 50,
-		-- map_generator_bounding_box = {{ -0.4, -0.4}, {0.4,0.4}},
-		-- autoplace = abandonments_autoplace.abandonments_decoratives_autoplace("abandonments_autoplace_base(0, 0.95)"),
-		-- --autoplace = decal_autoplace_settgins("abandonment-debris-mudium-decal", {{0, 0.3}, {1, 1}}),
-		-- pictures =
-		-- {
-			-- {
-			-- filename = "__factorioplus__/graphics/abandonment-rubble-large-3.png",
-			  -- width = 512,
-			  -- height = 363,
-			  -- variation_count = 1,
-			  -- scale = 0.5
-			-- },
-		-- }
-	-- },
-	-- {
-		-- name = "abandonment-debris-large-decal-4",
-		-- type = "optimized-decorative",
-		-- order = "b[decorative]-z[abandonment]",
-		-- collision_box = {{-4, -4}, {4, 4}},
-		-- collision_mask = {layers={water_tile=true}},
-		-- render_layer = "floor",
-		-- tile_layer = 50,
-		-- map_generator_bounding_box = {{ -0.4, -0.4}, {0.4,0.4}},
-		-- autoplace =  abandonments_autoplace.abandonments_decoratives_autoplace("abandonments_autoplace_base(0, 0.95)"),
-		-- --autoplace = decal_autoplace_settgins("abandonment-debris-mudium-decal", {{0, 0.3}, {1, 1}}),
-		-- pictures =
-		-- {
-			-- {
-			-- filename = "__factorioplus__/graphics/abandonment-rubble-large-4.png",
-			  -- width = 512,
-			  -- height = 363,
-			  -- variation_count = 1,
-			  -- scale = 0.5
-			-- },
-		-- }
-	-- },
 }
 
 building_ammocache_picture =     
@@ -757,6 +624,7 @@ local _trv = (math.random() / 10) +  tinyvalue
 	s.name = "abandonment".."-"..newname  
 	s.flags = {"placeable-off-grid", "player-creation"}
 	s.build_base_evolution_requirement = 10
+	s.enemy_map_color = abandonments_bonus_color_map
 	if string.find(s.name,"weapon") or string.find(s.name,"equipment") or string.find(s.name,"turret")  then
 		s.picture = building_ammocache_picture
 		s.collision_box = {{-3.75, -2.25}, {3.75, 2.25}}
@@ -772,10 +640,11 @@ local _trv = (math.random() / 10) +  tinyvalue
 	elseif string.find(s.name,"barren") then
 		s.picture = building_barren
 		s.localised_description = {"entity-description.abandonment-warehouse-barren"} 
+		s.enemy_map_color = abandonments_barren_color_map
 	end
 	s.created_effect = {create_tiles("nuclear-ground", 6, 1.0), create_tiles("stone-path", 5, 1.0), create_tiles("stone-path", 6.5, 0.25) }
 	s.map_generator_bounding_box = {{ -boundingspace, -boundingspace}, {boundingspace, boundingspace}}
-	s.enemy_map_color = abandonments_force_color_map
+	
 	
 	s.autoplace = abandonments_autoplace.abandonments_loot_autoplace("abandonments_autoplace_base(0,".. ( (((_autoplace_distance + _trv) ^ (1+(warehouse_scalingvalue-1))) / 1) +_trv ) ..")")
 	s.loot = loottable 
@@ -2280,7 +2149,6 @@ return
     icon = "__factorioplus__/graphics/icons/warehouse.png",
     icon_size = 64, icon_mipmaps = 4,
     flags = {"placeable-off-grid"},
-    --minable = {mining_time = 2, result = "warehouse"},
     max_health = 1250 * enemy_health_scale,
     corpse = "warehouse-remnants",
     dying_explosion = "electric-furnace-explosion",
@@ -2307,6 +2175,7 @@ return
 	build_base_evolution_requirement = 10,
 	map_generator_bounding_box = {{ -loothutboundingbox, -loothutboundingbox}, {loothutboundingbox, loothutboundingbox}},
 	autoplace = abandonments_autoplace.abandonments_loot_autoplace("abandonments_autoplace_base(0,"..  ( (((_autoplace_distance + _trv) ^ (1+(warehouse_scalingvalue-1))) / 1) +_trv ) ..")"),
+	enemy_map_color = abandonments_bonus_color_map,
 	
 	dying_trigger_effect =
 	{
@@ -2362,6 +2231,7 @@ return
 	dying_explosion = "steel-chest-explosion",
 	mined_sound = sounds.deconstruct_small(1.0),
 	corpse = "small-remnants",
+	enemy_map_color = abandonments_bonus_color_map,
     minable =
     {
       mining_time = 2,
