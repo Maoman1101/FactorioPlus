@@ -175,7 +175,7 @@ flametank_friction_terrain_modifier =  0.1 -- Tanks do not care whether they're 
 
 -- TANK --
 
-tank_health = 2000
+tank_health = 3000
 tank_ephp = 0.4 
 tank_resistances = 
 {
