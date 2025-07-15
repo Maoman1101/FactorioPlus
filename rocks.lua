@@ -59,17 +59,59 @@ water_bush.autoplace.tile_restriction = {"water-shallow"}
 water_bush.collision_mask = {layers={ground_tile=true}, colliding_with_tiles_only=true}
 data.raw["planet"]["nauvis"].map_gen_settings.autoplace_settings["decorative"].settings["water-bush"] = {}
 
-local water_rock = util.copy(data.raw["optimized-decorative"]["tiny-rock"])
-water_rock.name = "water-rock"
-water_rock.autoplace.tile_restriction = {"water-shallow"}
-water_rock.collision_mask = {layers={ground_tile=true}, colliding_with_tiles_only=true}
-data.raw["planet"]["nauvis"].map_gen_settings.autoplace_settings["decorative"].settings["water-rock"] = {}
- 
-local water_sand_rock = util.copy(data.raw["optimized-decorative"]["small-sand-rock"])
-water_sand_rock.name = "water_sand_rock"
-water_sand_rock.autoplace.tile_restriction = {"water-shallow"}
-water_sand_rock.collision_mask = {layers={ground_tile=true}, colliding_with_tiles_only=true}
-data.raw["planet"]["nauvis"].map_gen_settings.autoplace_settings["decorative"].settings["water_sand_rock"] = {}
+local util = require("util")  -- Make sure util is required at the top of your file
+
+if data.raw["optimized-decorative"]["tiny-rock"] and
+   data.raw["optimized-decorative"]["tiny-rock"].autoplace and
+   data.raw["optimized-decorative"]["small-sand-rock"] and
+   data.raw["optimized-decorative"]["small-sand-rock"].autoplace then
+
+    -- Copy and modify tiny-rock
+    local water_rock = util.copy(data.raw["optimized-decorative"]["tiny-rock"])
+    water_rock.name = "water-rock"
+
+    -- Deepcopy autoplace including the noise expression, then safely add tile restriction
+    water_rock.autoplace = table.deepcopy(data.raw["optimized-decorative"]["tiny-rock"].autoplace)
+
+    -- Modify tile_restriction safely, preserving noise expressions
+    if water_rock.autoplace.tile_restriction then
+        table.insert(water_rock.autoplace.tile_restriction, "water-shallow")
+    else
+        water_rock.autoplace.tile_restriction = {"water-shallow"}
+    end
+
+    water_rock.collision_mask = {
+        layers = {ground_tile = true},
+        colliding_with_tiles_only = true
+    }
+
+    -- Copy and modify small-sand-rock similarly
+    local water_sand_rock = util.copy(data.raw["optimized-decorative"]["small-sand-rock"])
+    water_sand_rock.name = "water_sand_rock"
+
+    water_sand_rock.autoplace = table.deepcopy(data.raw["optimized-decorative"]["small-sand-rock"].autoplace)
+
+    if water_sand_rock.autoplace.tile_restriction then
+        table.insert(water_sand_rock.autoplace.tile_restriction, "water-shallow")
+    else
+        water_sand_rock.autoplace.tile_restriction = {"water-shallow"}
+    end
+
+    water_sand_rock.collision_mask = {
+        layers = {ground_tile = true},
+        colliding_with_tiles_only = true
+    }
+
+    -- Register the new decorative prototypes
+    data:extend({water_rock, water_sand_rock})
+
+    -- Add them to the planet autoplace settings as empty tables to avoid errors
+    data.raw["planet"]["nauvis"].map_gen_settings.autoplace_settings["decorative"].settings["water-rock"] = {}
+    data.raw["planet"]["nauvis"].map_gen_settings.autoplace_settings["decorative"].settings["water_sand_rock"] = {}
+else
+    -- Base decorations or autoplace missing: log a warning or skip creating water-rocks
+    log("Warning: Base optimized-decorative 'tiny-rock' or 'small-sand-rock' or their autoplace data missing. Skipping water-rock creation.")
+end
   
 
   
