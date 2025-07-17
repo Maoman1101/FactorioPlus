@@ -1,6 +1,7 @@
 local sounds = require ("__base__.prototypes.entity.sounds")
 local hit_effects = require ("__base__.prototypes.entity.hit-effects")
 local decorative_trigger_effects = require("__base__.prototypes.decorative.decorative-trigger-effects")
+local util = require("util") 
 
 --- BAOBAO TREES BEEFYNESS
 
@@ -59,7 +60,6 @@ water_bush.autoplace.tile_restriction = {"water-shallow"}
 water_bush.collision_mask = {layers={ground_tile=true}, colliding_with_tiles_only=true}
 data.raw["planet"]["nauvis"].map_gen_settings.autoplace_settings["decorative"].settings["water-bush"] = {}
 
-local util = require("util")  -- Make sure util is required at the top of your file
 
 if data.raw["optimized-decorative"]["tiny-rock"] and
    data.raw["optimized-decorative"]["tiny-rock"].autoplace and
@@ -112,9 +112,7 @@ else
     -- Base decorations or autoplace missing: log a warning or skip creating water-rocks
     log("Warning: Base optimized-decorative 'tiny-rock' or 'small-sand-rock' or their autoplace data missing. Skipping water-rock creation.")
 end
-  
-
-  
+   
  data:extend
 ({
 water_grass,

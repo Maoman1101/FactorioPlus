@@ -1996,7 +1996,7 @@ data.extend({
         modifier = 0.5
       },
     },
-    prerequisites = {"lubricant","advanced-circuit","mining-productivity-2","upgraded-tools"},
+    prerequisites = {"lubricant","advanced-circuit","upgraded-tools"},
     unit =
     {
       count = 200,
@@ -2039,7 +2039,7 @@ data.extend({
         modifier = 0.5
       },
     },
-    prerequisites = {"advanced-repair-kits", "utility-science-pack","mining-productivity-3"},
+    prerequisites = {"advanced-repair-kits", "utility-science-pack"},
     unit =
     {
       count = 300,

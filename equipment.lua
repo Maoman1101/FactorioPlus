@@ -1,4 +1,6 @@
 local item_sounds = require("__base__.prototypes.item_sounds")
+local sounds = require("__base__.prototypes.entity.sounds")
+local simulations = require("__base__.prototypes.factoriopedia-simulations")
 
 --------------------------------------------------- INVENTORY ARMOR OVERRIDES  ------------------------------------------------------------
 
@@ -10,6 +12,12 @@ data.raw["armor"]["power-armor-mk2"].inventory_size_bonus = 50
 if (mods["space-age"]) then
 	data.raw["armor"]["mech-armor"].inventory_size_bonus = 60
 end
+
+--------------------------------------------------- ARMOUR TECH OVERRIDE  ------------------------------------------------------------
+
+table.insert(data.raw["technology"]["power-armor"].effects, { type = "unlock-recipe",recipe = "acid-armor"} )
+table.insert(data.raw["technology"]["power-armor"].effects, { type = "unlock-recipe",recipe = "explosive-armor"} )
+
 --------------------------------------------------- ARMOUR GRID OVERRIDE  ------------------------------------------------------------
 
 data.raw["equipment-grid"]["small-equipment-grid"].height = 6
@@ -108,6 +116,129 @@ data:extend({
     energy_required = 8,
     ingredients = {{ type="item", name="steel-chest", amount=4}, {type="item", name="heavy-armor", amount=1}},
 	results = {{type="item", name="backpack", amount=1}},
+  },
+  
+   --------------------------------------------------- ANTI EXPLOSIVE ARMOR  ------------------------------------------------------------
+   
+   -- Anti fire/explosive
+   {
+    type = "armor",
+    name = "explosive-armor",
+    icon = "__factorioplus__/graphics/icons/armor-explosive.png",
+    resistances =
+    {
+      {
+        type = "physical",
+        decrease = 8,
+        percent = 30
+      },
+      {
+        type = "acid",
+        decrease = 0,
+        percent = 60
+      },
+      {
+        type = "explosion",
+        decrease = 120,
+        percent = 90
+      },
+      {
+        type = "fire",
+        decrease = 20,
+        percent = 90
+      }
+    },
+    subgroup = "armor",
+    order = "da[power-armor-fire]",
+    --factoriopedia_simulation = simulations.factoriopedia_power_armor,
+    inventory_move_sound = item_sounds.armor_large_inventory_move,
+    pick_sound = item_sounds.armor_large_inventory_pickup,
+    drop_sound = item_sounds.armor_large_inventory_move,
+    stack_size = 1,
+    infinite = true,
+    equipment_grid = "medium-equipment-grid",
+    inventory_size_bonus = 20,
+    open_sound = sounds.armor_open,
+    close_sound = sounds.armor_close
+  },
+  
+    {
+    type = "recipe",
+    name = "explosive-armor",
+    enabled = false,
+    energy_required = 20,
+    ingredients = {
+		{type = "item", name = "power-armor", amount = 1}, 
+		{type = "item", name = "meaty-chunks", amount = 1000}, 
+		{type = "item", name = "advanced-circuit", amount = 100},
+		{type = "item", name = "steel-plate", amount = 100}
+	},
+    results = {{type="item", name="explosive-armor", amount=1}},
+    requester_paste_multiplier = 1
+  },
+  
+     --------------------------------------------------- ANTI ACID ARMOR  ------------------------------------------------------------
+   
+   -- Anti Poison/Acid
+   {
+    type = "armor",
+    name = "acid-armor",
+    icon = "__factorioplus__/graphics/icons/armor-acid.png",
+    resistances =
+    {
+      {
+        type = "physical",
+        decrease = 8,
+        percent = 30
+      },
+      {
+        type = "acid",
+        decrease = 10,
+        percent = 90
+      },
+	  {
+        type = "poison",
+        decrease = 6,
+        percent = 90
+      },
+      {
+        type = "explosion",
+        decrease = 40,
+        percent = 40
+      },
+      {
+        type = "fire",
+        decrease = 0,
+        percent = 60
+      }
+    },
+    subgroup = "armor",
+    order = "db[power-armor-acid]",
+   -- factoriopedia_simulation = simulations.factoriopedia_power_armor,
+    inventory_move_sound = item_sounds.armor_large_inventory_move,
+    pick_sound = item_sounds.armor_large_inventory_pickup,
+    drop_sound = item_sounds.armor_large_inventory_move,
+    stack_size = 1,
+    infinite = true,
+    equipment_grid = "medium-equipment-grid",
+    inventory_size_bonus = 20,
+    open_sound = sounds.armor_open,
+    close_sound = sounds.armor_close
+  },
+  
+    {
+    type = "recipe",
+    name = "acid-armor",
+    enabled = false,
+    energy_required = 20,
+    ingredients = {
+		{type = "item", name = "power-armor", amount = 1}, 
+		{type = "item", name = "meaty-chunks", amount = 1000}, 
+		{type = "item", name = "advanced-circuit", amount = 100},
+		{type = "item", name = "sulfur", amount = 100}
+	},
+    results = {{type="item", name="acid-armor", amount=1}},
+    requester_paste_multiplier = 1
   },
   
  --------------------------------------------------- TINY EQUIPMENT GRID  ------------------------------------------------------------

@@ -1,4 +1,37 @@
 ---------------------------------------------------------------------------------------------------
+Version: 2.2.9
+Date: 2025
+  Balance:
+    - 
+ Fixes:
+    - 
+---------------------------------------------------------------------------------------------------
+Version: 2.2.8
+Date: 2025.07.12
+  Additions:
+    - Added Fish shoals, multiple fish that swim together in deeper waters and supply you with many fish when caught.
+  Graphics:
+    - Updated Small and Large lab graphics to be more filling to their footprint size.
+    - Small and Large labs now have low lighting and use their lit mask properly during the evening.
+    - Updated long burner inserter graphics to have a rusted red color, akin to the burner inserters rusted yellow color.
+    - Updated icons for High powered machine press recipes to have double of the result (e.g. 2x iron sticks).
+    - Added small decorative details that appear - like grass and stones - on shallow waters to help hint to the player that its walkable.
+  Balance:
+    - Increased all density options of warehouses by 2 (18 -> 16 tile units)
+    - All abandonment loot containing warehouses are coloured gold on the the map.
+    - Reduced base maximum spawn amount for swarmers (14 -> 10) and their spawn time scalar (0.55 -> 0.45)
+    - Reduced base maximum spawn amount for stingers (7 -> 6) and their spawn time scalar (0.75 -> 0.6)
+    - Rescaled spawn pollution base requirements downwards for all enemy sizes ( small = 5, medium = 10, big = 20, behemoth = 40, boss = 80 ) to ( 4, 8, 16, 32, 64 )
+    - Reduced amount of Raw fish gained from a fish from 5 -> 1
+    - Railway can be researched after just Engines and does not require Logistics 2.
+    - Ocean waters have ~50% extra pollution absorption compared to deep water tiles.
+  Fixes:
+    - Fixed multiple missing localizaiton entries for tiles.
+    - Fixed some entity icons being wrong (e.g. warehouse).
+    - Large labs now correctly require Logistics 3. 
+  Settings:
+    - Added settings to scale the spawn times of Nauvis enemy spawners.
+---------------------------------------------------------------------------------------------------
 Version: 2.2.7
 Date: 2025.07.08
   Additions:

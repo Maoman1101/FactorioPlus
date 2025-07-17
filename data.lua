@@ -1,5 +1,6 @@
 --data.lua
 
+require("signal")
 require("item-groups")
 require("buildings")
 require("item")
@@ -26,7 +27,7 @@ require("rocks")
 require("explosions")
 require("map-gen-presets")
 require("abandonments")
-require ("abandonments-noise-expressions")
+require("abandonments-noise-expressions")
 
 if (mods["space-age"]) then
 require("recipes-sa")

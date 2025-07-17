@@ -58,6 +58,7 @@ local function create_entity(entity, rad, probability, amount)
 					entity_name = entity,
 					
 					probability = probability * (settings.startup["settings-chunks-probability"].value/100) or 1 * (settings.startup["settings-chunks-probability"].value/100),
+					as_enemy = false,
 					--repeat_count = amount or 2,
 					--repeat_count_deviation = math.ceil( amount),
 					
@@ -160,27 +161,27 @@ data:extend({
 	create_alien_package(
 	{
 		size = "small",
-		count = 5
+		count = 6
 	}),
 	create_alien_package(
 	{
 		size = "medium",
-		count = 10
+		count = 12
 	}),
 	create_alien_package(
 	{
 		size = "big",
-		count = 15
+		count = 18
 	}),
 	create_alien_package(
 	{
 		size = "behemoth",
-		count = 20
+		count = 24
 	}),
 	create_alien_package(
 	{
 		size = "boss",
-		count = 25
+		count = 30
 	}),
 })
 
@@ -1539,14 +1540,16 @@ if (string.find(spawnername, "swarmer")) then
 		  util.rotate_position({0,2*spawnerscale}, 0.95),
 		}
 	  },
-	  create_entity("alien-polyp-"..enemy_default_size , 6 *spawnerscale , 0.1 , 2 + (1 * spawnertier))
+		create_entity("alien-polyp-"..enemy_default_size , 6 *spawnerscale , 0.1 , 2 + (1 * spawnertier)),
+		--create_entity("alien-furnace" , 6 * spawnerscale , 0.5 , 2 + (1 * spawnertier))
 	}
 	_ap.tile_restriction = {"sand-1","sand-2","sand-3","red-desert-0","red-desert-1","red-desert-2","red-desert-3"} 
 elseif (string.find(spawnername, "tanker")) then	
 	hpt = hpt * 10
 	dte = 
 	{ 
-		create_entity("alien-polyp-"..enemy_default_size , 6 *spawnerscale , 0.1 , 2 + (1 * spawnertier))
+		create_entity("alien-polyp-"..enemy_default_size , 6 *spawnerscale , 0.1 , 2 + (1 * spawnertier)),
+		--create_entity("alien-furnace" , 6 * spawnerscale , 0.5 , 2 + (1 * spawnertier))
 	}
 elseif (string.find(spawnername, "webber")) then
 	dte =
@@ -1570,7 +1573,8 @@ elseif (string.find(spawnername, "webber")) then
 		  util.rotate_position({0,4*spawnerscale}, 0.25),
 		}
 	  },
-	  create_entity("alien-polyp-"..enemy_default_size , 6 *spawnerscale , 0.1 , 2 + (1 * spawnertier))
+		  create_entity("alien-polyp-"..enemy_default_size , 6 *spawnerscale , 0.1 , 2 + (1 * spawnertier)),
+		  --create_entity("alien-furnace" , 6 * spawnerscale , 0.5 , 2 + (1 * spawnertier))
 	}
 elseif (string.find(spawnername, "hatcher")) then	
 	dte =
@@ -1591,7 +1595,8 @@ elseif (string.find(spawnername, "hatcher")) then
           util.rotate_position({0,4*spawnerscale}, 0.9),
 		}
 	  },
-	  create_entity("alien-polyp-"..enemy_default_size , 6 *spawnerscale , 0.1 , 2 + (1 * spawnertier))
+		  create_entity("alien-polyp-"..enemy_default_size , 6 *spawnerscale , 0.1 , 2 + (1 * spawnertier)),
+		  --create_entity("alien-furnace" , 6 * spawnerscale , 0.5 , 2 + (1 * spawnertier))
 	}
 	_ap.tile_restriction = spawner_tilerestrictions_hatcher
 elseif (string.find(spawnername, "spitter")) then	
@@ -1616,14 +1621,16 @@ elseif (string.find(spawnername, "spitter")) then
 		  util.rotate_position({0,4*spawnerscale}, 0.25),
 		}
 	  },
-	  create_entity("alien-polyp-"..enemy_default_size , 6 *spawnerscale , 0.1 , 2 + (1 * spawnertier))
+		  create_entity("alien-polyp-"..enemy_default_size , 6 *spawnerscale , 0.1 , 2 + (1 * spawnertier)),
+		  --create_entity("alien-furnace" , 6 * spawnerscale , 0.5 , 2 + (1 * spawnertier))
 	}
 	_ap.tile_restriction = {"grass-1","grass-2","grass-3","grass-4" }
 elseif (string.find(spawnername, "stinger")) then	
 	_ap.tile_restriction = {"grass-1","grass-2","grass-3","grass-4" }
 	dte = 
 	{ 
-		create_entity("alien-polyp-"..enemy_default_size , 6 *spawnerscale , 0.1 , 2 + (1 * spawnertier))
+		create_entity("alien-polyp-"..enemy_default_size , 6 *spawnerscale , 0.1 , 2 + (1 * spawnertier)),
+		--create_entity("alien-furnace" , 6 * spawnerscale , 0.5 , 2 + (1 * spawnertier))
 	}
 	-- TODO make a ipair iterator to go through the tint colour and reduce the values by half(?).
 elseif (string.find(spawnername, "blaster")) then
@@ -1671,7 +1678,8 @@ dte =
 		  util.rotate_position({0,6*spawnerscale}, 0.25),
 		}
 	  },
-	  create_entity("alien-polyp-"..enemy_default_size , 6 *spawnerscale , 0.1 , 2 + (1 * spawnertier))
+		  create_entity("alien-polyp-"..enemy_default_size , 6 *spawnerscale , 0.1 , 2 + (1 * spawnertier)),
+		  --create_entity("alien-furnace" , 6 * spawnerscale , 0.5 , 2 + (1 * spawnertier))
 	}
 	_gs.animations[1].layers[4] = table.deepcopy(_gs.animations[1].layers[2])
 	_gs.animations[2].layers[4] = table.deepcopy(_gs.animations[2].layers[2])
@@ -1690,7 +1698,8 @@ dte =
 else if (string.find(spawnername, "biter")) then
 	dte = 
 	{ 
-		create_entity("alien-polyp-"..enemy_default_size , 6 * spawnerscale , 0.1 , 2 + (1 * spawnertier))
+		create_entity("alien-polyp-"..enemy_default_size , 6 * spawnerscale , 0.1 , 2 + (1 * spawnertier)),
+		--create_entity("alien-furnace" , 6 * spawnerscale , 0.5 , 2 + (1 * spawnertier))
 	}
 	end
 end
@@ -2445,4 +2454,164 @@ data:extend({
     protected_from_tile_building = false
   },
 })
+
 data.raw["planet"]["nauvis"].map_gen_settings.autoplace_settings["entity"].settings["fish-shoal"] = {}
+
+---------------------------------------------------  ALIEN FURNACE  ------------------------------------------------------------
+
+data.extend({
+{
+    type = "recipe",
+    name = "rawfish-meat",
+	category = "alien-furnace",
+	hidden = true,
+	energy_required = 10,
+	ingredients =
+	{
+		{type="item", name="raw-fish", amount=1},
+	},
+		results = {{type="item", name="chunky-meat", amount=1}},
+},
+
+{
+    type = "recipe",
+    name = "cookedfish-meat",
+	category = "alien-furnace",
+	hidden = true,
+	energy_required = 15,
+	ingredients =
+	{
+		{type="item", name="cooked-fish", amount=1},
+	},
+		results = {{type="item", name="chunky-meat", amount=2}},
+},
+  
+{
+    type = "furnace",
+    name = "alien-furnace",
+    icon = "__factorioplus__/graphics/icons/big-furnace.png",
+    icon_size = 64, icon_mipmaps = 4,
+    flags = {"not-repairable"},
+    minable =
+    {
+      mining_time = 3,
+       results = 
+	  {
+	  {type = "item", name = "chunky-meat", amount_min = 10, amount_max = 20}, 
+	  },
+    },
+    max_health = 600,
+	allow_run_time_change_of_is_military_target = true,
+    --corpse = "stone-furnace-remnants",
+    --dying_explosion = "stone-furnace-explosion",
+    -- repair_sound = sounds.manual_repair,
+    --mined_sound = { filename = "__base__/sound/deconstruct-bricks.ogg",volume = 0.9},
+    -- open_sound = sounds.machine_open,
+    -- close_sound = sounds.machine_close,
+    -- vehicle_impact_sound = sounds.car_stone_impact,
+    working_sound =
+    {
+      sound =
+      {
+        {
+          filename = "__base__/sound/furnace.ogg",
+          volume = 0.9
+        }
+      },
+      fade_in_ticks = 4,
+      fade_out_ticks = 20,
+      audible_distance_modifier = 0.6,
+    },
+    resistances =
+    {
+      {
+        type = "acid",
+        percent = 95
+      },
+      {
+        type = "explosion",
+        percent = 30
+      },
+      {
+        type = "impact",
+        percent = 30
+      }
+    },
+    collision_box = {{-1.2, -1.2}, {1.2, 1.2}},
+    selection_box = {{-1.4, -1.4}, {1.4, 1.4}},
+    -- damaged_trigger_effect = hit_effects.rock(),
+    crafting_categories = {"alien-furnace"},
+    result_inventory_size = 1,
+    crafting_speed = 1.0,
+    source_inventory_size = 1,
+	energy_usage = "63kW",
+    energy_source = {type = "void"},
+	graphics_set =
+    {
+		animation =
+		{
+		  layers =
+		  {
+			{
+			  filename = "__factorioplus__/graphics/big-furnace.png",
+			  priority = "extra-high",
+			  width = 192,
+			  height = 256,
+			  frame_count = 1,
+			  shift = util.by_pixel(0, -18),
+			  scale = 0.5,
+			},
+			{
+			  filename = "__factorioplus__/graphics/big-furnace-shadow.png",
+			  priority = "extra-high",
+			  width = 284,
+			  height = 256,
+			  frame_count = 1,
+			  draw_as_shadow = true,
+			  shift = util.by_pixel(22, -18),
+			  scale = 0.5,
+			}
+		  }
+		},
+		working_visualisations =
+		{
+		  {
+			north_position = {0.0, 0.0},
+			east_position = {0.0, 0.0},
+			south_position = {0.0, 0.0},
+			west_position = {0.0, 0.0},
+			animation =
+			{
+			  filename = "__factorioplus__/graphics/big-furnace-on.png",
+			  priority = "extra-high",
+			  line_length = 1,
+			  width = 192,
+			  height = 256,
+			  frame_count = 1,
+			  axially_symmetrical = false,
+			  direction_count = 1,
+			  shift = util.by_pixel(0, -18),
+			  scale = 0.5,
+			},
+			light = {intensity = 1, size = 1, color = {r=1.0, g=1.0, b=1.0}}
+		  }
+		},
+	},
+
+    water_reflection =
+    {
+      pictures =
+      {
+        filename = "__base__/graphics/entity/stone-furnace/stone-furnace-reflection.png",
+        priority = "extra-high",
+        width = 16,
+        height = 16,
+        shift = util.by_pixel(0, 35),
+        variation_count = 1,
+        scale = 0.75,
+      },
+      rotate = false,
+      orientation_to_variation = false
+    }
+  },
+})

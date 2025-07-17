@@ -26,33 +26,6 @@ local function create_decoratives(decorative, rad, probability)
 	}
 end
 
--- local function create_entity(entity, rad, probability, amount)
-  -- return {
-		-- type = "direct",
-		-- action_delivery =
-		-- {
-			-- type = "instant",
-			-- target_effects =
-			-- {
-				-- {
-					-- type = "create-entity",
-					-- entity_name = entity,
-					
-					-- probability = probability or 1,
-					-- repeat_count = amount or 2,
-					-- repeat_count_deviation = math.ceil( amount),
-					
-					-- check_buildability = true,
-					-- find_non_colliding_position  = true,
-					-- non_colliding_search_precision  = 0.25,
-					-- non_colliding_search_radius = rad or 6,
-					-- tile_collision_mask  = {not_colliding_with_itself = true, layers = {object = true} }
-				-- }
-			-- }
-		-- }
-	-- }
--- end
-
 local function create_entity(entity, rad, probability, amount)
 	return	
 	{
@@ -2326,31 +2299,24 @@ return
 	  ammo_category = "melee",
 	  ammo_type =
 	  {
-		target_type = "entity",
-		action =
-		{
-		  type = "direct",
-		  action_delivery =
-		  {
-			type = "instant",
-			target_effects =
+			target_type = "entity",
+			action =
 			{
-			  type = "damage",
-			  show_in_tooltip = false,
-			  damage = { amount = 0 , type = "physical"}
+			  type = "direct",
+			  action_delivery =
+			  {
+				type = "instant",
+				target_effects =
+				{
+				  type = "damage",
+				  show_in_tooltip = false,
+				  damage = { amount = 0 , type = "physical"}
+				}
+			  }
 			}
-		  }
-		}
-	},
-		-- sound = sounds.biter_roars(0.5 * scale),
-		-- animation = biterattackanimation(scale, tint, tint)		
+		},	
 	},
 		
-	-- result_units = { 
-	-- { "small-swarmer", {{0.99, 1.0}, {1.0, 1.0}} },
-	-- },
---	dying_explosion = "small-worm-die",
---	damaged_trigger_effect = hit_effects.biter(),
 	
 	dying_trigger_effect = 
 	{
@@ -2360,20 +2326,8 @@ return
 		repeat_count_deviation = _packagecountdeviation,
 		entity_name = _packagename,
 		find_non_colliding_position = true,
-		-- offsets =
-		-- {
-			-- {-1.25,0}, {1.25,0}, 
-			-- {-1.25,2}, {1.25,2}, 				
-		-- }
 	  },
-	   -- {
-		-- type = "create-entity",
-		-- entity_name = "warehouse-remnants",
-		-- offsets =
-		-- {
-			-- {0,0}		
-		-- }
-	  -- }
+
 	},
 	
 	graphics_set =
@@ -2432,7 +2386,7 @@ data:extend({
 	create_abandonment_package({
 	item = "iron-plate",
 	tier = 1,
-	count = 200,
+	count = 400,
 	tint = iron_tint ,
 	tint_item = {110 , 110 , 110} ,
 	}),
@@ -2450,7 +2404,7 @@ data:extend({
 	create_abandonment_package({
 	item = "steel-plate",
 	tier = 1,
-	count = 200,
+	count = 400,
 	tint = steel_tint ,
 	tint_item = {150 , 150 , 150} ,
 	}),
@@ -2468,7 +2422,7 @@ data:extend({
 	create_abandonment_package({
 	item = "copper-plate",
 	tier = 1,
-	count = 200,
+	count = 400,
 	tint = copper_tint,
 	tint_item = copper_tint ,
 	}),
@@ -2488,7 +2442,7 @@ data:extend({
 	create_abandonment_package({
 	item = "aluminium-plate",
 	tier = 1,
-	count = 200,
+	count = 400,
 	tint = aluminum_tint,
 	tint_item = {190 , 190 , 190},
 	}),
@@ -2509,7 +2463,7 @@ data:extend({
 	create_abandonment_package({
 	item = "plastic-bar",
 	tier = 1,
-	count = 200,
+	count = 400,
 	tint = plastic_tint,
 	tint_item = plastic_tint,
 	}),
@@ -2525,7 +2479,7 @@ data:extend({
 	create_abandonment_package({
 	item = "electronic-circuit",
 	tier = 1,
-	count = 100,
+	count = 200,
 	tint = {255 , 255 , 0 },
 	tint_item = {0 , 240 , 50 },
 	}), 
@@ -2539,7 +2493,7 @@ data:extend({
 	create_abandonment_package({
 	item = "advanced-circuit",
 	tier = 1,
-	count = 100,
+	count = 200,
 	tint = {255 , 255 , 0 },
 	tint_item = {240 , 0 , 0 },
 	}), 
@@ -2553,7 +2507,7 @@ data:extend({
 	create_abandonment_package({
 	item = "processing-unit",
 	tier = 1,
-	count = 100,
+	count = 200,
 	tint = {255 , 255 , 0 },
 	tint_item = {60 , 0 , 240 },
 	}), 
@@ -2567,7 +2521,7 @@ data:extend({
 	create_abandonment_package({
 	item = "cpu-item",
 	tier = 1,
-	count = 100,
+	count = 200,
 	tint = {255 , 255 , 0 },
 	tint_item = {240 , 60 , 140 },
 	}), 
@@ -2583,7 +2537,7 @@ data:extend({
 	create_abandonment_package({
 	item = "automation-science-pack",
 	tier = 1,
-	count = 200,
+	count = 300,
 	tint = {255 , 255 , 255 },
 	tint_item = {240 , 80 , 81 },
 	}), 
@@ -2598,7 +2552,7 @@ data:extend({
 	create_abandonment_package({
 	item = "logistic-science-pack",
 	tier = 1,
-	count = 200,
+	count = 300,
 	tint = {255 , 255 , 255 },
 	tint_item = {84 , 242 , 96 },
 	}),
@@ -2612,7 +2566,7 @@ data:extend({
 	create_abandonment_package({
 	item = "chemical-science-pack",
 	tier = 1,
-	count = 200,
+	count = 300,
 	tint = {255 , 255 , 255 },
 	tint_item = {83 , 238 , 244 },
 	})
@@ -2626,7 +2580,7 @@ data:extend({
 	create_abandonment_package({
 	item = "bio-science-pack",
 	tier = 1,
-	count = 200,
+	count = 300,
 	tint = {255 , 255 , 255 },
 	tint_item = {255 , 174 , 255 },
 	})
@@ -2643,7 +2597,7 @@ data:extend({
 	create_abandonment_package({
 	item = "military-science-pack",
 	tier = 1,
-	count = 200,
+	count = 300,
 	tint = {255 , 255 , 255 },
 	tint_item = {149/2 , 155/2 , 177/2 } ,
 	})
@@ -2659,7 +2613,7 @@ data:extend({
 	create_abandonment_package({
 	item = "utility-science-pack",
 	tier = 1,
-	count = 200,
+	count = 300,
 	tint = {255 , 255 , 255 },
 	tint_item = {255, 244 , 93 } ,
 	})
@@ -2673,7 +2627,7 @@ data:extend({
 	create_abandonment_package({
 	item = "production-science-pack",
 	tier = 1,
-	count = 200,
+	count = 300,
 	tint = {255 , 255 , 255 },
 	tint_item = {219 , 61 , 239 } ,
 	})
@@ -2687,7 +2641,7 @@ data:extend({
 	create_abandonment_package({
 	item = "firearm-magazine",
 	tier = 1,
-	count = 100,
+	count = 200,
 	tint = {50 , 50 , 50 },
 	tint_item = {255 , 255 , 0 } ,
 	})
@@ -2699,7 +2653,7 @@ data:extend({
 	create_abandonment_package({
 	item = "piercing-rounds-magazine",
 	tier = 1,
-	count = 100,
+	count = 200,
 	tint = {50 , 50 , 50 },
 	tint_item = {0 , 255 , 255 } ,
 	})
@@ -2711,7 +2665,7 @@ data:extend({
 	create_abandonment_package({
 	item = "longrange-rounds-magazine",
 	tier = 1,
-	count = 100,
+	count = 200,
 	tint = {50 , 50 , 50 },
 	tint_item = {200 , 0 , 255 } ,
 	})
@@ -2723,7 +2677,7 @@ data:extend({
 	create_abandonment_package({
 	item = "explosive-rounds-magazine",
 	tier = 1,
-	count = 50,
+	count = 100,
 	tint = {50 , 50 , 50 },
 	tint_item = {255 , 0 , 0 } ,
 	})
@@ -2759,7 +2713,7 @@ data:extend({
 	create_abandonment_package({
 	item = "shotgun-shell",
 	tier = 1,
-	count = 50,
+	count = 100,
 	tint = {50 , 50 , 50 },
 	tint_item = {255 , 255 , 0 } ,
 	})
@@ -2784,7 +2738,7 @@ data:extend({
 	create_abandonment_package({
 	item = "explosive-shotgun-shell",
 	tier = 1,
-	count = 50,
+	count = 100,
 	tint = {50 , 50 , 50 },
 	tint_item = {255 , 0 , 0 } ,
 	})
@@ -2796,7 +2750,7 @@ data:extend({
 	create_abandonment_package({
 	item = "shotgun-shell-birdshot",
 	tier = 1,
-	count = 50,
+	count = 100,
 	tint = {50 , 50 , 50 },
 	tint_item = {200 , 0 , 255 } ,
 	})
@@ -2821,19 +2775,17 @@ data:extend({
 	create_abandonment_package({
 	item = "nuke-shotgun-shell",
 	tier = 1,
-	count = 50,
+	count = 100,
 	tint = {50 , 50 , 50 },
 	tint_item = {0 , 255 , 0 } ,
 	})
 })
 
-data:extend({create_warehouse_package_set("abandonment-package-nuke-shotgun-shell-1", 10, 4, 1)})
-
 data:extend({
 	create_abandonment_package({
 	item = "rocket",
 	tier = 1,
-	count = 100,
+	count = 200,
 	tint = {50 , 50 , 50 },
 	tint_item = {255 , 255 , 0 } ,
 	})
@@ -2869,7 +2821,7 @@ data:extend({
 	create_abandonment_package({
 	item = "landfill",
 	tier = 1,
-	count = 200,
+	count = 400,
 	tint = {60 , 40 , 30 },
 	tint_item = {60 , 40 , 30 } ,
 	})
@@ -2882,7 +2834,7 @@ data:extend({
 	create_abandonment_package({
 	item = "cliff-explosives",
 	tier = 1,
-	count = 20,
+	count = 50,
 	tint = {60 , 40 , 30 },
 	tint_item = {30 , 180 , 255 } ,
 	})
@@ -2895,7 +2847,7 @@ data:extend({
 	create_abandonment_package({
 	item = "landfill-deep",
 	tier = 1,
-	count = 200,
+	count = 400,
 	tint = {60 , 70 , 190 },
 	tint_item = {60 , 40 , 30} ,
 	})
@@ -2909,7 +2861,7 @@ data:extend({
 	create_abandonment_package({
 	item = "waterfill-barrel",
 	tier = 1,
-	count = 100,
+	count = 200,
 	tint = {60 , 70 , 190 },
 	tint_item = {100 , 100 , 100 } ,
 	})
@@ -2922,7 +2874,7 @@ data:extend({
 	create_abandonment_package({
 	item = "stone-brick",
 	tier = 1,
-	count = 150,
+	count = 400,
 	tint = {120 , 120 , 120 },
 	tint_item = {100 , 100 , 100 } ,
 	})
@@ -2936,7 +2888,7 @@ data:extend({
 	create_abandonment_package({
 	item = "concrete",
 	tier = 1,
-	count = 150,
+	count = 400,
 	tint = {120 , 120 , 120 },
 	tint_item = {120 , 120 , 120 } ,
 	})
@@ -2949,7 +2901,7 @@ data:extend({
 	create_abandonment_package({
 	item = "refined-concrete",
 	tier = 1,
-	count = 150,
+	count = 400,
 	tint = {120 , 120 , 120 },
 	tint_item = {120 , 120 , 120 } ,
 	})

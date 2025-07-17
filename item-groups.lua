@@ -97,4 +97,11 @@
     group = "production",
     order = "eb"
   },
+-------------------------------------------------------------------------- SIGNALS
+  {
+    type = "item-subgroup",
+    name = "flags",
+	group = "signals",
+    order = "k",
+  },
 })

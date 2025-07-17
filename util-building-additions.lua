@@ -238,17 +238,22 @@ function apply_generic_workingvis_to_all(entity_type)
 local _setting = settings.startup["settings-status-panels"].value
 local _hascolors
 local _notelectric
+local _void
 	if (_setting ~= "none" ) then
 		for i, v in pairs(data.raw[entity_type]) do
 	
 			if (v.graphics_set) then
 				_hascolors = false
 				_burner = false
+				_void = false
 			
 				local collision_box = v.collision_box 
 				if (v.energy_source.type == "burner" and _setting ~= "all" ) then
 					_burner = true
-				end
+				end		
+				if (v.energy_source.type == "void" ) then
+					_void = true
+				end					
 				
 				if (not v.graphics_set.status_colors and not _burner) then
 					v.graphics_set.status_colors = generic_status_colors()
@@ -256,9 +261,9 @@ local _notelectric
 					_hascolors = true
 				end
 				
-				if (not v.graphics_set.working_visualisations and not _hascolors) then
+				if (not v.graphics_set.working_visualisations and not _hascolors and not _void) then
 					v.graphics_set.working_visualisations = generic_status_visualisation_object(collision_box)
-				elseif (not _hascolors) then
+				elseif (not _hascolors and not _void) then
 					for j, k in pairs(generic_status_visualisation_object(collision_box)) do
 						table.insert(v.graphics_set.working_visualisations, k ) 
 					end
